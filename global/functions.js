@@ -77,15 +77,13 @@ module.exports = {
                 });
             }
             if(action == "find") {
-                dbo.collection("guilds").find(obj), function(err, res) {
-                    if (err) throw err;
+                const find = dbo.collection("guilds").find(obj);
                     console.log("item found in mgdb-guild");
                     db.close();
-                    return res.name;
-                });
+                    return find;
             }
             if(action == "update") {
-                dbo.collection("guilds").updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                dbo.collection("test").updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
                     console.log(res.result.nModified + " document(s) updated");
                     db.close();
