@@ -37,7 +37,7 @@ app.get("/", (request, response) => {
   response.sendStatus(200);
 });
 app.listen(process.env.PORT);
-setInterval(() => {
+setInterval(() => { 
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280000);
 
@@ -133,7 +133,7 @@ bot.on("message", message => {
 
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
-bot.on("debug", (e) => console.info(e));
+//bot.on("debug", (e) => console.info(e));
 
 
 
