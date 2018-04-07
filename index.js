@@ -17,18 +17,26 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 /** This is a description of the foo function. */
 
 // Reseting guilds &=> channels vote info
-const Guilds = Global.Fn.monGuilDB({}, "find")
-for(let guild in Guilds) {
-    Guilds[guild].voteMx = false;
-    Guilds[guild].voteCap = Guilds[guild].voteRef;
-    const teamChans = {}
-    for(let chan in Guilds[guild].channels) {
-        teamChans[chan] = {};
-        teamChans[chan].vote = false;
+//const Guilds = Global.Fn.monGuilDB({}, "find")
+for(let guild in bot.guilds) {
+    const Guild = {
+        "_id": guild.id,
+        "prefix": "!",
+        "lang": "fr",
+        "botInfo": {
+            "ID": null,
+            "msgID": null
+        },
+        "vote": {
+            "ref": 2,
+            "max": false,
+            "cap": 2
+        },
+        "channels": {}
     }
-    Json.guilds[guild].channels = teamChans;
+Global.Fn.monGuilDB(Guild, "create");
 }
-Global.Fn.upJSON("guilds", Json.guilds, "Guilds vote reseted !");
+//Global.Fn.monGuilDB({}, "update", Guilds);
 
 
 // Ping bot every 5 minutes
@@ -58,21 +66,7 @@ bot.on("ready", () => {
 });
 
 bot.on("guildCreate", (guild) => {
-    Json.guilds[guild.id] = {
-        "prefix": "!",
-        "lang": "fr",
-        "botInfo": {
-            "ID": null,
-            "msgID": null
-        },
-        "vote": {
-            "ref": 2,
-            "max": false,
-            "cap": 2
-        },
-        "channels": {}
-    }
-    Global.Fn.upJSON("guilds", Json.guilds, "Guilds.json replaced (New guild)");
+    //Global.Fn.monGuilDB(newGuild, "create")
 })
 
 
@@ -92,7 +86,7 @@ bot.on("message", message => {
 
 
     // Guilds settings
-    const Guild = Json.guilds[message.guild.id];
+    const Guild = Global.Fn.monGuilDB({_id: message.guild.id}, "find");
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
