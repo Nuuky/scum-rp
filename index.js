@@ -28,6 +28,20 @@ for(let guild in Json.guilds) {
 Global.Fn.upJSON("guilds", Json.guilds);
 
 
+// Ping bot every 5 minutes
+const http = require('http');
+const express = require('express');
+const app = express();
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping Received");
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+
+
 
 
 bot.on("ready", () => {
