@@ -19,10 +19,12 @@ module.exports = {
 
         // Check if channel known
         if(!Guild.channels[msg.channel.id]) {
-            Guild.channels[msg.channel.id] = {}
-            Guild.channels[msg.channel.id].vote = false;
-            Json.guilds[msg.guild.id] = Guild;
-            Fn.monGuilDB({_id: msg.guild.id, channels: {}})
+            const tempChan = Guild.channels;
+            tempChan[msg.channel.id] = {}
+            tempChan[msg.channel.id].vote = false;
+          
+            Fn.monGuilDB({_id: msg.guild.id}, "update", {channels: tempChan})
+          
             Fn.upJSON("guilds", Json.guilds)
         }
 
