@@ -116,6 +116,7 @@ bot.on("message", message => {
     const dispatcher = {
         'prefix': () => { return new Command.PrefixCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
+        'lang': () => { return new Command.LangCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
         'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(bot, message) },
     };
