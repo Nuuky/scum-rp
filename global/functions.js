@@ -77,7 +77,7 @@ module.exports = {
                 });
             }
             if(action == "update") {
-                dbo.collection("test").updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                dbo.collection("guilds").updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
                     console.log(res.result.nModified + " document(s) updated");
                     db.close();

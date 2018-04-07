@@ -19,7 +19,8 @@ module.exports = class SerVoteCommand {
                 chanVote++
             }
         }
+        const voteCap = this.bot.tempGuilds[this.msg.guild.id].voteRef
         this.bot.tempGuilds[this.msg.guild.id].voteCap = (q > 0) ? (q + 1 - chanVote): q;
-        Global.Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {voteCap: this.bot.tempGuilds[this.msg.guild.id].voteRef}});
+        Global.Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {voteCap: voteCap}});
     }
 }
