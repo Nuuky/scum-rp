@@ -65,7 +65,9 @@ bot.on("ready", () => {
   
   
     let GuildsArr = [];
+    console.log("Guilds = " + bot.guilds)
     for(let guild in bot.guilds) {
+        console.log("GuildID = " + guild)
         const Guild = {
             "_id": guild.id,
             "prefix": "!",
@@ -83,6 +85,7 @@ bot.on("ready", () => {
         }
         GuildsArr.push(Guild);
     }
+    console.log("Guilds Array = " + GuildsArr)
     console.log(GuildsArr)
     Global.Fn.monGuilDB(GuildsArr, "createMany");
 });
