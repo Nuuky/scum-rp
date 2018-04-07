@@ -91,13 +91,12 @@ module.exports = class VoteCommand {
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        if(Guild.vote.cap > 1) Guild.vote.cap--;
-        if(Guild.vote.cap == 1) Guild.vote.max = true;
-        Guild.channels[msg.channel.id].vote = true;
+        let tempData = {}
+        if(Guild.vote.cap > 1) tempData.voteCap--;
+        if(Guild.vote.cap == 1) tempData.voteMax = true;
+        tempData.channels[msg.channel.id].vote = true;
       
-        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", {vote.cap:})
-      
-        Global.Fn.upJSON("guilds", Json.guilds)
+        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: tempData})
 
         msg.channel.send({embed: { title: "Loading", description: `Creating Vote #${Global.Fn.randomNumber(10000, 99999999)}`}})
         .then((omsg) => {
@@ -151,6 +150,9 @@ module.exports = class VoteCommand {
                     if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
                     if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
                     Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
+                  
+                    Global.Fn.monGuilDB(msg.guild.id, "update")
+                  
                     Global.Fn.upJSON("guilds", Json.guilds)
 
                     Global.Msg.edit(omsg, {embed: {title: "Vote annulé", description: "Ce message disparaitra dans 10s."}});
