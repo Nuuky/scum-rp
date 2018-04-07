@@ -17,7 +17,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
 bot.tempGuilds = 3;
-console.log(Global.Fn.monGuilDB({}, "findAll")) 
+console.log(Global.Fn.monGuilDB({"voteMax": 2}, "findOne")) 
 
 
 // Ping bot every 5 minutes

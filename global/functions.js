@@ -90,10 +90,10 @@ module.exports = {
                 dbo.collection("guilds").insertMany(obj);
                 console.log("item added to mgdb-guild");
             }
-            if(action == "findAll") {
-                dbo.collection("guilds").find(obj, function(err, result) {
+            if(action == "findOne") {
+                dbo.collection("guilds").find(obj).toArray(function(err, result) {
                   if (err) throw err;
-                  console.log(result.name);
+                  console.log("Résultat(s): " + result.name);
                   db.close();
                   return result.name;
                 });
