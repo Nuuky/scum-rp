@@ -28,7 +28,7 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("guilds").find({}).toArray(function(err, result) {
     if (err) throw err;
     bot.tempGuilds = result;
-    console.log(bot.tempGuilds)
+    //console.log(bot.tempGuilds)
     db.close();
   });
 });
@@ -59,24 +59,10 @@ bot.on("ready", () => {
     })
     .catch(console.error);
   
-  
-    const Guilds = bot.guilds.map(g => g.id);
-  
-    let GuildsArr = [];
-    for(let guildID in Guilds) {
-      //console.log(Guilds[guildID])
-        const Guild = {
-            "_id": Guilds[guildID],
-            "prefix": "!",
-            "lang": "fr",
-            "botInfo": {
-                "ID": null,
-                "msgID": null
-            },
-            "voteMax": 2
-        }
-        GuildsArr.push(Guild);
+    for(guild in bot.tempGuilds) {
+      bot.tempGuilds[
     }
+  
 });
 
 bot.on("guildCreate", (guild) => {
