@@ -19,7 +19,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
 
-bot.tempGuilds = {};
+let Guilds = {};
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -27,7 +27,10 @@ MongoClient.connect(url, function(err, db) {
   var query = {};
   dbo.collection("guilds").find({}).toArray(function(err, result) {
     if (err) throw err;
-    bot.tempGuilds = result;
+    bot.tempGuilds = {};
+    result.forEach(guild => {
+        bot.tempGuilds[guild._id] = guild;
+    })
     //console.log(bot.tempGuilds)
     db.close();
   });
@@ -58,6 +61,8 @@ bot.on("ready", () => {
         }
     })
     .catch(console.error);
+    
+    
   
 });
 
