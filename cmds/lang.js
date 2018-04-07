@@ -24,17 +24,13 @@ module.exports = class PrefixCommand {
     
     const regexLang = Json.langs.regex;
     if(!args[0]) {
-       let embed = {
-            title: trans.langList,
-            description: regexLang
-        }
-        return Message.send(msg, ``);
+        return Message.send(msg, `${trans.langList}\`${regexLang}\``);
     }
     if(args[0].match(regexLang) != null) {
         this.bot.tempGuilds[msg.guild.id].lang = args[0];
         trans = Json.langs[args[0]];
         Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: {lang: args[0]}});
-        return Message.send(msg, `${trans.langUpdated}: \`${args[0]}\``);
+        return Message.send(msg, `${trans.langUpdated} \`${trans.name}\``);
     }
     
     Message.reply(msg, trans.langUnkn); // Json.langs.langUnkn
