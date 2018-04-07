@@ -72,7 +72,7 @@ bot.on("guildCreate", (guild) => {
         },
         "channels": {}
     }
-    Global.Fn.upJSON("guilds", Json.guilds);
+    Global.Fn.upJSON("guilds", Json.guilds, "Guilds.json replaced (New guild)");
 })
 
 

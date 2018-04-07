@@ -56,10 +56,10 @@ module.exports = {
     },
 
     // Update file.json with Obj
-    upJSON: (filePath, obj) => {
+    upJSON: (filePath, obj, text = 'Replaced!') => {
         fs.writeFile(`./json/${filePath}.json`, JSON.stringify(obj), function (err) {
             if (err) throw err;
-            console.log('Replaced!');
+            console.log(text);
         });
     }
 };
