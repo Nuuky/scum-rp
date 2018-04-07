@@ -65,16 +65,32 @@ module.exports = {
         });
     },
 
-    // Update mongodb "guilds" collection
-    monGuilDB: (obj) => {
+    monGuilDB: (obj, action, newObj) => {
         MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db("rob-bot");
-          dbo.collection("guilds").insertOne(obj, function(err, res) {
             if (err) throw err;
-            console.log("mgdb-guild updated");
-            db.close();
-          });
+            var dbo = db.db("rob-bot");
+            if(action == "create") {
+                dbo.collection("guilds").insertOne(obj, function(err, res) {
+                    if (err) throw err;
+                    console.log("item added to mgdb-guild");
+                    db.close();
+                });
+            }
+            if(action == "find") {
+                dbo.collection("guilds").find(obj).toArray(function(err, res) {
+                    if (err) throw err;
+                    console.log("item found in mgdb-guild");
+                    db.close();
+                    return res.name;
+                });
+            }
+            if(action == "update") {
+                dbo.collection("guilds").updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                    if (err) throw err;
+                    console.log(res.result.nModified + " document(s) updated");
+                    db.close();
+                });
+            }
         });
     }
 };

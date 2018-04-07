@@ -9,7 +9,8 @@ const fs = require("fs")
 module.exports = {
 
     vote: (msg) => {
-        const Guild = Json.guilds[msg.guild.id];
+        const Guild = Fn.monGuilDB({__id: msg.guild.id}, "find");
+        console.log(Guild)
         const lang = Guild.lang;
         const prefix = Guild.prefix;
         const trans = Json.langs[lang];
