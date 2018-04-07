@@ -77,7 +77,11 @@ module.exports = {
                 });
             }
             if(action == "find") {
-                return dbo.collection("guilds").find(obj);
+                dbo.collection("guilds").find(query).toArray(function(err, result) {
+                  if (err) throw err;
+                  db.close();
+                  return result;
+                });
             }
             if(action == "update") {
                 dbo.collection("test").updateOne(obj, newObj, {upsert: true}, function(err, res) {
