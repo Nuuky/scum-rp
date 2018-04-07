@@ -7,6 +7,9 @@ const fs = require("fs")
 const Json = require("./json/")
 const Command = require("./cmds/")
 const Global = require("./global/")
+const http = require('http');
+const express = require('express');
+const app = express();
 
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
@@ -29,9 +32,6 @@ Global.Fn.upJSON("guilds", Json.guilds);
 
 
 // Ping bot every 5 minutes
-const http = require('http');
-const express = require('express');
-const app = express();
 app.get("/", (request, response) => {
   console.log(Date.now() + " Ping Received");
   response.sendStatus(200);
