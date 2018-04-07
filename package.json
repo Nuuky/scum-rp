@@ -1,31 +1,22 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-
-  "name": "my-glitch-app",
-  "version": "0.0.1",
-  "description": "What am I about?",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.16.3"
-  },
-  "engines": {
-    "node": "9.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/my-glitch-app"
-  },
-  "license": "MIT",
-  "keywords":,
-        "enmap": "^0.3.2",
-        "moment": "^2.18.1",
-        "moment-duration-format": "^1.3.0",
-        "express": "^4.15.5" [
-          "node",
-          "glitch",
-          "express"
-        ]
+    "name": "rob-bot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "node index.js",  
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+      },
+    "engines": { "node": "8.4.0" },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bufferutil": "^3.0.3",
+        "discord.js": "^11.2.1",
+        "ffmpeg-binaries": "^3.2.2-3",
+        "node.js": "0.0.0",
+        "opusscript": "0.0.6", 
+        "winston": "^2.4.1",
+        "erlpack": ""
+    }
 }
