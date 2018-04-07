@@ -17,28 +17,6 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 /** This is a description of the foo function. */
   
   
-    let GuildsArr = [];
-    let test = bot.guilds.map(g => g.name).join("\n");
-    console.log("Guilds = " + test);
-    for(let guild in bot.guilds) {
-        console.log("GuildID = " + guild)
-        const Guild = {
-            "_id": guild.id,
-            "prefix": "!",
-            "lang": "fr",
-            "botInfo": {
-                "ID": null,
-                "msgID": null
-            },
-            "vote": {
-                "ref": 2,
-                "max": false,
-                "cap": 2
-            },
-            "channels": {}
-        }
-        GuildsArr.push(Guild);
-    }
     console.error("C'est fini");
     // console.log("Guilds Array = " + GuildsArr)
     // console.log(GuildsArr)
@@ -90,6 +68,32 @@ bot.on("ready", () => {
         }
     })
     .catch(console.error);
+  
+  
+    let test = [];
+    test.push(bot.guilds.map(g => g.id));
+    console.log("Guilds = " + test);
+  
+    let GuildsArr = [];
+    for(let guild in bot.guilds) {
+        console.log("GuildID = " + guild)
+        const Guild = {
+            "_id": guild.id,
+            "prefix": "!",
+            "lang": "fr",
+            "botInfo": {
+                "ID": null,
+                "msgID": null
+            },
+            "vote": {
+                "ref": 2,
+                "max": false,
+                "cap": 2
+            },
+            "channels": {}
+        }
+        GuildsArr.push(Guild);
+    }
 });
 
 bot.on("guildCreate", (guild) => {
