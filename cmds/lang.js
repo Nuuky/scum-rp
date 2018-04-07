@@ -18,27 +18,26 @@ module.exports = class PrefixCommand {
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     const msg = this.msg;
-    const trans = Json.langs[lang]
+    let trans = Json.langs[lang]
     //console.log(query);
     
     
     const regexLang = Json.langs.regex;
-    if(!query[0]) {
+    if(!args[0]) {
        let embed = {
-            title: regexLang,
-            description: Json.langs.langList
+            title: trans.langList,
+            description: regexLang
         }
-        Message.send(msg, embed);
+        return Message.send(msg, ``);
     }
-    if(query[0].match(regexLang)){
-        this.bot.tempGuilds[msg.guild.id].lang = query[0];
-        lang = Json.langs[query[0]];
-        Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: {lang: query[0]}});
-        Message.send(msg, `${Json.langs.langUpdated}: \`${query[0]}\``);
+    if(args[0].match(regexLang) != null) {
+        this.bot.tempGuilds[msg.guild.id].lang = args[0];
+        trans = Json.langs[args[0]];
+        Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: {lang: args[0]}});
+        return Message.send(msg, `${trans.langUpdated}: \`${args[0]}\``);
     }
-    console.log(Json.langs);
     
-    Message.reply(msg, `${Json.langs.langUnkn}`);
+    Message.reply(msg, trans.langUnkn); // Json.langs.langUnkn
 
   }
 }
