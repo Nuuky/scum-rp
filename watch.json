@@ -9,12 +9,15 @@
     "exclude": [
       "^public/",
       "^dist/",
-      "^json/"
+      "^json/",
+      "^cmds/",
+      "^global/",
+      "^index\\.js$"
     ],
     "include": [
       "\\.js$",
       "\\.json"
     ]
   },
-  "throttle": 20000
+  "throttle": 30000
 }

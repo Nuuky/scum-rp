@@ -6,11 +6,8 @@ const VoteAction = require("./vote/vote-action");
 const Discord = require("discord.js")
 
 
-/**
- * Represents a book.
- * @constructor vote
- * @param {object} message - The message.
- */
+
+
 module.exports = class VoteCommand {
     constructor(msg) {
         this.msg = msg;
@@ -94,8 +91,8 @@ module.exports = class VoteCommand {
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteCap--;
-        if(Json.guilds[msg.guild.id].voteCap == 1) Json.guilds[msg.guild.id].voteMax = true;
+        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap--;
+        if(Json.guilds[msg.guild.id].vote.cap == 1) Json.guilds[msg.guild.id].vote.max = true;
         Json.guilds[msg.guild.id].channels[msg.channel.id].vote = true;
         Global.Fn.upJSON("guilds", Json.guilds)
 
@@ -148,8 +145,8 @@ module.exports = class VoteCommand {
                     .catch(console.error);
 
                     // Make this channel free
-                    if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteCap++;
-                    if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteMax = false;
+                    if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
+                    if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
                     Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
                     Global.Fn.upJSON("guilds", Json.guilds)
 
@@ -253,8 +250,8 @@ module.exports = class VoteCommand {
                         }
 
                         // Make this channel free
-                        if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteCap++;
-                        if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteMax = false;
+                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
+                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
                         Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
                         Global.Fn.upJSON("guilds", Json.guilds)
 
@@ -288,8 +285,8 @@ module.exports = class VoteCommand {
                                 Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Bien joué à tous les participants !"}}, 10);
 
                                 // Make this channel free
-                                if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteCap++;
-                                if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteMax = false;
+                                if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
+                                if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
                                 Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
                                 Global.Fn.upJSON("guilds", Json.guilds)
 
@@ -320,8 +317,8 @@ module.exports = class VoteCommand {
                         .catch(console.error);
 
                         // Make this channel free
-                        if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteCap++;
-                        if(Json.guilds[msg.guild.id].voteCap > 1) Json.guilds[msg.guild.id].voteMax = false;
+                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
+                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
                         Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
                         Global.Fn.upJSON("guilds", Json.guilds)
         
