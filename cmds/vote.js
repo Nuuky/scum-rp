@@ -12,7 +12,7 @@ module.exports = class VoteCommand {
     constructor(msg) {
         this.msg = msg;
 
-        const Guild = Json.guilds[msg.guild.id];
+        const Guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find");
         const lang = Guild.lang;
         const prefix = Guild.prefix;
         const args = msg.content.split(" ");
@@ -86,14 +86,17 @@ module.exports = class VoteCommand {
         const plObj = this.plObj;
         const mapObj = this.mapObj;
 
-        let Guild = Json.guilds[msg.guild.id];
+        let Guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find");
         let lang = Guild.lang;
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap--;
-        if(Json.guilds[msg.guild.id].vote.cap == 1) Json.guilds[msg.guild.id].vote.max = true;
-        Json.guilds[msg.guild.id].channels[msg.channel.id].vote = true;
+        if(Guild.vote.cap > 1) Guild.vote.cap--;
+        if(Guild.vote.cap == 1) Guild.vote.max = true;
+        Guild.channels[msg.channel.id].vote = true;
+      
+        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", {vote.cap:})
+      
         Global.Fn.upJSON("guilds", Json.guilds)
 
         msg.channel.send({embed: { title: "Loading", description: `Creating Vote #${Global.Fn.randomNumber(10000, 99999999)}`}})
