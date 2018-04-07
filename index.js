@@ -59,14 +59,25 @@ bot.on("ready", () => {
     })
     .catch(console.error);
   
-    for(guild in bot.tempGuilds) {
-      bot.tempGuilds[
-    }
-  
 });
 
 bot.on("guildCreate", (guild) => {
     //Global.Fn.monGuilDB(newGuild, "create")
+    const defaultValue = {
+        "_id": guild.id,
+        "prefix": "!",
+        "lang": "fr",
+        "botInfo": {
+            "ID": null,
+            "msgID": null
+        },
+        "voteRef": 2,
+        "voteCap": 2,
+        "voteMax": false,
+        "channels": {}
+    }
+    
+    bot.tempGuilds[guild.id]
 })
 
 
