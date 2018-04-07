@@ -54,16 +54,13 @@ bot.on("ready", () => {
     // bot.user.setAvatar("./img/boty.jpg").catch(console.error)  // Use it Once !
     bot.user.setPresence({
         game: {
-            "name": "",//"$help",
+            "name": "default: !",//"$help",
             "streaming": false,
             "type": 0,
             "url": ""
         }
     })
     .catch(console.error);
-    
-    
-  
 });
 
 bot.on("guildCreate", (guild) => {
@@ -104,7 +101,6 @@ bot.on("message", message => {
 
     // Guilds settings
     const Guild = bot.tempGuilds[message.guild.id];
-    console.log(Guild)
     return 
     const prefix = Guild.prefix;
     const lang = Guild.lang;
@@ -121,7 +117,7 @@ bot.on("message", message => {
     const dispatcher = {
         'prefix': () => { return new Command.PrefixCommand(message) },
         'random': () => { return new Command.RandomCommand(message) },
-        'vote'  : () => { if(Global.Mch.vote(message)) return new Command.VoteCommand(message) },
+        'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
         'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(message) },
     };
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;

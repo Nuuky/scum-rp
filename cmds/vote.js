@@ -9,10 +9,11 @@ const Discord = require("discord.js")
 
 
 module.exports = class VoteCommand {
-    constructor(msg) {
+    constructor(bot, msg) {
         this.msg = msg;
+        this.bot = bot;
 
-        const Guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find");
+        const Guild = bot.tempGuilds[msg.guild.id];
         const lang = Guild.lang;
         const prefix = Guild.prefix;
         const args = msg.content.split(" ");
@@ -85,17 +86,16 @@ module.exports = class VoteCommand {
         const msg = this.msg;
         const plObj = this.plObj;
         const mapObj = this.mapObj;
+        const bot = this.bot;
 
-        let Guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find");
+        let Guild = bot.tempGuilds[msg.guild.id];
         let lang = Guild.lang;
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        if(Guild.vote.cap > 1) Guild.voteCap--;
-        if(Guild.vote.cap == 1) Guild.voteMax = true;
-        Guild.channels[msg.channel.id].vote = true;
-      
-        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", tempData)
+        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].voteCap--;
+        if(Guild.vote.cap == 1) bot.tempGuilds[msg.guild.id].voteMax = true;
+        bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = true;
 
         msg.channel.send({embed: { title: "Loading", description: `Creating Vote #${Global.Fn.randomNumber(10000, 99999999)}`}})
         .then((omsg) => {
@@ -124,6 +124,9 @@ module.exports = class VoteCommand {
             const voteCollector = new Discord.MessageCollector(omsg.channel, m => ((m.author.id === plObj.pl1.user.id) || (m.author.id === plObj.pl2.user.id)));
             voteCollector.on("collect", message => {
                 let args = message.content.split(" "); // Message arguments
+                Guild = bot.tempGuilds[msg.guild.id];
+                lang = Guild.lang;
+                prefix = Guild.prefix;
 
 
 
@@ -143,11 +146,9 @@ module.exports = class VoteCommand {
                     .catch(console.error);
 
                     // Make this channel free
-                    tempData = {}
-                    if(Guild.voteCap > 1) Guild.voteCap++;
-                    if(Guild.voteCap > 1) Guild.voteMax = false;
-                    Guild.channels[msg.channel.id].vote = false;
-                    Global.Fn.monGuilDB({"_id": msg.guild.id}, "update", Guild)
+                    if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
+                    if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
+                    bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
 
                     Global.Msg.edit(omsg, {embed: {title: "Vote annulé", description: "Ce message disparaitra dans 10s."}});
                     voteCollector.stop("canceled");
@@ -249,11 +250,9 @@ module.exports = class VoteCommand {
                         }
 
                         // Make this channel free
-                        if(Guild.voteCap > 1) Guild.voteCap++;
-                        if(Guild.voteCap > 1) Guild.votCax = false;
-                        Guild.channels[msg.channel.id].vote = false;
-                      
-                        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
+                        if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
+                        if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].votCax = false;
+                        bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
 
                         // Change channel name
                         chanName = message.channel.name;
@@ -285,10 +284,9 @@ module.exports = class VoteCommand {
                                 Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Bien joué à tous les participants !"}}, 10);
 
                                 // Make this channel free
-                                if(Guild.vote.cap > 1) Guild.vote.cap++;
-                                if(Guild.vote.cap > 1) Guild.vote.max = false;
-                                Guild.channels[msg.channel.id].vote = false;
-                                Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
+                                if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.cap++;
+                                if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.max = false;
+                                bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
 
                                 // Change channel name
                                 chanName = message.channel.name;
@@ -317,10 +315,9 @@ module.exports = class VoteCommand {
                         .catch(console.error);
 
                         // Make this channel free
-                        if(Guild.vote.cap > 1) Guild.vote.cap++;
-                        if(Guild.vote.cap > 1) Guild.vote.max = false;
-                        Guild.channels[msg.channel.id].vote = false;
-                        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
+                        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.cap++;
+                        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.max = false;
+                        bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
         
                         Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Merci à tous les participants !"}}, 10);
                         voteCollector.stop("ended");

@@ -8,8 +8,8 @@ const fs = require("fs")
 
 module.exports = {
 
-    vote: (msg) => {
-        const Guild = Fn.monGuilDB({_id: msg.guild.id}, "find");
+    vote: (bot, msg) => {
+        const Guild = bot.tempGuilds[msg.guild.id];
         console.log(Guild)
         const lang = Guild.lang;
         const prefix = Guild.prefix;
@@ -19,9 +19,8 @@ module.exports = {
 
         // Check if channel known
         if(!Guild.channels[msg.channel.id]) {
-            Guild.channels[msg.channel.id] = {}
-            Guild.channels[msg.channel.id].vote = false;
-            Fn.monGuilDB({_id: msg.guild.id}, "update", {channels: Guild.channels})
+            bot.tempGuilds[msg.guild.id].channels[msg.channel.id] = {}
+            bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
         }
 
         if(Guild.vote.max) return Message.reply(msg, trans.vote.shld.voteMax); // Max vote reached
