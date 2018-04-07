@@ -230,7 +230,7 @@ module.exports = class VoteCommand {
                         .then((msg) => {
                             if(!mapObj.manualDisplay) {
                                 setTimeout(() => {
-                                    m.delete()
+                                    msg.delete()
                                 }, (1000*(60*90)))
                             }
                         })

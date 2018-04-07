@@ -13,7 +13,7 @@ module.exports = class SerVoteCommand {
         console.log(q)
         Json.guilds[this.msg.guild.id].voteRef = (q > 0) ? q + 1 : q;
         let chanVote = 0;
-        for(chan in Json.guilds[this.msg.guild.id].channels) {
+        for(const chan in Json.guilds[this.msg.guild.id].channels) {
             if(Json.guilds[this.msg.guild.id].channels[chan]) {
                 chanVote++
             }

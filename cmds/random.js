@@ -4,7 +4,7 @@ const Json = require("../json/")
 
 module.exports = class RandomCommand {
 
-    constructor(msg, lang, prefix) {
+    constructor(msg) {
         this.msg = msg;
     }
 
@@ -17,8 +17,8 @@ module.exports = class RandomCommand {
         randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)],
         embed = {
             "title": (args[0] && args[1]) ? `[${args[0].toString()}] vs [${args[1].toString()}]` : '',
-            "description": `**${randomMaps.name[this.lang].toUpperCase()}**
-            \n🕑 ${Global.Fn.randomNumber(0, 24)}h               ${randomWeather.emoji} ${randomWeather.name[this.lang]}`,
+            "description": `**${randomMaps.name[lang].toUpperCase()}**
+            \n🕑 ${Global.Fn.randomNumber(0, 24)}h               ${randomWeather.emoji} ${randomWeather.name[lang]}`,
             "color": Global.Fn.getMode(randomMaps.mode).color,
             "thumbnail": {
                 "url": randomMaps.url
