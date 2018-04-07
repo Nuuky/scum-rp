@@ -10,14 +10,16 @@ module.exports = class SerVoteCommand {
 
     async run(query) {
         const q = Number(query)
-        Json.guilds[this.msg.guild.id].voteRef = (q > 0) ? q + 1 : q;
+        const Guild = Global.Fn.monGuilDB({_id: this.msg.guild.id}, "find");
+      
+        Guild.voteRef = (q > 0) ? q + 1 : q;
         let chanVote = 0;
-        for(const chan in Json.guilds[this.msg.guild.id].channels) {
-            if(Json.guilds[this.msg.guild.id].channels[chan]) {
+        for(const chan in Guild.channels) {
+            if(Guild.channels[chan]) {
                 chanVote++
             }
         }
-        Json.guilds[this.msg.guild.id].voteCap = (q > 0) ? (q + 1 - chanVote): q;
-        Global.Fn.upJSON("guilds", Json.guilds);
+        Guild.voteCap = (q > 0) ? (q + 1 - chanVote): q;
+        Global.Fn.monGuilDB({_id: this.msg.guild.id}, "update", Guild);
     }
 }

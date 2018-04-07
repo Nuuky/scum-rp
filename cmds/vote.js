@@ -91,12 +91,11 @@ module.exports = class VoteCommand {
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        let tempData = {}
-        if(Guild.vote.cap > 1) tempData.voteCap--;
-        if(Guild.vote.cap == 1) tempData.voteMax = true;
-        tempData.channels[msg.channel.id].vote = true;
+        if(Guild.vote.cap > 1) Guild.voteCap--;
+        if(Guild.vote.cap == 1) Guild.voteMax = true;
+        Guild.channels[msg.channel.id].vote = true;
       
-        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: tempData})
+        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", tempData)
 
         msg.channel.send({embed: { title: "Loading", description: `Creating Vote #${Global.Fn.randomNumber(10000, 99999999)}`}})
         .then((omsg) => {
@@ -124,9 +123,6 @@ module.exports = class VoteCommand {
 
             const voteCollector = new Discord.MessageCollector(omsg.channel, m => ((m.author.id === plObj.pl1.user.id) || (m.author.id === plObj.pl2.user.id)));
             voteCollector.on("collect", message => {
-                Guild = Json.guilds[msg.guild.id];
-                lang = Guild.lang;
-                prefix = Guild.prefix;
                 let args = message.content.split(" "); // Message arguments
 
 
@@ -147,13 +143,11 @@ module.exports = class VoteCommand {
                     .catch(console.error);
 
                     // Make this channel free
-                    if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
-                    if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
-                    Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
-                  
-                    Global.Fn.monGuilDB(msg.guild.id, "update")
-                  
-                    Global.Fn.upJSON("guilds", Json.guilds)
+                    tempData = {}
+                    if(Guild.voteCap > 1) Guild.voteCap++;
+                    if(Guild.voteCap > 1) Guild.voteMax = false;
+                    Guild.channels[msg.channel.id].vote = false;
+                    Global.Fn.monGuilDB({"_id": msg.guild.id}, "update", Guild)
 
                     Global.Msg.edit(omsg, {embed: {title: "Vote annulé", description: "Ce message disparaitra dans 10s."}});
                     voteCollector.stop("canceled");
@@ -255,10 +249,11 @@ module.exports = class VoteCommand {
                         }
 
                         // Make this channel free
-                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
-                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
-                        Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
-                        Global.Fn.upJSON("guilds", Json.guilds)
+                        if(Guild.voteCap > 1) Guild.voteCap++;
+                        if(Guild.voteCap > 1) Guild.votCax = false;
+                        Guild.channels[msg.channel.id].vote = false;
+                      
+                        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
 
                         // Change channel name
                         chanName = message.channel.name;
@@ -290,10 +285,10 @@ module.exports = class VoteCommand {
                                 Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Bien joué à tous les participants !"}}, 10);
 
                                 // Make this channel free
-                                if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
-                                if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
-                                Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
-                                Global.Fn.upJSON("guilds", Json.guilds)
+                                if(Guild.vote.cap > 1) Guild.vote.cap++;
+                                if(Guild.vote.cap > 1) Guild.vote.max = false;
+                                Guild.channels[msg.channel.id].vote = false;
+                                Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
 
                                 // Change channel name
                                 chanName = message.channel.name;
@@ -322,10 +317,10 @@ module.exports = class VoteCommand {
                         .catch(console.error);
 
                         // Make this channel free
-                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.cap++;
-                        if(Json.guilds[msg.guild.id].vote.cap > 1) Json.guilds[msg.guild.id].vote.max = false;
-                        Json.guilds[msg.guild.id].channels[msg.channel.id].vote = false;
-                        Global.Fn.upJSON("guilds", Json.guilds)
+                        if(Guild.vote.cap > 1) Guild.vote.cap++;
+                        if(Guild.vote.cap > 1) Guild.vote.max = false;
+                        Guild.channels[msg.channel.id].vote = false;
+                        Global.Fn.monGuilDB({_id: msg.guild.id}, "update", Guild)
         
                         Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Merci à tous les participants !"}}, 10);
                         voteCollector.stop("ended");
