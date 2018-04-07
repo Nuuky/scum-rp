@@ -34,8 +34,11 @@ module.exports = class PrefixCommand {
         this.bot.tempGuilds[msg.guild.id].lang = query[0];
         lang = Json.langs[query[0]];
         Fn.monGuilDB({_id: msg.guild.id}, "update", {$set: {lang: query[0]}});
-        Message.send(msg, `Langue changé: ${query[0]}\``);
+        Message.send(msg, `${Json.langs.langUpdated}: \`${query[0]}\``);
     }
+    console.log(Json.langs);
+    
+    Message.reply(msg, `${Json.langs.langUnkn}`);
 
   }
 }

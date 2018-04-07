@@ -20,7 +20,8 @@
             }
         },
         "langList": "Langues disponibles: ",
-        "langUnkn": "Langage inconnu."
+        "langUnkn": "Langage inconnu.",
+        "langUpdated": "Langue changé"
     },
     "en": {
         "name": "English",
@@ -42,6 +43,7 @@
             }
         },
         "langList": "Languages available: ",
-        "langUnkn": "Language unknown."
+        "langUnkn": "Language unknown.",
+        "langUpdated": "Language updated"
     }
 }
