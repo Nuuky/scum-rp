@@ -18,7 +18,8 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
   
   
     let GuildsArr = [];
-    console.log("Guilds = " + bot.guilds.map(g => g.name).join("\n"))
+    let test = bot.guilds.map(g => g.name).join("\n");
+    console.log("Guilds = " + test);
     for(let guild in bot.guilds) {
         console.log("GuildID = " + guild)
         const Guild = {
@@ -104,7 +105,7 @@ bot.on("message", message => {
 
 
     // Test area ----------
-
+    if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Le bot est actuellement en maintenance.");
     
     // message.channel.fetchMessage(message.id)
     // .then(m => {console.log(m); m.delete(); })
