@@ -28,7 +28,7 @@ for(let guild in Json.guilds) {
     }
     Json.guilds[guild].channels = teamChans;
 }
-Global.Fn.upJSON("guilds", Json.guilds);
+Global.Fn.upJSON("guilds", Json.guilds, "Guilds vote reseted !");
 
 
 // Ping bot every 5 minutes
