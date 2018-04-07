@@ -5,12 +5,13 @@ const Fn = require("../global/functions");
 
 module.exports = class PrefixCommand {
 
-  constructor(msg) {
+  constructor(bot, msg) {
+    this.guild = bot.tempGuilds[msg.guild.id];
     this.msg = msg;
   }
 
   async run(query) {
-    const Guild = Fn.monGuilDB({_id:this.msg.guild.id}, "find")
+    const Guild = this.guild;
     const args = query.split(" ");
     //console.log(query);
     console.log(args[0]);
@@ -18,7 +19,7 @@ module.exports = class PrefixCommand {
     
     let embed = {};
     if (!query) {
-        return Message.send(this.msg, `Pour lancer une commande tappez ${guild.prefix}cmd`);
+        return Message.send(this.msg, `Pour lancer une commande tappez ${Guild.prefix}cmd`);
     }
 
     if(args[1]) {

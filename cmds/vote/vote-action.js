@@ -23,7 +23,7 @@ module.exports = class VoteAction {
     }
 
     static run (bot, omsg, message, plObj, mapObj, actStr, actVar) {
-        const Guild = this.bot.tempGuilds[this.message.guild.id];
+        const Guild = bot.tempGuilds[message.guild.id];
         const lang = Guild.lang;
         const prefix = Guild.prefix;
 

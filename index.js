@@ -92,7 +92,7 @@ bot.on("message", message => {
 
 
     // Test area ----------
-    if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Le bot est actuellement en maintenance.");
+    // if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Le bot est actuellement en maintenance.");
     
     // message.channel.fetchMessage(message.id)
     // .then(m => {console.log(m); m.delete(); })
@@ -101,7 +101,6 @@ bot.on("message", message => {
 
     // Guilds settings
     const Guild = bot.tempGuilds[message.guild.id];
-    return 
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
@@ -115,8 +114,8 @@ bot.on("message", message => {
 
 
     const dispatcher = {
-        'prefix': () => { return new Command.PrefixCommand(message) },
-        'random': () => { return new Command.RandomCommand(message) },
+        'prefix': () => { return new Command.PrefixCommand(bot, message) },
+        'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
         'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(bot, message) },
     };

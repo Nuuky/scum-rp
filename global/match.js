@@ -23,7 +23,7 @@ module.exports = {
             bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
         }
 
-        if(Guild.vote.max) return Message.reply(msg, trans.vote.shld.voteMax); // Max vote reached
+        if(Guild.voteMax) return Message.reply(msg, trans.vote.shld.voteMax); // Max vote reached
         if(Guild.channels[msg.channel.id].vote) {msg.delete(); return Message.send(msg, trans.vote.shld.voteIn, 5)} // Already a vote in the chan
         if(!msg.channel.name.startsWith(Json.voteSet.channelName)) return Message.reply(msg, trans.vote.shld.wrgChan); // Check for channel name
         if(!args[1] || !args[2]) return Message.reply(msg, "**" + trans.vote.shld.noArgs[0] + "**\n``` " + prefix + trans.vote.shld.noArgs[1] + "```"); // Missing args

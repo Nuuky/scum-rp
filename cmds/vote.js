@@ -93,8 +93,8 @@ module.exports = class VoteCommand {
         let prefix = Guild.prefix;
 
         // Make channel "on use"
-        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].voteCap--;
-        if(Guild.vote.cap == 1) bot.tempGuilds[msg.guild.id].voteMax = true;
+        if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap--;
+        if(Guild.voteCap == 1) bot.tempGuilds[msg.guild.id].voteMax = true;
         bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = true;
 
         msg.channel.send({embed: { title: "Loading", description: `Creating Vote #${Global.Fn.randomNumber(10000, 99999999)}`}})
@@ -190,8 +190,8 @@ module.exports = class VoteCommand {
                 // -------------------------------- BAN --------------------------------
                 // ---------------------------------------------------------------------
                 if((args[0] == prefix + "ban")) {
-                    if(VoteAction.match(message, plObj, mapObj, "ban")) {
-                        return VoteAction.run(omsg, message, plObj, mapObj, "ban", "banned");
+                    if(VoteAction.match(bot, message, plObj, mapObj, "ban")) {
+                        return VoteAction.run(bot, omsg, message, plObj, mapObj, "ban", "banned");
                     }
                 }
 
@@ -202,8 +202,8 @@ module.exports = class VoteCommand {
                 // -------------------------------- PICK -------------------------------
                 // ---------------------------------------------------------------------
                 if(((args[0] == prefix + "pick") && (mapObj.pick > 0))) {
-                    if(VoteAction.match(message, plObj, mapObj, "pick")) {
-                        VoteAction.run(omsg, message, plObj, mapObj, "pick", "picked");
+                    if(VoteAction.match(bot, message, plObj, mapObj, "pick")) {
+                        VoteAction.run(bot, omsg, message, plObj, mapObj, "pick", "picked");
                     }
                     if(mapObj.pick == 0) {
                         omsg.edit({embed: {title: "Loading", description: "Map en cours de chargement."}});
@@ -284,8 +284,8 @@ module.exports = class VoteCommand {
                                 Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Bien joué à tous les participants !"}}, 10);
 
                                 // Make this channel free
-                                if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.cap++;
-                                if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.max = false;
+                                if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
+                                if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
                                 bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
 
                                 // Change channel name
@@ -315,8 +315,8 @@ module.exports = class VoteCommand {
                         .catch(console.error);
 
                         // Make this channel free
-                        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.cap++;
-                        if(Guild.vote.cap > 1) bot.tempGuilds[msg.guild.id].vote.max = false;
+                        if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
+                        if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
                         bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
         
                         Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Merci à tous les participants !"}}, 10);
