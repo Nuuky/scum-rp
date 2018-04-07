@@ -10,7 +10,6 @@ module.exports = {
 
     vote: (bot, msg) => {
         const Guild = bot.tempGuilds[msg.guild.id];
-        console.log(Guild)
         const lang = Guild.lang;
         const prefix = Guild.prefix;
         const trans = Json.langs[lang];

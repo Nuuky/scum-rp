@@ -89,7 +89,7 @@ module.exports = {
         ];
 
         if(mapObj.manualDisplay && numMap < mapObj.mapNumb-1) obj["footer"] = {text:  `${prefix}${trans.vote.embed.mapFoot[0]} | ${prefix}${trans.vote.embed.mapFoot[1]} | ${prefix}${trans.vote.embed.voteFoot[2]}`};
-        if(mapObj.manualDisplay && numMap == mapObj.mapNumb-1) obj["footer"] = {text:  `${prefix}${trans.vote.embed.mapFoot[2]} | ${prefix}${trans.vote.embed.voteFoot[2]}`};
+        if(mapObj.manualDisplay && numMap == mapObj.mapNumb-1) obj["footer"] = {text:  `${trans.vote.embed.mapFoot[2]} | ${prefix}${trans.vote.embed.voteFoot[2]}`};
         
         return obj
     }

@@ -33,7 +33,7 @@ module.exports = class VoteAction {
         mapObj.mapsArr[args[1]][actVar] = true;
         mapObj[actStr]--
 
-        let embed = Global.Ebd.vote(message, plObj, mapObj);
+        let embed = Global.Ebd.vote(message, plObj, mapObj, lang, prefix);
         omsg.edit({ embed })
         .catch(err => console.error(err));
         plObj.plBool = !plObj.plBool;
