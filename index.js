@@ -18,7 +18,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
   
   
     let GuildsArr = [];
-    console.log("Guilds = " + bot.guilds)
+    console.log("Guilds = " + bot.guilds.map(g => g.name).join("\n"))
     for(let guild in bot.guilds) {
         console.log("GuildID = " + guild)
         const Guild = {
@@ -39,9 +39,9 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
         GuildsArr.push(Guild);
     }
     console.error("C'est fini");
-    console.log("Guilds Array = " + GuildsArr)
-    console.log(GuildsArr)
-    Global.Fn.monGuilDB(GuildsArr, "createMany");
+    // console.log("Guilds Array = " + GuildsArr)
+    // console.log(GuildsArr)
+    // Global.Fn.monGuilDB(GuildsArr, "createMany");
 
 // Reseting guilds &=> channels vote info
 //const Guilds = Global.Fn.monGuilDB({}, "find")
