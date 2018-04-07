@@ -1,0 +1,14 @@
+{
+    "bot": {
+        "token": "",
+        "game": "$help",
+        "purgetime": 10
+    },
+
+    "settings": {
+        "prefix": "$"
+    },
+
+    "api_keys": {
+    }
+}
