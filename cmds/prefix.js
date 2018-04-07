@@ -13,8 +13,8 @@ module.exports = class PrefixCommand {
   async run(query) {
     const Guild = this.guild;
     const args = query.split(" ");
+    const prefix = args[0]
     //console.log(query);
-    console.log(args[0]);
     
     
     let embed = {};
@@ -26,9 +26,10 @@ module.exports = class PrefixCommand {
       return Message.send(this.msg, "Commande incorrect.");
     }
     
-    Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {prefix: args[0]}});
+    Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {prefix: prefix}});
+        Global.Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {voteCap: this.bot.tempGuilds[this.msg.guild.id].voteRef}});
       
-    Message.send(this.msg, `Le prefix a été changé: \`\`${args[0]}\`\``);
+    Message.send(this.msg, `Le prefix a été changé: \`\`${prefix}\`\``);
 
   }
 }

@@ -121,10 +121,10 @@ bot.on("message", message => {
     };
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 
-    if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].vote.max) return; // Prevent spaming msg in a voting chan
+    if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].voteMax) return; // Prevent spaming msg in a voting chan
 
     if(command === undefined) {
-    console.log('Command not found');
+    console.log('Command not found'); 
     return
     };
     command.run(query[2]);
