@@ -17,12 +17,12 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 /** This is a description of the foo function. */
 
 // Reseting guilds &=> channels vote info
-for(let guild in Json.guilds) {
-    Json.guilds[guild].vote = {};
-    Json.guilds[guild].vote.max = false;
-    Json.guilds[guild].vote.cap = Json.guilds[guild].vote.ref;
+const Guilds = Global.Fn.monGuilDB({}, "find")
+for(let guild in Guilds) {
+    Guilds[guild].voteMx = false;
+    Guilds[guild].voteCap = Guilds[guild].voteRef;
     const teamChans = {}
-    for(let chan in Json.guilds[guild].channels) {
+    for(let chan in Guilds[guild].channels) {
         teamChans[chan] = {};
         teamChans[chan].vote = false;
     }

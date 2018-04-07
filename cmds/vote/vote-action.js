@@ -6,7 +6,7 @@ const Json = require("../../json/");
 module.exports = class VoteAction {
 
     static match (message, plObj, mapObj, actStr) {
-        const Guild = Json.guilds[message.guild.id];
+        const Guild = Global.Fin.monGuilDB({_id: message.guild.id}, "find");
         const lang = Guild.lang;
         const prefix = Guild.prefix;
 
@@ -23,7 +23,7 @@ module.exports = class VoteAction {
     }
 
     static run (omsg, message, plObj, mapObj, actStr, actVar) {
-        const Guild = Json.guilds[message.guild.id];
+        const Guild = Global.Fin.monGuilDB({_id: message.guild.id}, "find");
         const lang = Guild.lang;
         const prefix = Guild.prefix;
 

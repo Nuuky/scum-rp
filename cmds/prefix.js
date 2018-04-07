@@ -1,7 +1,6 @@
 'use strict'
 
 const Message = require('../global/purge');
-const Guilds = require("../json/guilds.json");
 const Fn = require("../global/functions");
 
 module.exports = class PrefixCommand {
@@ -11,7 +10,7 @@ module.exports = class PrefixCommand {
   }
 
   async run(query) {
-    const guild = Guilds[this.msg.guild.id];
+    const Guild = Fn.monGuilDB({_id:this.msg.guild.id}, "find")
     const args = query.split(" ");
     //console.log(query);
     console.log(args[0]);
@@ -25,10 +24,8 @@ module.exports = class PrefixCommand {
     if(args[1]) {
       return Message.send(this.msg, "Commande incorrect.");
     }
-
-    Guilds[this.msg.guild.id].prefix = args[0];
     
-    Fn.upJSON("guilds", Guilds);
+    Fn.monGuilDB({_id: this.msg.guild.id}, "update", {$set: {prefix: args[0]}});
       
     Message.send(this.msg, `Le prefix a été changé: \`\`${args[0]}\`\``);
 

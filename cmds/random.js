@@ -6,11 +6,12 @@ module.exports = class RandomCommand {
 
     constructor(msg) {
         this.msg = msg;
+        this.guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find")
     }
 
     async run(query) {
-        const lang = Json.guilds[this.msg.guild.id].lang;
-        const prefix = Json.guilds[this.msg.guild.id].prefix;
+        const lang = this.guild .lang;
+        const prefix = this.guild .prefix;
         const args = query.split(" ");
 
         const randomWeather = Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)],
