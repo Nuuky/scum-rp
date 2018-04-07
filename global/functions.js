@@ -3,6 +3,8 @@
 const fs = require("fs");
 const Config = require("../json/config.json");
 const grw = require("../json/grw.json");
+const MongoClient = require('mongodb').MongoClient;
+const url = process.env.MONGODB;
 
 module.exports = {
     
@@ -60,6 +62,19 @@ module.exports = {
         fs.writeFile(`./json/${filePath}.json`, JSON.stringify(obj), function (err) {
             if (err) throw err;
             console.log(text);
+        });
+    },
+
+    // Update mongodb "guilds" collection
+    monGuilDB: (obj) => {
+        MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var dbo = db.db("rob-bot");
+          dbo.collection("guilds").insertOne(obj, function(err, res) {
+            if (err) throw err;
+            console.log("mgdb-guild updated");
+            db.close();
+          });
         });
     }
 };
