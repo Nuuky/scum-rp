@@ -14,34 +14,10 @@ const app = express();
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
-/** This is a description of the foo function. */
-  
-  
-    console.error("C'est fini");
-    // console.log("Guilds Array = " + GuildsArr)
-    // console.log(GuildsArr)
-    // Global.Fn.monGuilDB(GuildsArr, "createMany");
 
-// Reseting guilds &=> channels vote info
-//const Guilds = Global.Fn.monGuilDB({}, "find")
 
-//     const Guild = {
-//         _id: "test2",
-//         "prefix": "!",
-//         "lang": "fr",
-//         "botInfo": {
-//             "ID": null,
-//             "msgID": null
-//         },
-//         "vote": {
-//             "ref": 2,
-//             "max": false,
-//             "cap": 2
-//         },
-//         "channels": {}
-//     }
-
-// Global.Fn.monGuilDB(Guild, "create");
+bot.tempGuilds = Global.Fn.monGuilDB({}, "find");
+console.log(bot.tempGuilds)
 
 
 // Ping bot every 5 minutes
@@ -69,12 +45,12 @@ bot.on("ready", () => {
     })
     .catch(console.error);
   
- 
+  
     const Guilds = bot.guilds.map(g => g.id);
   
     let GuildsArr = [];
     for(let guildID in Guilds) {
-      console.log(Guilds[guildID])
+      //console.log(Guilds[guildID])
         const Guild = {
             "_id": Guilds[guildID],
             "prefix": "!",
@@ -83,13 +59,10 @@ bot.on("ready", () => {
                 "ID": null,
                 "msgID": null
             },
-            "voteRef": 2,
-            "voteMax": false,
-            "voteCap": 2
+            "voteMax": 2
         }
         GuildsArr.push(Guild);
     }
-  Global.Fn.monGuilDB(GuildsArr, "createMany");
 });
 
 bot.on("guildCreate", (guild) => {
