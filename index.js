@@ -69,31 +69,27 @@ bot.on("ready", () => {
     })
     .catch(console.error);
   
-  
-    let test = [];
-    test.push(bot.guilds.map(g => g.id));
-    console.log("Guilds = " + test);
+ 
+    const Guilds = bot.guilds.map(g => g.id);
   
     let GuildsArr = [];
-    for(let guild in bot.guilds) {
-        console.log("GuildID = " + guild)
+    for(let guildID in Guilds) {
+      console.log(Guilds[guildID])
         const Guild = {
-            "_id": guild.id,
+            "_id": Guilds[guildID],
             "prefix": "!",
             "lang": "fr",
             "botInfo": {
                 "ID": null,
                 "msgID": null
             },
-            "vote": {
-                "ref": 2,
-                "max": false,
-                "cap": 2
-            },
-            "channels": {}
+            "voteRef": 2,
+            "voteMax": false,
+            "voteCap": 2
         }
         GuildsArr.push(Guild);
     }
+  Global.Fn.monGuilDB(GuildsArr, "createMany");
 });
 
 bot.on("guildCreate", (guild) => {
