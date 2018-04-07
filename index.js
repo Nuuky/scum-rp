@@ -53,11 +53,11 @@ setInterval(() => {
 bot.on("ready", () => {
     // bot.user.setAvatar("./img/boty.jpg").catch(console.error)  // Use it Once !
     bot.user.setPresence({
-        status: "dnd",
+        status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "GhostBot",//"$help",
+            "name": "GhostBot", //$help //GhostBot
+            "type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
             // "streaming": false,
-            "type": "LISTENING"
             // "url": "" 
         }
     })
