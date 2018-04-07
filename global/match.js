@@ -9,7 +9,7 @@ const fs = require("fs")
 module.exports = {
 
     vote: (msg) => {
-        const Guild = Fn.monGuilDB({__id: msg.guild.id}, "find");
+        const Guild = Fn.monGuilDB({_id: msg.guild.id}, "find");
         console.log(Guild)
         const lang = Guild.lang;
         const prefix = Guild.prefix;
@@ -22,6 +22,7 @@ module.exports = {
             Guild.channels[msg.channel.id] = {}
             Guild.channels[msg.channel.id].vote = false;
             Json.guilds[msg.guild.id] = Guild;
+            Fn.monGuilDB({_id: msg.guild.id, channels: {}})
             Fn.upJSON("guilds", Json.guilds)
         }
 
