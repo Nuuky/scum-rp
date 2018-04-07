@@ -68,7 +68,7 @@ bot.on("guildCreate", (guild) => {
     const newGuild = {
         "_id": guild.id,
         "prefix": "!",
-        "lang": "fr",
+        "lang": "en",
         "botInfo": {
             "ID": null,
             "msgID": null

@@ -17,10 +17,10 @@
                 "voteFoot": ["[n]: voter", "cancel pour annuler", "translate: changer la langue"],
                 "mapParam": "Paramètres :",
                 "mapFoot": ["next: map suivante", "end: match fini", "Dernière map"]
-            },
-            "langList": "Langues disponibles: ",
-            "langUnkn": "Langage inconnu."
-        }
+            }
+        },
+        "langList": "Langues disponibles: ",
+        "langUnkn": "Langage inconnu."
     },
     "en": {
         "name": "English",
@@ -39,9 +39,9 @@
                 "voteFoot": ["[n]: to vote", "cancel: cancel", "translate: change language"],
                 "mapParam": "Settings :",
                 "mapFoot": ["next: next map", "end: match over", "Last map"]
-            },
-            "langList": "Languages available: ",
-            "langUnkn": "Language unknown."
-        }
+            }
+        },
+        "langList": "Languages available: ",
+        "langUnkn": "Language unknown."
     }
 }

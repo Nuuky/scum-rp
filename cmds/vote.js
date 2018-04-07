@@ -171,8 +171,8 @@ module.exports = class VoteCommand {
                 // ---------------------------------------------------------------------
                 if((args[0] == prefix + "translate") && mapObj.manualDisplay) {
                     shieldReg = new RegExp(Json.langs.regex);
-                        if(!args[1]) return Global.Msg.reply(message, `${Json.langs.vote.langList} \`${Json.langs.regex}\``, 5);
-                        if(args[1].match(shieldReg) == null) return Global.Msg.reply(message, Json.langs.vote.langUnkn, 5);
+                        if(!args[1]) return Global.Msg.reply(message, `${Json.langs.langList} \`${Json.langs.regex}\``, 5);
+                        if(args[1].match(shieldReg) == null) return Global.Msg.reply(message, Json.langs.langUnkn, 5);
                         if((mapObj.pick == 0) && (mapObj.ban == 0)) {
                             embed = Global.Ebd.map(plObj, mapObj, mapIndex, dispMapArr[mapIndex], args[1], prefix);
                             omsg.edit({ embed });
