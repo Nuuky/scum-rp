@@ -77,7 +77,7 @@ module.exports = {
                 });
             }
             if(action == "find") {
-                dbo.collection("guilds").find(obj).toArray(function(err, res) {
+                dbo.collection("guilds").find(obj), function(err, res) {
                     if (err) throw err;
                     console.log("item found in mgdb-guild");
                     db.close();

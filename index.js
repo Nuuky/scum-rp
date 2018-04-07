@@ -17,7 +17,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 /** This is a description of the foo function. */
 
 // Reseting guilds &=> channels vote info
-//const Guilds = Global.Fn.monGuilDB({}, "find")
+const Guilds = Global.Fn.monGuilDB({}, "find")
 for(let guild in bot.guilds) {
     const Guild = {
         "_id": guild.id,
@@ -36,7 +36,7 @@ for(let guild in bot.guilds) {
     }
 Global.Fn.monGuilDB(Guild, "create");
 }
-//Global.Fn.monGuilDB({}, "update", Guilds);
+Global.Fn.monGuilDB({}, "update", Guilds);
 
 
 // Ping bot every 5 minutes
@@ -87,6 +87,8 @@ bot.on("message", message => {
 
     // Guilds settings
     const Guild = Global.Fn.monGuilDB({_id: message.guild.id}, "find");
+    console.log(Guild)
+    return 
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
