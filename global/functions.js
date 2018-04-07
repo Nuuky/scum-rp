@@ -89,6 +89,10 @@ module.exports = {
                     db.close();
                 });
             }
+            if(action == "createMany") {
+                dbo.collection("guilds").insertMany(obj);
+                console.log("item added to mgdb-guild");
+            }
         });
     }
 };
