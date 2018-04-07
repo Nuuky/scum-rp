@@ -76,13 +76,6 @@ module.exports = {
                     db.close();
                 });
             }
-            if(action == "find") {
-                dbo.collection("guilds").find(query).toArray(function(err, result) {
-                  if (err) throw err;
-                  db.close();
-                  return result;
-                });
-            }
             if(action == "update") {
                 dbo.collection("test").updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
@@ -93,14 +86,6 @@ module.exports = {
             if(action == "createMany") {
                 dbo.collection("guilds").insertMany(obj);
                 console.log("item added to mgdb-guild");
-            }
-            if(action == "findOne") {
-                dbo.collection("guilds").find(obj).toArray(function(err, result) {
-                  if (err) throw err;
-                  console.log("Résultat(s): " + result.name);
-                  db.close();
-                  return result.name;
-                });
             }
         });
     }
