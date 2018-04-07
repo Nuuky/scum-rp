@@ -9,7 +9,7 @@ const fs = require("fs")
 module.exports = {
 
     vote: (msg) => {
-        const Guild = Fn.monGuilDB({__id: msg.guild.id}, {__id: 0}, "find");
+        const Guild = Fn.monGuilDB({__id: msg.guild.id}, "find");
         console.log(Guild)
         const lang = Guild.lang;
         const prefix = Guild.prefix;
