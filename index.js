@@ -54,10 +54,10 @@ bot.on("ready", () => {
     // bot.user.setAvatar("./img/boty.jpg").catch(console.error)  // Use it Once !
     bot.user.setPresence({
         game: {
-            "name": "default: !",//"$help",
-            "streaming": false,
-            "type": 0,
-            "url": ""
+            "name": "GhostBot"//"$help",
+            // "streaming": false,
+            // "type": 0,
+            // "url": "" 
         }
     })
     .catch(console.error);
