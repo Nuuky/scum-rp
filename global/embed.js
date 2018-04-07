@@ -5,9 +5,7 @@ const Fn = require("./functions");
 
 module.exports = {
 
-    vote: (omsg, plObj, mapObj, lang = Json.guilds[omsg.guild.id].lang) => {
-        const Guild = Json.guilds[omsg.guild.id];
-        const prefix = Guild.prefix;
+    vote: (omsg, plObj, mapObj, lang, prefix) => {
         const trans = Json.langs[lang];
         // Array map to str by Mode
         const displayMap = (strMode) => {

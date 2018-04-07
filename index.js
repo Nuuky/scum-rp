@@ -118,7 +118,7 @@ bot.on("message", message => {
         'prefix': () => { return new Command.PrefixCommand(message) },
         'random': () => { return new Command.RandomCommand(message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
-        'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(message) },
+        'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(bot, message) },
     };
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 

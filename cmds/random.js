@@ -4,14 +4,14 @@ const Json = require("../json/")
 
 module.exports = class RandomCommand {
 
-    constructor(msg) {
+    constructor(bot, msg) {
         this.msg = msg;
-        this.guild = Global.Fn.monGuilDB({_id: msg.guild.id}, "find")
+        this.guild = bot.tempGuilds[msg.guild.id];
     }
 
     async run(query) {
-        const lang = this.guild .lang;
-        const prefix = this.guild .prefix;
+        const lang = this.guild.lang;
+        const prefix = this.guild.prefix;
         const args = query.split(" ");
 
         const randomWeather = Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)],

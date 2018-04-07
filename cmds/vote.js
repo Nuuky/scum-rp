@@ -113,7 +113,7 @@ module.exports = class VoteCommand {
             .catch(console.error);
 
 
-            let embed = Global.Ebd.vote(omsg, plObj, mapObj, lang);
+            let embed = Global.Ebd.vote(omsg, plObj, mapObj, lang, prefix);
             omsg.edit({embed})
             .catch(console.error)
 
@@ -178,7 +178,7 @@ module.exports = class VoteCommand {
                             omsg.edit({ embed });
                             return
                         }
-                        embed = Global.Ebd.vote(message, plObj, mapObj, args[1]);
+                        embed = Global.Ebd.vote(message, plObj, mapObj, args[1], prefix);
                         omsg.edit({ embed });
                         return
                 }
