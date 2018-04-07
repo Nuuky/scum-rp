@@ -63,7 +63,7 @@ bot.on("ready", () => {
 
 bot.on("guildCreate", (guild) => {
     //Global.Fn.monGuilDB(newGuild, "create")
-    const defaultValue = {
+    const newGuild = {
         "_id": guild.id,
         "prefix": "!",
         "lang": "fr",
@@ -76,8 +76,9 @@ bot.on("guildCreate", (guild) => {
         "voteMax": false,
         "channels": {}
     }
-    
-    bot.tempGuilds[guild.id]
+    bot.tempGuilds.push(newGuild);
+  
+    Global.Fn.monGuilDB(newGuild, "create");
 })
 
 
@@ -97,7 +98,7 @@ bot.on("message", message => {
 
 
     // Guilds settings
-    const Guild = Global.Fn.monGuilDB({_id: message.guild.id}, "find");
+    const Guild = bot.tempGuilds[message.guild.id];
     console.log(Guild)
     return 
     const prefix = Guild.prefix;
