@@ -121,7 +121,7 @@ bot.on("message", message => {
         'lang': () => { return new Command.LangCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
-        'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(bot, message) },
+        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) },
     };
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 

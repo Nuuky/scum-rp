@@ -5,4 +5,5 @@ module.exports = {
     Msg: require('./purge'),
     Mch: require('./match'),
     Ebd: require('./embed'),
+    strTo: require('./strTo.js'),
 };

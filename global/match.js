@@ -31,7 +31,7 @@ module.exports = {
         if(bestOfRegExp == null) return Message.reply(msg, trans.vote.shld.numbMaps); // args[1] not valide
         return true
     },
-    servote: (msg) =>{
+    me: (msg) =>{
         if(msg.author.id != "98095710548795392") return
         return true
     }

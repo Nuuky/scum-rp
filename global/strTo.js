@@ -4,6 +4,7 @@ const Config = require("../json/config.json");
 
 module.exports = {
     color: (str) => {
+        let color;
         const colors = {
           "blue": () => {return 255},
           "red": () => {return 16711680},
@@ -18,7 +19,8 @@ module.exports = {
           "forest": () => {return 25616}
         }
         if(colors.hasOwnProperty(str)) {
-          colors[str]();
+          return colors[str]();
         }
+        console.log("No color found !");
     }
 }; 
