@@ -21,7 +21,15 @@
         },
         "langList": "Langues disponibles: ",
         "langUnkn": "Langage inconnu.",
-        "langUpdated": "Langue changé pour"
+        "langUpdated": "Langue changé pour",
+        "helpTitle": "Liste des commandes",
+        cmds: [
+            ["ping", "Pong"],
+            ["lang", "Changer la langue du bot"],
+            ["prefix", "Change le prefix du bot"]
+            ["random", "Affiche une map ainsi que des paramètres aléatoire pour Ghost War"],
+            ["vote", "Permet de lancer un vote de cartes entre 2 teams"]
+        ]
     },
     "en": {
         "name": "English",
@@ -44,6 +52,14 @@
         },
         "langList": "Languages available: ",
         "langUnkn": "Language unknown.",
-        "langUpdated": "Language updated to"
+        "langUpdated": "Language updated to",
+        "helpTitle": "Commands list",
+        "cmds": [
+            ["ping", "Pong"],
+            ["lang", "Change bot language"],
+            ["prefix", "Change bot prefix"]
+            ["random", "Affiche une map ainsi que des paramètres aléatoire pour Ghost War"],
+            ["vote", "Permet de lancer un vote de cartes entre 2 teams"]
+        ]
     }
 }
