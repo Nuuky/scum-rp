@@ -9,6 +9,7 @@ dependencies:
   node-opus: 0.2.7
   node.js: 0.0.0
   opusscript: 0.0.6
+  say: 0.14.0
   sodium: 2.0.3
   uws: 9.14.0
   winston: 2.4.1
@@ -703,6 +704,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
+  /one-time/0.0.4:
+    dev: false
+    resolution:
+      integrity: sha1-+M33eISCb+Tf+T46nMN7HkSAdC4=
   /opusscript/0.0.6:
     dev: false
     resolution:
@@ -881,6 +886,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg==
+  /say/0.14.0:
+    dependencies:
+      one-time: 0.0.4
+    dev: false
+    engines:
+      node: '>=6.9'
+    resolution:
+      integrity: sha1-dC5wdZfXNZAi5yhRB0+FmKvP1cg=
   /semver/5.5.0:
     dev: false
     resolution:
@@ -1139,13 +1152,14 @@ specifiers:
   bufferutil: 3.0.4
   discord.js: ^11.3.2
   erlpack: ^0.1.2
-  express: ^4.15.5
+  express: ^4.16.3
   ffmpeg-binaries: ^3.2.2
   libsodium-wrappers: 0.7.3
   mongodb: ^3.0.5
   node-opus: 0.2.7
   node.js: 0.0.0
   opusscript: 0.0.6
+  say: ^0.14.0
   sodium: 2.0.3
   uws: 9.14.0
   winston: 2.4.1

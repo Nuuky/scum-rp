@@ -2,6 +2,7 @@
 
 const Global = require('../global/')
 const Json = require("../json/")
+const say = require('say')
 
 module.exports = class SerVoteCommand {
 
@@ -15,6 +16,7 @@ module.exports = class SerVoteCommand {
         const bot = this.bot
         const target = msg.mentions.users.first() || null;
         
+        if(target && target)
         
     }
 }

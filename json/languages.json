@@ -27,8 +27,8 @@
             ["ping", "Pong"],
             ["lang", "Change la langue du bot"],
             ["prefix", "Change le prefix du bot"],
-            ["random", "Affiche aléatoirement une map et ses paramètres [*GRW*]"],
-            ["vote", "Permet de lancer un vote de cartes entre 2 teams [*GRW*]"]
+            ["random", "Affiche aléatoirement une map et ses paramètres *[GRW]*"],
+            ["vote", "Permet de lancer un vote de cartes entre 2 teams *[GRW]*"]
         ]
     },
     "en": {
@@ -58,8 +58,8 @@
             ["ping", "Pong"],
             ["lang", "Change bot language"],
             ["prefix", "Change bot prefix"],
-            ["random", "Display randomly 1 Map & parameters [*GRW*]"],
-            ["vote", "Start a map vote between 2 teams [*GRW*]"]
+            ["random", "Display randomly 1 Map & parameters *[GRW]*"],
+            ["vote", "Start a map vote between 2 teams *[GRW]*"]
         ]
     }
 }
