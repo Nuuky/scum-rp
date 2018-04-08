@@ -13,7 +13,8 @@ module.exports = class SerVoteCommand {
     async run(query) {
         const msg = this.msg
         const bot = this.bot
-
+        const target = msg.mentions.users.first() || null;
+        
         
     }
 }
