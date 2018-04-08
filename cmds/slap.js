@@ -23,7 +23,8 @@ module.exports = class SerVoteCommand {
         console.log(tVChan)
         
         if(tVChan) {
-            say.speak(t, 'Good News', 1.0, (err) => {
+            
+            say.speak(text, args[1] || "Cellos", args[2]  || 1.0, (err) => {
                 if (err) {
                     return console.error(err);
                 }
