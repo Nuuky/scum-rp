@@ -9,4 +9,5 @@ module.exports = {
     RandomCommand: require('./random'),
     VoteCommand: require('./vote'),
     SerVoteCommand: require('./servervote'),
+    TestCommand: require('./vote'),
 };
