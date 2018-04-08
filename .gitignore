@@ -1,3 +1,10 @@
 .env
 README.md
 server.js
+.git
+node_modules
+/json/
+/cmds/servervote.js/
+/cmds/slap.js/
+assets.js
+watch.js
