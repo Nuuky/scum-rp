@@ -1,0 +1,65 @@
+{
+    "regex": "en|fr",
+    "fr": {
+        "name": "Français",
+        "vote": {
+            "voteCanceled": ["Vote annulé", "Vous pouvez relancer un vote."],
+            "shld": {
+                "voteMax": "Le nombre maximal de vote pour ce serveur a été atteint.",
+                "args": ["Pour lancer un vote:", "pick [@opposant] [Bo1 / Bo3 / Bo5] [team1 / rien] [team2 / rien] [auto / rien]"],
+                "wrgChan": "Vous ne pouvez pas commencer de vote ici.",
+                "mention": "Vous devez @mentionner votre adversaire.",
+                "numbMaps": "Seul les valeurs `[1, 3, 5]` sont acceptés pour les maps.",
+                "voteIn": "Un vote est déjà en cours dans ce channel."
+            },
+            "embed": {
+                "voteDesc": "Au tour de",
+                "voteFoot": ["[n]: voter", "cancel pour annuler", "translate: changer la langue"],
+                "mapParam": "Paramètres :",
+                "mapFoot": ["next: map suivante", "end: match fini", "Dernière map"]
+            }
+        },
+        "langList": "Langues disponibles: ",
+        "langUnkn": "Langage inconnu.",
+        "langUpdated": "Langue changé pour",
+        "helpTitle": "Liste des commandes",
+        "cmds": [
+            ["ping", "Pong"],
+            ["lang", "Change la langue du bot"],
+            ["prefix", "Change le prefix du bot"],
+            ["random", "Affiche aléatoirement une map et ses paramètres *[GRW]*"],
+            ["vote", "Permet de lancer un vote de cartes entre 2 teams *[GRW]*"]
+        ]
+    },
+    "en": {
+        "name": "English",
+        "vote": {
+            "voteCanceled": ["Vote canceled", "This message will disapear in 10s."],
+            "shld": {
+                "voteMax": "The maximal amount of vote for this server have been reached.",
+                "args": ["To start a vote:", "pick [@opponent] [Bo1 / Bo3 / Bo5] [team1 / null] [team2 / null] [auto / null]"],
+                "wrgChan": "You can't start vote here.",
+                "mention": "You have to @mention your opponent.",
+                "numbMaps": "Only values `[1, 3, 5]` are accepted for maps.",
+                "voteIn": "Vote already started in this channel."
+            },
+            "embed": {
+                "voteDesc": "Round",
+                "voteFoot": ["[n]: to vote", "cancel: cancel", "translate: change language"],
+                "mapParam": "Settings :",
+                "mapFoot": ["next: next map", "end: match over", "Last map"]
+            }
+        },
+        "langList": "Languages available: ",
+        "langUnkn": "Language unknown.",
+        "langUpdated": "Language updated to",
+        "helpTitle": "Commands list",
+        "cmds": [
+            ["ping", "Pong"],
+            ["lang", "Change bot language"],
+            ["prefix", "Change bot prefix"],
+            ["random", "Display randomly 1 Map & parameters *[GRW]*"],
+            ["vote", "Start a map vote between 2 teams *[GRW]*"]
+        ]
+    }
+}
