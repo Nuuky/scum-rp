@@ -37,7 +37,9 @@ module.exports = class SlapCommand {
                       dispatcher = connection.playArbitraryInput('https://cdn.glitch.com/f7bc4439-ba46-4b35-9030-a6e245debc02%2Fil_y_a_quelque_chose_d\'autre.mp3?1523201758061');
                       dispatcher.setVolume(1);
                       dispatcher.on('end', () => {
-                          tVChan.leave();
+                          setTimeout(() => {
+                            tVChan.leave();
+                          }, 2000)
                       });
                   });
               });
