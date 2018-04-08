@@ -4,7 +4,7 @@ const Global = require('../global/')
 const Json = require("../json/")
 const say = require('say')
 
-module.exports = class SerVoteCommand {
+module.exports = class SlapCommand {
 
     constructor(bot, msg) {
         this.msg = msg;
@@ -18,17 +18,13 @@ module.exports = class SerVoteCommand {
         const args = query.split(" ");
         const text = args[0].replace(".", " ");
         if(target == null) return;
-      
         const tVChan = this.msg.guild.members.get(target.id).voiceChannel;
+        const targetUsername = this.msg.guild.members.get(target.id).displayName;
         console.log(tVChan)
         
         if(tVChan) {
-            
-            say.speak(text, args[1] || "Cellos", args[2]  || 1.0, (err) => {
-                if (err) {
-                    return console.error(err);
-                }
-            });
+            tVChan.join();
+            say.speak("this is for you !");
         }             
         
     }
