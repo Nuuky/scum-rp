@@ -55,10 +55,10 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "!help", //$help //GhostBot
-            "type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
-            // "streaming": false,
-            // "url": "" 
+            "name": "", //!help //GhostBot
+            //"type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
+            "streaming": false,
+            "url": "" 
         }
     })
     .catch(console.error);
@@ -79,7 +79,7 @@ bot.on("guildCreate", (guild) => {
         "voteMax": false,
         "channels": {}
     }
-    bot.tempGuilds.push(newGuild);
+    bot.tempGuilds[guild.id] = newGuild;
   
     Global.Fn.monGuilDB(newGuild, "create");
 })
