@@ -2,7 +2,7 @@
 
 module.exports = {
     LangCommand: require('./lang'),
-//   PingCommand: require('./ping'),
+    PingCommand: require('./ping'),
     HelpCommand: require('./help'),
     PrefixCommand: require('./prefix'),
     RandomCommand: require('./random'),

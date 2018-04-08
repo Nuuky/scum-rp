@@ -116,6 +116,7 @@ bot.on("message", message => {
 
     const dispatcher = {
         'help': () => { return new Command.HelpCommand(bot, message) },
+        'ping': () => { return new Command.PingCommand(bot, message) },
         'prefix': () => { return new Command.PrefixCommand(bot, message) },
         'lang': () => { return new Command.LangCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
