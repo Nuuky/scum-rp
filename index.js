@@ -62,6 +62,7 @@ bot.on("ready", () => {
         }
     })
     .catch(console.error);
+    bot.user.setUsername("GhostBot");
 });
 
 bot.on("guildCreate", (guild) => {
