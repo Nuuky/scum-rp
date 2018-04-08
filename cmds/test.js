@@ -14,8 +14,9 @@ module.exports = class TestCommand {
     async run(query) {
         const msg = this.msg
         const bot = this.bot
+        console.log("Test cmd. query = " + query);
         
         
-        msg.reply("/tts This is for you")        
+        msg.channel.send("/tts This is for you");
     }
 }
