@@ -8,3 +8,6 @@ node_modules
 /cmds/slap.js/
 assets.js
 watch.js
+/views/
+/public/
+/global/functions.js

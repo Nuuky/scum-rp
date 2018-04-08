@@ -1,5 +1,5 @@
 {
-  "name": "rob-bot",
+  "name": "discrobot",
   "version": "1.0.0",
   "description": "",
   "main": "node index.js",
@@ -9,9 +9,6 @@
   },
   "engines": {
     "node": "8.4.0"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/rob-bot"
   },
   "author": "",
   "license": "ISC",
