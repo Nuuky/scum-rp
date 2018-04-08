@@ -2,7 +2,10 @@
 
 const Global = require('../global/')
 const Json = require("../json/")
-const say = require('say')
+const assets = require('../assets')
+
+
+app.use("/assets", assets);
 
 module.exports = class SlapCommand {
 
