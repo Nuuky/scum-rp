@@ -23,12 +23,12 @@
         "langUnkn": "Langage inconnu.",
         "langUpdated": "Langue changé pour",
         "helpTitle": "Liste des commandes",
-        cmds: [
+        "cmds": [
             ["ping", "Pong"],
-            ["lang", "Changer la langue du bot"],
-            ["prefix", "Change le prefix du bot"]
-            ["random", "Affiche une map ainsi que des paramètres aléatoire pour Ghost War"],
-            ["vote", "Permet de lancer un vote de cartes entre 2 teams"]
+            ["lang", "Change la langue du bot"],
+            ["prefix", "Change le prefix du bot"],
+            ["random", "[**GRW**] Affiche aléatoirement une map et ses paramètres"],
+            ["vote", "[**GRW**] Permet de lancer un vote de cartes entre 2 teams"]
         ]
     },
     "en": {
@@ -57,9 +57,9 @@
         "cmds": [
             ["ping", "Pong"],
             ["lang", "Change bot language"],
-            ["prefix", "Change bot prefix"]
-            ["random", "Affiche une map ainsi que des paramètres aléatoire pour Ghost War"],
-            ["vote", "Permet de lancer un vote de cartes entre 2 teams"]
+            ["prefix", "Change bot prefix"],
+            ["random", "[**GRW**] Display randomly 1 Map & parameters"],
+            ["vote", "[**GRW**] Start a map vote between 2 teams"]
         ]
     }
 }

@@ -55,7 +55,7 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "GhostBot", //$help //GhostBot
+            "name": "!help", //$help //GhostBot
             "type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
             // "streaming": false,
             // "url": "" 
@@ -115,9 +115,10 @@ bot.on("message", message => {
 
 
     const dispatcher = {
+        'help': () => { return new Command.HelpCommand(bot, message) },
         'prefix': () => { return new Command.PrefixCommand(bot, message) },
-        'random': () => { return new Command.RandomCommand(bot, message) },
         'lang': () => { return new Command.LangCommand(bot, message) },
+        'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
         'servervote'  : () => { if(Global.Mch.servote(message)) return new Command.SerVoteCommand(bot, message) },
     };
