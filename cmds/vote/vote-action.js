@@ -9,16 +9,17 @@ module.exports = class VoteAction {
         const Guild = bot.tempGuilds[message.guild.id];
         const lang = Guild.lang;
         const prefix = Guild.prefix;
+        const orange = Global.strTo.color("orange");
 
         const args = message.content.split(" ");
         // Not author turn
-        if(message.author.id !== plObj.playerTurn().user.id) return Global.Msg.embed(message, {color: "16711849",title:"Erreur #playerID", description:"Ce n'est pas à votre tour de jouer."});
+        if(message.author.id !== plObj.playerTurn().user.id) return Global.Msg.embed(message, {"color": orange, "title":`${Json.langs[lang].err} #playerID`, "description": Json.langs[lang].vote.shld.wrongTurn});
         // Wrong ban || pick
-        if((args[0] == prefix + actStr) && ((actStr == "ban") ? (mapObj.ban == 0) :  (mapObj.ban > 0) )) return Global.Msg.embed(message, {color: "16711849", title:"Erreur #wrongCmd", description:`Mauvaise commande, il faut utiliser ${(actStr == "ban") ? prefix + "pick" : prefix + "ban"}`});
+        if((args[0] == prefix + actStr) && ((actStr == "ban") ? (mapObj.ban == 0) :  (mapObj.ban > 0) )) return Global.Msg.embed(message, {"color": orange, "title":`${Json.langs[lang].err} #wrongCmd`, "description": `${Json.langs[lang].vote.shld.wrongCmd} ${(actStr == "ban") ? prefix + "pick" : prefix + "ban"}`});
         // No map num
-        if(mapObj.mapsArr[args[1]] == undefined) return Global.Msg.embed(message, {color: "16711849", title:"Erreur #wrongCmd", description:"Il faut le numéro de map."}, 5);
+        if(mapObj.mapsArr[args[1]] == undefined) return Global.Msg.embed(message, {"color": orange, "title":`${Json.langs[lang].err} #wrongCmd`, "description": Json.langs[lang].vote.shld.noMapNum}, 5);
         // Map already pick/ban
-        if(mapObj.mapsArr[args[1]].picked || mapObj.mapsArr[args[1]].banned) return Global.Msg.embed(message, {color: "16711849", title:"Erreur #wrongArg", description:"La map a déjà été traité."}, 5);
+        if(mapObj.mapsArr[args[1]].picked || mapObj.mapsArr[args[1]].banned) return Global.Msg.embed(message, {"color": orange, "title":`${Json.langs[lang].err} #wrongArg`, "description": Json.langs[lang].vote.shld.mapTook}, 5);
         return true
     }
 

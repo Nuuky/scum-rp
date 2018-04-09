@@ -102,15 +102,16 @@ module.exports = class VoteCommand {
 
             // ---------------------------------------------------------------------
             // --------------------------- PREPARING VOTE --------------------------
-            // ---------------------------------------------------------------------             
+            // ---------------------------------------------------------------------
             let chanName = omsg.channel.name;
             let RegUse = new RegExp(Json.voteSet.outUse, 'g');
             chanName = chanName.replace(RegUse, "");
             RegUse = new RegExp(Json.voteSet.inUse, 'g');
             chanName = chanName.replace(RegUse, "");
             chanName = chanName + Json.voteSet.inUse;
-            omsg.channel.edit({ name: chanName })
-            .catch(console.error);
+            if(omsg.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) omsg.channel.edit({ name: chanName })
+                .catch(console.error);
+            
 
 
             let embed = Global.Ebd.vote(omsg, plObj, mapObj, lang, prefix);
@@ -124,7 +125,7 @@ module.exports = class VoteCommand {
             const voteCollector = new Discord.MessageCollector(omsg.channel, m => ((m.author.id === plObj.pl1.user.id) || (m.author.id === plObj.pl2.user.id)));
             voteCollector.on("collect", message => {
                 let args = message.content.split(" "); // Message arguments
-                Guild = bot.tempGuilds[msg.guild.id];
+                Guild = bot.tempGuilds[message.guild.id];
                 lang = Guild.lang;
                 prefix = Guild.prefix;
 
@@ -135,15 +136,15 @@ module.exports = class VoteCommand {
                 // ------------------------------ SHIELD -------------------------------
                 // ---------------------------------------------------------------------
                 if (message.author.bot) return; // Is bot
-                message.delete();
+                if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.delete();
                 if(!message.content.startsWith(prefix)) return // No prefix
                 if(message.content.startsWith(prefix+"cancel")) { // Someone canceled
                     // Change channel name
                     chanName = message.channel.name;
                     chanName = chanName.replace(RegUse, "");
                     chanName = chanName + Json.voteSet.outUse;
-                    message.channel.edit({ name: chanName })
-                    .catch(console.error);
+                    if(message.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) message.channel.edit({ name: chanName })
+                        .catch(console.error);
 
                     // Make this channel free
                     if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
@@ -227,7 +228,7 @@ module.exports = class VoteCommand {
                         .then((msg) => {
                             if(!mapObj.manualDisplay) {
                                 setTimeout(() => {
-                                    msg.delete()
+                                    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) msg.delete();
                                 }, (1000*(60*90)))
                             }
                         })
@@ -258,8 +259,8 @@ module.exports = class VoteCommand {
                         chanName = message.channel.name;
                         chanName = chanName.replace(RegUse, "");
                         chanName = chanName + Json.voteSet.outUse;
-                        message.channel.edit({ name: chanName })
-                        .catch(console.error);
+                        if(message.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) message.channel.edit({ name: chanName })
+                            .catch(console.error);
 
                         return voteCollector.stop("ended");
                      
@@ -292,8 +293,8 @@ module.exports = class VoteCommand {
                                 chanName = message.channel.name;
                                 chanName = chanName.replace(RegUse, "");
                                 chanName = chanName + Json.voteSet.outUse;
-                                message.channel.edit({ name: chanName })
-                                .catch(console.error);
+                                if(message.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) message.channel.edit({ name: chanName })
+                                    .catch(console.error);
 
                             }, (1000*120));
 
@@ -311,8 +312,8 @@ module.exports = class VoteCommand {
                         chanName = message.channel.name;
                         chanName = chanName.replace(RegUse, "");
                         chanName = chanName + Json.voteSet.outUse;
-                        message.channel.edit({ name: chanName })
-                        .catch(console.error);
+                        if(message.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) message.channel.edit({ name: chanName })
+                            .catch(console.error);
 
                         // Make this channel free
                         if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;

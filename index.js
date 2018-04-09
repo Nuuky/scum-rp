@@ -11,7 +11,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
-const url = process.env.MONGODB;
+const url = "mongodb://admintest:2235@ds143388.mlab.com:43388/rob-bot";
 
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
@@ -51,18 +51,18 @@ app.listen(process.env.PORT);
 
 
 bot.on("ready", () => {
-    // bot.user.setAvatar("./img/boty.jpg").catch(console.error)  // Use it Once !
+    //bot.user.setAvatar("../nk-bot/img/avatar.jpg").catch(console.error)
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "!help", //!help //GhostBot
-            "type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
+            "name": "", //!help //GhostBot
+            //"type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
             "streaming": false,
             "url": "" 
         }
     })
     .catch(console.error);
-    //bot.user.setUsername("GhostBot");
+    // bot.user.setUsername("nk-bot");
 });
 
 bot.on("guildCreate", (guild) => {
@@ -83,7 +83,12 @@ bot.on("guildCreate", (guild) => {
     bot.tempGuilds[guild.id] = newGuild;
   
     Global.Fn.monGuilDB(newGuild, "create");
-})
+});
+
+bot.on("guildDelete", (guild) => {
+    delete bot.tempGuilds[guild.id];
+    Global.Fn.monGuilDB({_id: guild.id}, "remove");
+});
 
 
 
@@ -137,10 +142,11 @@ bot.on("message", message => {
     command.run(query[2]);
 
 
-
-    message.channel.fetchMessage(message.id)
-    .then(m => m.delete())
-    .catch(console.error)
+    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
+        .then(m => m.delete())
+        .catch(console.error);
+        
+    
 });
 
 
@@ -153,4 +159,4 @@ bot.on("warn", (e) => console.warn(e));
 
 
 
-bot.login(process.env.TOKEN) 
+bot.login("Mzk0MDQ5MzYwMTYzNTA0MTI4.DayuyQ.tk9J--3r9cu_OYYtmtQzIEs972o") 

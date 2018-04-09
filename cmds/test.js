@@ -17,6 +17,6 @@ module.exports = class TestCommand {
         console.log("Test cmd. query = " + query);
         
         
-        msg.channel.send("/tts This is for you");
+        Global.Msg.send(msg, "This is a test !", 2);
     }
 }
