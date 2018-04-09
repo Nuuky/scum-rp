@@ -55,10 +55,10 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "", //!help //GhostBot
-            //"type": "PLAYING" //PLAYING //STREAMING //LISTENING //WATCHING
-            "streaming": false,
-            "url": "" 
+            //"name": "!help", //!help //GhostBot
+            //"type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
+            // "streaming": false,
+            // "url": "" 
         }
     })
     .catch(console.error);
