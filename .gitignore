@@ -1,0 +1,11 @@
+# USLESS ---------------------
+.git
+node_modules/
+
+# DATA -----------------------
+json/grw.js
+.env
+
+# JUST FOR ME ----------------
+cmds/servervote.js
+cmds/slap.js
