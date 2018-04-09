@@ -151,7 +151,7 @@ module.exports = class VoteCommand {
                     if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
                     bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
 
-                    Global.Msg.edit(omsg, {embed: {title: "Vote annulé", description: "Ce message disparaitra dans 10s."}});
+                    Global.Msg.edit(omsg, {embed: {title: Json.langs[lang].vote.voteCanceled[0], description: Json.langs[lang].vote.voteCanceled[1]}});
                     voteCollector.stop("canceled");
                     return
                      
@@ -207,7 +207,7 @@ module.exports = class VoteCommand {
                         VoteAction.run(bot, omsg, message, plObj, mapObj, "pick", "picked");
                     }
                     if(mapObj.pick == 0) {
-                        omsg.edit({embed: {title: "Loading", description: "Map en cours de chargement."}});
+                        omsg.edit({embed: {title: "Loading", description: "Loading map..."}});
 
                         // Pushing maps picked and maps left into arrays
                         mapObj.mapsArr.forEach((map) => {
@@ -282,7 +282,7 @@ module.exports = class VoteCommand {
 
                         if(mapIndex == mapObj.mapNumb) {
                             setTimeout(() => {
-                                Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Bien joué à tous les participants !"}}, 10);
+                                Global.Msg.edit(omsg, {embed: {"title": Json.langs[lang].vote.matchEnd[0], "description": Json.langs[lang].vote.matchEnd[1]}}, 10);
 
                                 // Make this channel free
                                 if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
@@ -320,7 +320,7 @@ module.exports = class VoteCommand {
                         if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
                         bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
         
-                        Global.Msg.edit(omsg, {embed: {title: "Match terminé", description: "Merci à tous les participants !"}}, 10);
+                        Global.Msg.edit(omsg, {embed: {"title": Json.langs[lang].vote.matchEnd[0], "description": Json.langs[lang].vote.matchEnd[1]}}, 10);
                         voteCollector.stop("ended");
                      
                         /********************************************************************

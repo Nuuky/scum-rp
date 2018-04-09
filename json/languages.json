@@ -4,6 +4,7 @@
         "name": "Français",
         "vote": {
             "voteCanceled": ["Vote annulé", "Vous pouvez relancer un vote."],
+            "matchEnd": ["Match terminé", "Bien joué à tous les participants !"],
             "shld": {
                 "voteMax": "Le nombre maximal de vote pour ce serveur a été atteint.",
                 "args": ["Pour lancer un vote:", "pick [@opposant] [Bo1 / Bo3 / Bo5] [team1 / rien] [team2 / rien] [auto / rien]"],
@@ -40,6 +41,7 @@
         "name": "English",
         "vote": {
             "voteCanceled": ["Vote canceled", "This message will disapear in 10s."],
+            "matchEnd": ["Match ended", "Well done to all players !"],
             "shld": {
                 "voteMax": "The maximal amount of vote for this server have been reached.",
                 "args": ["To start a vote:", "pick [@opponent] [Bo1 / Bo3 / Bo5] [team1 / null] [team2 / null] [auto / null]"],
