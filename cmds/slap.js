@@ -18,7 +18,7 @@ module.exports = class SlapCommand {
         const text = args[0].replace(".", " ");
         if(target == null) return;
         const tVChan = this.msg.guild.members.get(target.id).voiceChannel;
-        //const targetUsername = this.msg.guild.members.get(target.id).displayName;
+        if(!tVChan.permissionsFor(this.bot.user).has("CONNECT")) return
         
         if(tVChan) {
           tVChan.join()
