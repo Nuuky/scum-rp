@@ -14,8 +14,6 @@ module.exports = class PrefixCommand {
     const Guild = this.guild;
     const args = query.split(" ");
     const prefix = args[0]
-    //console.log(query);
-    if(!this.msg.channel.permissionsFor(this.msg.author).has("ADMINISTRATOR")) return
     
     
     let embed = {};

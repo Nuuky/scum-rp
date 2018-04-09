@@ -99,19 +99,15 @@ bot.on("message", message => {
     if(message.author.bot) return;
 
 
-    // Test area ----------
-    // if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Le bot est actuellement en maintenance.");
-    
-    // message.channel.fetchMessage(message.id)
-    // .then(m => {console.log(m); m.delete(); })
-    // .catch(console.error)
-
-
     // Guilds settings
     const Guild = bot.tempGuilds[message.guild.id];
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
+
+
+    // Test area ----------
+    // if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Bot under maintenance.");
 
 
     // Parsing

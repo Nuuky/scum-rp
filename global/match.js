@@ -35,11 +35,16 @@ module.exports = {
         return true
     },
     me: (msg) =>{
-        if(msg.author.id != "98095710548795392") return
+        if(msg.author.id != process.env.MY_DISCORD_ID) return
         return true
     },
     admin: (msg, lang) =>{
-        if(!msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR")) return Message.reply(msg, Json.langs[lang].noRight);
+        if(!msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR")) return Message.reply(msg, Json.langs[lang].noAdmin);
+        return true
+    },
+    friends: (msg) => {
+        const regex = new RegExp(process.env.FRIENDS_DISCORD_ID); 
+        if(msg.author.id.match(regex) == null) return
         return true
     }
 }

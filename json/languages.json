@@ -29,6 +29,7 @@
         "langUnkn": "Langage inconnu.",
         "langUpdated": "Langue changé pour",
         "helpTitle": "Liste des commandes",
+        "noAdmin": "Vous n'étent pas l'Administateur.",
         "cmds": [
             ["ping", "Pong"],
             ["lang", "Change la langue du bot *[ADMIN]*"],
@@ -66,6 +67,7 @@
         "langUnkn": "Language unknown.",
         "langUpdated": "Language updated to",
         "helpTitle": "Commands list",
+        "noAdmin": "You're not the Administrator.",
         "cmds": [
             ["ping", "Pong"],
             ["lang", "Change bot language *[ADMIN]*"],

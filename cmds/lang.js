@@ -19,8 +19,6 @@ module.exports = class PrefixCommand {
     const lang = Guild.lang;
     const msg = this.msg;
     let trans = Json.langs[lang]
-    //console.log(query);
-    if(!msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR")) return
     
     
     const regexLang = Json.langs.regex;
