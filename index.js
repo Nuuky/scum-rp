@@ -107,7 +107,8 @@ bot.on("message", message => {
 
 
     // Test area ----------
-    // if(message.content.startsWith("!") || message.content.startsWith("$")) return Global.Msg.reply(message, "Bot under maintenance.");
+    // if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id).then(m => m.delete()).catch(console.error);
+    // return Global.Msg.reply(message, "Bot under maintenance.");
 
 
     // Parsing
