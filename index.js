@@ -17,7 +17,7 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
 
-d
+
 
 let Guilds = {};
 
