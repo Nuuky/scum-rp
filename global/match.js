@@ -37,6 +37,10 @@ module.exports = {
     me: (msg) =>{
         if(msg.author.id != "98095710548795392") return
         return true
+    },
+    admin: (msg, lang) =>{
+        if(!msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR")) return Message.reply(msg, Json.langs[lang].noRight);
+        return true
     }
 }
         

@@ -124,14 +124,14 @@ bot.on("message", message => {
     const dispatcher = {
         'help': () => { return new Command.HelpCommand(bot, message) },
         'ping': () => { return new Command.PingCommand(bot, message) },
-        'prefix': () => { return new Command.PrefixCommand(bot, message) },
-        'lang': () => { return new Command.LangCommand(bot, message) },
-        'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) },
-        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) },
-        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) },
+        'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
+        'lang': () => { if(Global.Mch.admin(message, lang)) return new Command.LangCommand(bot, message) }, // ADMIN
+        'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) }, // ME
+        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) }, // ME
+        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) }, // ME
         'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
-        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) },
+        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) }, // ME
     };
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 
