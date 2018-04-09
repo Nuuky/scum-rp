@@ -10,4 +10,5 @@ module.exports = {
     VoteCommand: require('./vote'),
     SerVoteCommand: require('./servervote'),
     TestCommand: require('./test'),
+    HiCommand: require('./hi'),
 };

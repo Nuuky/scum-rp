@@ -55,8 +55,8 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            //"name": "!help", //!help //GhostBot
-            //"type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
+            "name": "!help", //!help //GhostBot
+            "type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
             // "streaming": false,
             // "url": "" 
         }
@@ -126,8 +126,9 @@ bot.on("message", message => {
         'ping': () => { return new Command.PingCommand(bot, message) },
         'prefix': () => { return new Command.PrefixCommand(bot, message) },
         'lang': () => { return new Command.LangCommand(bot, message) },
-        'test': () => { return new Command.TestCommand(bot, message) },
-        'slap': () => { return new Command.SlapCommand(bot, message) },
+        'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) },
+        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) },
+        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
         'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) },
