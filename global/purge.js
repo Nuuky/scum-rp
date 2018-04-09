@@ -9,8 +9,6 @@ module.exports = {
         .catch(err => console.error(err));
     },
     reply: (msg, text, sec = Config.bot.purgetime) => {
-      
-        console.log("purge.js: " + text);
         msg.reply(text)
         .then(m => m.delete(1000 * sec))
         .catch(err => console.error(err));
