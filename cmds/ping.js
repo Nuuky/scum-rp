@@ -30,12 +30,3 @@ module.exports = class PingCommand {
         })
     }
 }
-
-
-
-
-
-
-
-
-

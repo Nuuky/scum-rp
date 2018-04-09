@@ -30,8 +30,8 @@
         "helpTitle": "Liste des commandes",
         "cmds": [
             ["ping", "Pong"],
-            ["lang", "Change la langue du bot"],
-            ["prefix", "Change le prefix du bot"],
+            ["lang", "Change la langue du bot *[ADMIN]*"],
+            ["prefix", "Change le prefix du bot *[ADMIN]*"],
             ["random", "Affiche aléatoirement une map et ses paramètres *[GRW]*"],
             ["vote", "Permet de lancer un vote de cartes entre 2 teams *[GRW]*"]
         ]
@@ -66,8 +66,8 @@
         "helpTitle": "Commands list",
         "cmds": [
             ["ping", "Pong"],
-            ["lang", "Change bot language"],
-            ["prefix", "Change bot prefix"],
+            ["lang", "Change bot language *[ADMIN]*"],
+            ["prefix", "Change bot prefix *[ADMIN]*"],
             ["random", "Display randomly 1 Map & parameters *[GRW]*"],
             ["vote", "Start a map vote between 2 teams *[GRW]*"]
         ]
