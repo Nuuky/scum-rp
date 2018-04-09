@@ -247,7 +247,7 @@ module.exports = class VoteCommand {
                         // Foreach map -> Display
                         for(let i = 0; i < mapObj.mapNumb; i++) {
                             embed = Global.Ebd.map(plObj, mapObj, i, dispMapArr[i], lang, prefix);
-                            Global.Msg.embed(message, embed, (60*90));
+                            Global.Msg.embed(message, embed, (60*120));
                         }
 
                         // Make this channel free
