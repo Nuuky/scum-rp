@@ -68,28 +68,28 @@ module.exports = {
     monGuilDB: (obj, action, newObj) => {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("rob-bot");
+            var dbo = db.db(process.env.DB_NAME);
             if(action == "create") {
-                dbo.collection("guilds").insertOne(obj, function(err, res) {
+                dbo.collection(process.env.COLLECTION_NAME).insertOne(obj, function(err, res) {
                     if (err) throw err;
                     console.log("item added");
                     db.close();
                 });
             }
             if(action == "update") {
-                dbo.collection("guilds").updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                dbo.collection(process.env.COLLECTION_NAME).updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
                     console.log(res.result.nModified + " document(s) updated");
                     db.close();
                 });
             }
             if(action == "createMany") {
-                dbo.collection("guilds").insertMany(obj);
+                dbo.collection(process.env.COLLECTION_NAME).insertMany(obj);
                 console.log("items added");
             }
             if(action == "remove") {
-                dbo.collection("guilds").remove(obj);
-                console.log("items added");
+                dbo.collection(process.env.COLLECTION_NAME).remove(obj);
+                console.log("items removed");
             }
         });
     }

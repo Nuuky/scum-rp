@@ -11,7 +11,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://admintest:2235@ds143388.mlab.com:43388/rob-bot";
+const url = process.env.MONGODB;
 
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
@@ -86,6 +86,7 @@ bot.on("guildCreate", (guild) => {
 });
 
 bot.on("guildDelete", (guild) => {
+    console.log("Guild deleted");
     delete bot.tempGuilds[guild.id];
     Global.Fn.monGuilDB({_id: guild.id}, "remove");
 });
@@ -159,4 +160,4 @@ bot.on("warn", (e) => console.warn(e));
 
 
 
-bot.login("Mzk0MDQ5MzYwMTYzNTA0MTI4.DayuyQ.tk9J--3r9cu_OYYtmtQzIEs972o") 
+bot.login(process.env.TOKEN) 
