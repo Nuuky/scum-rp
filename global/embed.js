@@ -31,6 +31,15 @@ module.exports = {
             let arrFields = [],fieldObj;
             for(let i = 0; i < Json.grw.modes.length; i++) {
                 if(displayMap(Json.grw.modes[i].name["en"]) !== "") {
+                    if((i+1)%3 == 0) {
+                      console.log(i + " i%3 = 0")
+                        fieldObj = {
+                            name: '\u200B',
+                            value: '\u200B',
+                            inline: false
+                        }
+                        arrFields.push(fieldObj);
+                    }
                     fieldObj = {
                         name: Json.grw.modes[i].name[lang],
                         value: displayMap(Json.grw.modes[i].name["en"]),

@@ -213,14 +213,6 @@
     "modes": [
         {
             "name": {
-                "en": "Sabotage",
-                "fr": "Sabotage"
-            },
-            "color": "16743680"
-        },
-
-        {
-            "name": {
                 "en": "Elimination",
                 "fr": "Élimination"
             },
@@ -241,6 +233,14 @@
                 "fr": "Extraction"
             },
             "color": "4700884"
+        },
+
+        {
+            "name": {
+                "en": "Sabotage",
+                "fr": "Sabotage"
+            },
+            "color": "16743680"
         }
     ],
 
