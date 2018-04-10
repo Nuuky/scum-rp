@@ -56,7 +56,7 @@ module.exports = {
         let obj = {};
 
         obj["title"] = plObj.title;
-        obj["description"] = `${trans.vote.embed.voteDesc}: ` + ((plObj.teams) ? `[${plObj.playerTurn().team}]` : plObj.playerTurn().team);
+        obj["description"] = `${trans.vote.embed.voteDesc}: ` + (plObj.teams ? `[${plObj.playerTurn().team}]` : plObj.playerTurn().team);
         obj["footer"] = {
             text: `${(mapObj.ban > 0) ? prefix + "ban" : prefix + "pick"} ${trans.vote.embed.voteFoot[0]} | ${prefix}${trans.vote.embed.voteFoot[1]} | ${prefix}${trans.vote.embed.voteFoot[2]}`
         }
