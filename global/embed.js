@@ -29,33 +29,34 @@ module.exports = {
         // Making fields (In case one is empty)
         const fieldsMaker = () => {
             let arrFields = [],fieldObj;
+          const blankField = {
+                name: '\u200B',
+                value: '\u200B',
+                inline: false
+            }
+            arrFields.push(blankField);
             for(let i = 0; i < Json.grw.modes.length; i++) {
                 if(displayMap(Json.grw.modes[i].name["en"]) !== "") {
-                    if((i+1)%3 == 0) {
-                      console.log(i + " i%3 = 0")
-                        fieldObj = {
-                            name: '\u200B',
-                            value: '\u200B',
-                            inline: false
-                        }
-                        arrFields.push(fieldObj);
-                    }
                     fieldObj = {
                         name: Json.grw.modes[i].name[lang],
                         value: displayMap(Json.grw.modes[i].name["en"]),
                         inline: true
                     }
                     arrFields.push(fieldObj);
-                    
+                  
+                    if((i+1)%3 == 0) {
+                        arrFields.push(blankField);
+                    }
                 }
             }
+            arrFields.push(blankField);
             return arrFields
         }
 
         let obj = {};
 
         obj["title"] = plObj.title;
-        obj["description"] = `${trans.vote.embed.voteDesc}: ` + plObj.teams ? `[${plObj.playerTurn().team}]` : plObj.playerTurn().team;
+        obj["description"] = `${trans.vote.embed.voteDesc}: ` + ((plObj.teams) ? `[${plObj.playerTurn().team}]` : plObj.playerTurn().team);
         obj["footer"] = {
             text: `${(mapObj.ban > 0) ? prefix + "ban" : prefix + "pick"} ${trans.vote.embed.voteFoot[0]} | ${prefix}${trans.vote.embed.voteFoot[1]} | ${prefix}${trans.vote.embed.voteFoot[2]}`
         }
