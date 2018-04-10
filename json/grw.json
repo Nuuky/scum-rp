@@ -1,5 +1,46 @@
 {
     "maps": [
+        
+        {
+            "name": {
+                "en": "Unidad F.O.B",
+                "fr": "Base de l'Unidad"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/2zh9.jpg"
+        },
+        
+        {
+            "name": {
+                "en": "Rocha",
+                "fr": "Rocha"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/1lwo.jpg"
+        },
+        
+        {
+            "name": {
+                "en": "Library",
+                "fr": "Bibliothèque"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/qkup.jpg"
+        },
+        
+        {
+            "name": {
+                "en": "Trainyard",
+                "fr": "Cimetière de Trains"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/3l5a.jpg"
+        },
+        
+        {
+            "name": {
+                "en": "Zinc Mine",
+                "fr": "Mine de Zinc"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/08l5.jpg"
+        },
+
         {
             "name": {
                 "en": "Quarry",
@@ -168,8 +209,16 @@
             "mode":"Extraction","url":"https://zupimages.net/up/18/13/29s0.jpg"
         }
     ],
-
+    "modesName": "Sabotage|Elimination|Uplink|Extraction",
     "modes": [
+        {
+            "name": {
+                "en": "Sabotage",
+                "fr": "Sabotage"
+            },
+            "color": "16743680"
+        },
+
         {
             "name": {
                 "en": "Elimination",
