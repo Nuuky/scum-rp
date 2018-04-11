@@ -97,7 +97,6 @@ bot.on("guildDelete", (guild) => {
 bot.on("message", message => {
     // Watch if the message is for the bot
     if(message.author.bot) return;
-    if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
 
 
     // Guilds settings
@@ -105,6 +104,7 @@ bot.on("message", message => {
     const prefix = Guild.prefix;
     const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
+    if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
 
 
     // Test area ----------
