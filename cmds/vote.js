@@ -138,7 +138,7 @@ module.exports = class VoteCommand {
                 if (message.author.bot) return; // Is bot
                 if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.delete();
                 if(!message.content.startsWith(prefix)) return // No prefix
-                if(!msg.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) { // CAN'T SEND MESSAGE
+                if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) { // CAN'T SEND MESSAGE
                     // Change channel name
                     chanName = message.channel.name;
                     chanName = chanName.replace(RegUse, "");

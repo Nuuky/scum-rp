@@ -18,5 +18,6 @@ module.exports = class TestCommand {
         
         
         Global.Msg.send(msg, "This is a test !", 2);
+        query;
     }
 }
