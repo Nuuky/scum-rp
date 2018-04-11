@@ -138,6 +138,23 @@ module.exports = class VoteCommand {
                 if (message.author.bot) return; // Is bot
                 if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.delete();
                 if(!message.content.startsWith(prefix)) return // No prefix
+                if(!msg.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) { // CAN'T SEND MESSAGE
+                    // Change channel name
+                    chanName = message.channel.name;
+                    chanName = chanName.replace(RegUse, "");
+                    chanName = chanName + Json.voteSet.outUse;
+                    if(message.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) message.channel.edit({ name: chanName })
+                        .catch(console.error);
+
+                    // Make this channel free
+                    if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteCap++;
+                    if(Guild.voteCap > 1) bot.tempGuilds[msg.guild.id].voteMax = false;
+                    bot.tempGuilds[msg.guild.id].channels[msg.channel.id].vote = false;
+                  
+                    voteCollector.stop("canceled");
+                  
+                    return console.log("Can't send message in " + message.channel.name)
+                }
                 if(message.content.startsWith(prefix+"cancel")) { // Someone canceled
                     // Change channel name
                     chanName = message.channel.name;
