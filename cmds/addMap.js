@@ -41,33 +41,35 @@ module.exports = class AddMapCommand {
         
         // Check if map already known
         let mapExist = false;
-      
+        
         const maps = Json.grw.maps;
         for(let i = 0; i < maps.length; i++) {
             for(let lang in maps[i].name) {
-                console.log(`nameEn = ${args[0]} // nameFr = ${args[1]} // lang = ${maps[i].name[lang]}`)
+                console.log(`${args[0]} -- ${args[1]} -- ${maps[i].name[lang]}`)
                 if(args[0] == maps[i].name[lang] || args[1] == maps[i].name[lang]) {
                     mapExist = true;
-                  break
+                    break
                 }
             }
+            if(mapExist) break
         }
-        console.log(mapExist)
         if(mapExist) return Global.Msg.reply(msg, "Cette map existe déjà.")
 
       
         // Get the index of the la map of the mode 
         let mapMode = false;
         let lastMapID;
-        Json.grw.maps.forEach((map, index) => {
-            if(!mapMode && map.mode["en"] == args[2]) {
+        for(let i = 0; i < maps.length; i++) {
+            console.log(maps[i].mode["en"] + " --- " + args[2])
+            if(!mapMode && maps[i].mode["en"] == args[2]) {
                 mapMode = true;
             }
             if(mapMode) {
-                if(map.mode["en"] != args[2]) return
-                lastMapID = index + 1;
+                if(maps[i].mode["en"] != args[2]) return
+                lastMapID = i + 1;
+                break
             }
-        });
+        }
         if(!mapMode) return console.log("Can't find mode.");
 
         Json.grw.maps.splice(lastMapID, 0, map);
