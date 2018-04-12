@@ -45,11 +45,14 @@ module.exports = class AddMapCommand {
         const maps = Json.grw.maps;
         for(let i = 0; i < maps.length; i++) {
             for(let lang in maps[i].name) {
-                if(args[0] == lang || args[1] == lang) {
-                    return mapExist = true;
+                console.log(`nameEn = ${args[0]} // nameFr = ${args[1]} // lang = ${maps[i].name[lang]}`)
+                if(args[0] == maps[i].name[lang] || args[1] == maps[i].name[lang]) {
+                    mapExist = true;
+                  break
                 }
             }
         }
+        console.log(mapExist)
         if(mapExist) return Global.Msg.reply(msg, "Cette map existe déjà.")
 
       
