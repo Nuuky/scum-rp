@@ -3,7 +3,6 @@
 const Discord = require("discord.js")
 const bot = new Discord.Client({autorun: true})
 
-const fs = require("fs")
 const Json = require("./json/")
 const Command = require("./cmds/")
 const Global = require("./global/")
