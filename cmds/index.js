@@ -11,4 +11,7 @@ module.exports = {
     SerVoteCommand: require('./servervote'),
     TestCommand: require('./test'),
     HiCommand: require('./hi'),
+    AddMapCommand: require('./addMap.js'),
+    AddModeCommand: require('./addMode.js'),
+    RemoveMapCommand: require('./removeMap.js'),
 };

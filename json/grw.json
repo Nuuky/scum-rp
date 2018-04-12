@@ -210,13 +210,15 @@
         }
     ],
     "modesName": "Sabotage|Elimination|Uplink|Extraction",
+    "modesColors": "blue|white|black|pink|purple|magenta|forest",
+    "modesDecimalColors": [14367547, 4512600, 4700884, 16743680],
     "modes": [
         {
             "name": {
                 "en": "Elimination",
                 "fr": "Élimination"
             },
-            "color": "14367547"
+            "color": 14367547
         },
 
         {
@@ -224,7 +226,7 @@
                 "en": "Uplink",
                 "fr": "Relais"
             },
-            "color": "4512600"
+            "color": 4512600
         },
 
         {
@@ -232,7 +234,7 @@
                 "en": "Extraction",
                 "fr": "Extraction"
             },
-            "color": "4700884"
+            "color": 4700884
         },
 
         {
@@ -240,7 +242,7 @@
                 "en": "Sabotage",
                 "fr": "Sabotage"
             },
-            "color": "16743680"
+            "color": 16743680
         }
     ],
 
