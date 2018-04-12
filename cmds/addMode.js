@@ -22,7 +22,7 @@ module.exports = class AddModeCommand {
         \n\`${prefix}addmode [nomEng] [nomFr] [color]\`
         \n\`nomEng:\` Nom Anglais du mode.
         \n\`nomFr:\` Nom Français du mode.
-        \n\`color:\` ${Json.grw.modesColors} ou donnez la valeur décimale d'une couleur.`);
+        \n\`color:\` \`${Json.grw.modesColors}\` ou donnez la valeur décimale d'une couleur.`, 30);
         const regex = new RegExp(Json.grw.modesColors);
         if(args[2].match(regex) == null && isNaN(args[2])) return Global.Msg.reply("La couleur indiqué n'est pas bonne, tappez " + prefix + "addmode pour en savoir plus.");
         // Check if mode already known
