@@ -25,8 +25,9 @@ module.exports = class AddMapCommand {
         \n\`modeEng:\` \`${Json.grw.modesName}\` *(Utilisez exactement un de ces thermes)*
         \n\`urlImg:\` Url de l'image de la map, elle doit correspondre à l'exemple (taille etc...) -> https://zupimages.net/up/18/13/hsnr.jpg`, 30);
         const regex = new RegExp(Json.grw.modesName);
-        if(args[2].match(regex) == null) return Global.Msg.reply("Le mode indiqué n'est pas le bon, tappez " + prefix + "addmap pour en savoir plus.");
-        if(!args[3].startWith("http")) return Global.Msg.reply("L'image doit être hebergé sur un site tierse, ex:  https://zupimages.net");
+        if(args[2].match(regex) == null) return Global.Msg.reply("Le mode indiqué n'existe pas, tappez " + prefix + "addmap pour en savoir plus ou créez en un nouveau avec ");
+        console.log(args[3])
+        if(!args[3].startsWith("http")) return Global.Msg.reply("L'image doit être hebergé sur un site tierse, ex:  https://zupimages.net");
 
         const map = {
             "name": {
@@ -37,15 +38,17 @@ module.exports = class AddMapCommand {
         }
         
         
-        // Check if mode already known
+        // Check if map already known
         let mapExist = false;
-        Json.grw.maps.forEach(map => {
-            map.name.forEach(lang => {
+      
+        const maps = Json.grw.maps;
+        for(let i = 0; i < maps.length; i++) {
+            for(let lang in maps[i].name) {
                 if(args[0] == lang || args[1] == lang) {
                     return mapExist = true;
                 }
-            })
-        });
+            }
+        }
         if(mapExist) return Global.Msg.reply(msg, "Cette map existe déjà.")
 
       
