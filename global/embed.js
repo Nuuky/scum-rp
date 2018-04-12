@@ -35,8 +35,10 @@ module.exports = {
                 inline: false
             }
             arrFields.push(blankField);
+            let j = 0;
             for(let i = 0; i < Json.grw.modes.length; i++) {
                 if(displayMap(Json.grw.modes[i].name["en"]) !== "") {
+                    console.log(j)
                     fieldObj = {
                         name: Json.grw.modes[i].name[lang],
                         value: displayMap(Json.grw.modes[i].name["en"]),
@@ -44,9 +46,10 @@ module.exports = {
                     }
                     arrFields.push(fieldObj);
                   
-                    if((i+1)%3 == 0) {
+                    if((j+1)%3 == 0) {
                         arrFields.push(blankField);
                     }
+                    j++
                 }
             }
             arrFields.push(blankField);
