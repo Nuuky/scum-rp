@@ -41,12 +41,13 @@ app.get("/", (request, response) => {
   console.log(Date.now() + " Ping Received");
   response.sendStatus(200);
 });
-app.listen(process.env.PORT);
+const listener = app.listen(process.env.PORT, () => {
+  console.log(`Your app is listening on port ${listener.address().port}`)
+})
+
 // setInterval(() => { 
 //   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-// }, 280000);
-
-
+// }, 280000); 
 
 
 bot.on("ready", () => {
