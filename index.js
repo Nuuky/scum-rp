@@ -145,7 +145,7 @@ bot.on("message", message => {
 
     
     if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
-        .then(m => m.delete())
+        .then(m => setTimeout( () => {m.delete()}, 500) ) 
         .catch(console.error);
         
     

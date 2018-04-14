@@ -24,7 +24,7 @@ module.exports = {
 
         if(Guild.voteMax) return Message.reply(msg, trans.vote.shld.voteMax); // Max vote reached
         if(Guild.channels[msg.channel.id].vote) {
-            if(msg.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) msg.delete();
+            if(msg.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) setTimeout( () => {msg.delete()}, 500);
             return Message.send(msg, trans.vote.shld.voteIn, 5)
         } // Already a vote in the chan
         if(!msg.channel.name.startsWith(Json.voteSet.channelName)) return Message.reply(msg, trans.vote.shld.wrgChan); // Check for channel name

@@ -136,7 +136,7 @@ module.exports = class VoteCommand {
                 // ------------------------------ SHIELD -------------------------------
                 // ---------------------------------------------------------------------
                 if (message.author.bot) return; // Is bot
-                if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.delete();
+                if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) setTimeout( () => {message.delete()}, 500)
                 if(!message.content.startsWith(prefix)) return // No prefix
                 if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) { // CAN'T SEND MESSAGE
                     // Change channel name
@@ -245,7 +245,7 @@ module.exports = class VoteCommand {
                         .then((msg) => {
                             if(!mapObj.manualDisplay) {
                                 setTimeout(() => {
-                                    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) msg.delete();
+                                    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) setTimeout( () => {message.delete()}, 500);
                                 }, (1000*(60*90)))
                             }
                         })
