@@ -20,7 +20,7 @@ module.exports = class RandomCommand {
         embed = {
             "title": (args[0] && args[1]) ? `[${args[0].toString()}] vs [${args[1].toString()}]` : '',
             "description": `**${randomMaps.name[lang].toUpperCase()}**
-            \n🕑 ${hoursGlobal.Fn.randomNumber(0, hours.length)}h               ${randomWeather.emoji} ${randomWeather.name[lang]}`,
+            \n🕑 ${hours[Global.Fn.randomNumber(0, hours.length - 1)]}h               ${randomWeather.emoji} ${randomWeather.name[lang]}`,
             "color": Global.Fn.getMode(randomMaps.mode).color,
             "thumbnail": {
                 "url": randomMaps.url
