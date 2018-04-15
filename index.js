@@ -129,16 +129,27 @@ bot.on("message", message => {
         'ping': () => { return new Command.PingCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
+      
+      
+        // ADMIN ---------------------------
+        'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
+        'lang': () => { if(Global.Mch.admin(message, lang)) return new Command.LangCommand(bot, message) }, // ADMIN
+      
+      
+        // FRIENDS -------------------------
         // 'addmap'  : () => { if(Global.Mch.friends(message)) return new Command.AddMapCommand(bot, message) }, // FRIENDS
         // 'addmode'  : () => { if(Global.Mch.friends(message)) return new Command.AddModeCommand(bot, message) }, // FRIENDS
         // 'removemap'  : () => { if(Global.Mch.friends(message)) return new Command.RemoveMapCommand(message) }, // FRIENDS
-        'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
-        'lang': () => { if(Global.Mch.admin(message, lang)) return new Command.LangCommand(bot, message) }, // ADMIN
-        'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) }, // ME
-        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) }, // ME
-        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) }, // ME
-        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) }, // ME
+      
+      
+        // ME ------------------------------
+        'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) },
+        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) },
+        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) },
+        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) },
     };
+  
+  
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 
     if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].voteMax) return; // Prevent spaming msg in a voting chan

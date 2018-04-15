@@ -19,7 +19,7 @@
             },
             "embed": {
                 "voteDesc": "Au tour de",
-                "voteFoot": ["[n]: voter", "cancel: annuler", "translate: changer la langue"],
+                "voteFoot": ["[n]: pour voter", "cancel: annuler le vote", "translate: changer la langue"],
                 "mapParam": "Paramètres :",
                 "mapFoot": ["next: map suivante", "end: match fini", "Dernière map"]
             }
@@ -57,7 +57,7 @@
             },
             "embed": {
                 "voteDesc": "Round",
-                "voteFoot": ["[n]: to vote", "cancel: cancel", "translate: change language"],
+                "voteFoot": ["[n]: to vote", "cancel: cancel the vote", "translate: change language"],
                 "mapParam": "Settings :",
                 "mapFoot": ["next: next map", "end: match over", "Last map"]
             }
