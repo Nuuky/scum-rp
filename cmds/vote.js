@@ -21,7 +21,6 @@ module.exports = class VoteCommand {
         // ---------------------------------------------------------------------
         // ------------------------- PLAYERS SETTINGS --------------------------
         // ---------------------------------------------------------------------
-        let team1, team2;
         this.plObj = {}
         // Player 1
         this.plObj.teams = false;
@@ -79,7 +78,7 @@ module.exports = class VoteCommand {
         let nick = {};
         nick.one = Global.Fn.getNick(msg, this.plObj.pl1.user.id);
         nick.two = Global.Fn.getNick(msg, this.plObj.pl2.user.id);
-        let teamsTitle = this.plObj.teams ? `[${this.plObj.pl1.team}] vs [${this.plObj.pl2.team}]` : `${this.plObj.pl1.team} vs ${this.plObj.pl1.team}`;
+        let teamsTitle = this.plObj.teams ? `[${this.plObj.pl1.team}] vs [${this.plObj.pl2.team}]` : `${this.plObj.pl1.team} vs ${this.plObj.pl2.team}`;
         this.plObj.title = `${teamsTitle} (Bo${this.mapObj.mapNumb})`;
     }
 
