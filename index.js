@@ -103,11 +103,16 @@ bot.on("message", message => {
     const Guild = bot.tempGuilds[message.guild.id];
     const prefix = Guild.prefix;
     const lang = Guild.lang;
-    console.log("prefix: " + message.content.startsWith(prefix))
     if(!message.content.startsWith(prefix)) return;
     if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
 
 
+
+    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
+        .then(m => setTimeout( () => {m.delete()}, 500) ) 
+        .catch(console.error);
+  
+  
     // Test area ----------
     // if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id).then(m => m.delete()).catch(console.error);
     // return Global.Msg.reply(message, "Bot under maintenance.");
@@ -117,10 +122,6 @@ bot.on("message", message => {
     const exp = new RegExp("^\\"+ prefix +"(\\S+)\\s*(.*)");
     const query = msg.match(exp);
     if(query == null) return;
-
-    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
-        .then(m => setTimeout( () => {m.delete()}, 500) ) 
-        .catch(console.error);
 
 
     const dispatcher = {
