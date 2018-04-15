@@ -27,70 +27,6 @@
 
         {
             "name": {
-                "en": "Desert Outpost",
-                "fr": "Base du Désert"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/avtr.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Deforestation",
-                "fr": "Déforestation"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/fpjl.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Farm Town",
-                "fr": "Ville Agricole"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/wmmd.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Cartel Depot",
-                "fr": "Dépôt du Cartel"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/kza8.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Jungle Base",
-                "fr": "Base de la Jungle"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/7hf6.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Ruins",
-                "fr": "Ruines"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/iajx.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Dust Town",
-                "fr": "Village abandonné"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/9744.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Mountain Village",
-                "fr": "Village de Montagne"
-            },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/qdpu.jpg"
-        },
-
-        {
-            "name": {
                 "en": "Burnt-out",
                 "fr": "Calciné"
             },
@@ -111,30 +47,6 @@
                 "fr": "Entrepôt"
             },
             "mode":"Uplink","url":"https://zupimages.net/up/18/13/00ht.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Oil Rush",
-                "fr": "Ruée vers le Pétrole"
-            },
-            "mode":"Uplink","url":"https://zupimages.net/up/18/13/0fo9.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Scrapeyard",
-                "fr": "Casse"
-            },
-            "mode":"Uplink","url":"https://zupimages.net/up/18/13/pjvw.jpg"
-        },
-
-        {
-            "name": {
-                "en": "Urban Incursion",
-                "fr": "Incursion Urbaine"
-            },
-            "mode":"Uplink","url":"https://zupimages.net/up/18/13/nqby.jpg"
         },
 
         {
@@ -160,14 +72,6 @@
             },
             "mode":"Extraction","url":"https://zupimages.net/up/18/13/pgum.jpg"
         },
-
-        {
-            "name": {
-                "en": "Cliffside",
-                "fr": "Falaise"
-            },
-            "mode":"Extraction","url":"https://zupimages.net/up/18/13/29s0.jpg"
-        },
         
         {
             "name": {
@@ -191,22 +95,6 @@
                 "fr": "Bibliothèque"
             },
             "mode":"Sabotage","url":"https://zupimages.net/up/18/15/qkup.jpg"
-        },
-        
-        {
-            "name": {
-                "en": "Trainyard",
-                "fr": "Cimetière de Trains"
-            },
-            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/3l5a.jpg"
-        },
-        
-        {
-            "name": {
-                "en": "Zinc Mine",
-                "fr": "Mine de Zinc"
-            },
-            "mode":"Sabotage","url":"https://zupimages.net/up/18/15/08l5.jpg"
         }
     ],
     "modesName": "Sabotage|Elimination|Uplink|Extraction",
