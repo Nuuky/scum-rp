@@ -19,7 +19,7 @@
             },
             "embed": {
                 "voteDesc": "Au tour de",
-                "voteFoot": ["[n]: voter", "cancel pour annuler", "translate: changer la langue"],
+                "voteFoot": ["[n]: voter", "cancel: annuler", "translate: changer la langue"],
                 "mapParam": "Paramètres :",
                 "mapFoot": ["next: map suivante", "end: match fini", "Dernière map"]
             }
