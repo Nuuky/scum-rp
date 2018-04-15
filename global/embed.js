@@ -38,7 +38,6 @@ module.exports = {
             let j = 0;
             for(let i = 0; i < Json.grw.modes.length; i++) {
                 if(displayMap(Json.grw.modes[i].name["en"]) !== "") {
-                    console.log(j)
                     fieldObj = {
                         name: Json.grw.modes[i].name[lang],
                         value: displayMap(Json.grw.modes[i].name["en"]),

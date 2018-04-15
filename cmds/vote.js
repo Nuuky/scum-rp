@@ -234,9 +234,11 @@ module.exports = class VoteCommand {
                                 lastMap.push(map);
                             }
                         });
+                        console.log("Display map before: " + dispMapArr)
                         // Shuffle arrays for a random maps sequences
                         Global.Fn.shuffle(dispMapArr);
                         Global.Fn.shuffle(lastMap);
+                        console.log("Display map after: " + dispMapArr)
                         // Push first map left (non-picked) into picked maps array (random last map)
                         dispMapArr.push(lastMap[0]);
                     
