@@ -111,7 +111,7 @@ module.exports = class VoteCommand {
             chanName = chanName + Json.voteSet.inUse;
             if(omsg.channel.permissionsFor(bot.user).has("MANAGE_CHANNELS")) omsg.channel.edit({ name: chanName })
                 .catch(console.error);
-            
+
 
 
             let embed = Global.Ebd.vote(omsg, plObj, mapObj, lang, prefix);
@@ -124,6 +124,7 @@ module.exports = class VoteCommand {
 
             const voteCollector = new Discord.MessageCollector(omsg.channel, m => ((m.author.id === plObj.pl1.user.id) || (m.author.id === plObj.pl2.user.id)));
             voteCollector.on("collect", message => {
+              
                 let args = message.content.split(" "); // Message arguments
                 Guild = bot.tempGuilds[message.guild.id];
                 lang = Guild.lang;
