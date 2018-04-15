@@ -130,7 +130,7 @@ module.exports = class VoteCommand {
                 lang = Guild.lang;
                 prefix = Guild.prefix;
 
-
+                console.log("playerTurn: " + plObj.playerTurn + "")
 
 
                 // ---------------------------------------------------------------------
@@ -225,7 +225,7 @@ module.exports = class VoteCommand {
                         VoteAction.run(bot, omsg, message, plObj, mapObj, "pick", "picked");
                     }
                     if(mapObj.pick == 0) {
-                        omsg.edit({embed: {title: "Loading", description: "Loading map..."}});
+                        omsg.edit({embed: {title: "Vote ended", description: "Loading map..."}});
 
                         // Pushing maps picked and maps left into arrays
                         mapObj.mapsArr.forEach((map) => {
@@ -241,16 +241,13 @@ module.exports = class VoteCommand {
                         // Push first map left (non-picked) into picked maps array (random last map)
                         dispMapArr.push(lastMap[0]);
                     
-                        embed = Global.Ebd.map(plObj, mapObj, mapIndex, dispMapArr[mapIndex], lang, prefix);
-                        omsg.edit({embed})
-                        .then((msg) => {
-                            if(!mapObj.manualDisplay) {
-                                setTimeout(() => {
-                                    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) setTimeout( () => {message.delete()}, 500);
-                                }, (1000*(60*90)))
-                            }
-                        })
-                        mapIndex++;
+                        if(mapObj.manualDisplay) {
+                            embed = Global.Ebd.map(plObj, mapObj, mapIndex, dispMapArr[mapIndex], lang, prefix);
+                            omsg.edit({embed});
+                            mapIndex++;
+                        } else {
+                          omsg.delete();
+                        }
                     }
                 }
 
