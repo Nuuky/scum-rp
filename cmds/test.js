@@ -17,7 +17,8 @@ module.exports = class TestCommand {
         console.log("Test cmd. query = " + query);
         
         
-        Global.Msg.send(msg, "This is a test !", 2);
+        const test = 16;
+        Global.Fn.monGuilDB({id_: "hours"}, "update", "{$inc: {h" + test + ": 1}}")
         query;
     }
 }
