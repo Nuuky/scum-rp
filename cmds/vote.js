@@ -39,7 +39,7 @@ module.exports = class VoteCommand {
             this.plObj.teams = true;
         }
         // Who's next ?
-        this.plObj.plBool = false;
+        this.plObj.plBool = true;
         this.plObj.playerTurn = () => {
             console.log("plBool: " + this.plObj.plBool);
             return (this.plObj.plBool) ? this.plObj.pl1 : this.plObj.pl2;
@@ -137,8 +137,7 @@ module.exports = class VoteCommand {
                 // ------------------------------ SHIELD -------------------------------
                 // ---------------------------------------------------------------------
                 if (message.author.bot) return; // Is bot
-                if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) setTimeout( () => {message.delete()}, 500)
-                if(!message.content.startsWith(prefix)) return // No prefix
+                if(!message.content.startsWith(prefix) && message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) return setTimeout( () => {message.delete()}, 500) // No prefix
                 if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) { // CAN'T SEND MESSAGE
                     // Change channel name
                     chanName = message.channel.name;
