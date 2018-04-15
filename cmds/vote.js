@@ -39,8 +39,9 @@ module.exports = class VoteCommand {
             this.plObj.teams = true;
         }
         // Who's next ?
-        this.plObj.plBool = true;
+        this.plObj.plBool = false;
         this.plObj.playerTurn = () => {
+            console.log("plBool: " + this.plObj.plBool);
             return (this.plObj.plBool) ? this.plObj.pl1 : this.plObj.pl2;
         };
 
@@ -130,7 +131,6 @@ module.exports = class VoteCommand {
                 lang = Guild.lang;
                 prefix = Guild.prefix;
 
-                console.log("playerTurn: " + plObj.playerTurn + "")
 
 
                 // ---------------------------------------------------------------------

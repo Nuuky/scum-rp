@@ -117,11 +117,6 @@ bot.on("message", message => {
     const query = msg.match(exp);
     if(query == null) return;
 
-    
-    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
-        .then(m => setTimeout( () => {m.delete()}, 500) ) 
-        .catch(console.error);
-
 
     const dispatcher = {
         'help': () => { return new Command.HelpCommand(bot, message) },
@@ -147,6 +142,13 @@ bot.on("message", message => {
     return
     };
     command.run(query[2]);
+
+    
+    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) {
+        message.channel.fetchMessage(message.id)
+        .then(m => setTimeout( () => {m.delete()}, 500) ) 
+        .catch(console.error);
+    }
         
     
 });
