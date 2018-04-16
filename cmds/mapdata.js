@@ -85,13 +85,15 @@ module.exports = class MapDataCommand {
     }
 
 
-    const weather = {};
-    weather[args[1].toLowerCase()] = 1
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {$inc: {weather}}, "grw-data")
-
-    const hours = {};
-    hours["h" + tempHours] = 1
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {$inc: {hours}}, "grw-data")
+    const weathInc = {$inc: {}};
+    weathInc.$inc["weather." + args[1].toLowerCase()] = 1
+    console.log(weathInc)
+    Global.Fn.monGuilDB({id_: "data_stats"}, "update", weathInc, "grw-data")
+    // doc.$inc['activity.' + value]
+    const hourInc = {$inc: {}};
+    hourInc.$inc["hours.h" + tempHours] = 1
+    console.log(hourInc)
+    Global.Fn.monGuilDB({id_: "data_stats"}, "update", hourInc, "grw-data")
 
     Global.Msg.reply(msg, "Done.", 5)
 
