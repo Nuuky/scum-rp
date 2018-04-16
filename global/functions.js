@@ -65,32 +65,42 @@ module.exports = {
         });
     },
 
-    monGuilDB: (obj, action, newObj) => {
+    monGuilDB: new Promise((obj, action, newObj, colName = "guilds") => {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db(process.env.DB_NAME);
+
+            if(action == "find") {
+                dbo.collection(colName).find(obj).toArray(function(err, result) {
+                    if (err) throw err;
+                    console.log("item found");
+                    return result;
+                    db.close();
+                });
+            }
+
             if(action == "create") {
-                dbo.collection(process.env.COLLECTION_NAME).insertOne(obj, function(err, res) {
+                dbo.collection(colName).insertOne(obj, function(err, res) {
                     if (err) throw err;
                     console.log("item added");
                     db.close();
                 });
             }
             if(action == "update") {
-                dbo.collection(process.env.COLLECTION_NAME).updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                dbo.collection(colName).updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
                     console.log(res.result.nModified + " document(s) updated");
                     db.close();
                 });
             }
             if(action == "createMany") {
-                dbo.collection(process.env.COLLECTION_NAME).insertMany(obj);
+                dbo.collection(colName).insertMany(obj);
                 console.log("items added");
             }
             if(action == "remove") {
-                dbo.collection(process.env.COLLECTION_NAME).remove(obj);
+                dbo.collection(colName).remove(obj);
                 console.log("items removed");
             }
         });
-    }
+    })
 };

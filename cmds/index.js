@@ -14,4 +14,5 @@ module.exports = {
     AddMapCommand: require('./addMap.js'),
     AddModeCommand: require('./addMode.js'),
     RemoveMapCommand: require('./removeMap.js'),
+    MapDataCommand: require('./mapdata.js'),
 };
