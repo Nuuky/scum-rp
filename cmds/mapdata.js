@@ -65,8 +65,8 @@ module.exports = class MapDataCommand {
 
     if(args[2]) return console.log("Wrong msg format") // Global.Msg.reply(msg, "Le format de votre message n'est pas le bon.")
     let regex = Json.grw.weatherName
-    console.log(args[1].toLowerCase())
-    if(args[1].toLowerCase().match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
+    let weathArg = args[1].toLowerCase();
+    if(weathArg.match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
 
 
     let tempHours = args[0];
@@ -86,14 +86,12 @@ module.exports = class MapDataCommand {
 
 
     const weathInc = {$inc: {}};
-    weathInc.$inc["weather." + args[1].toLowerCase()] = 1
-    console.log(weathInc)
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", weathInc, "grw-data")
+    weathInc.$inc["weather." + weathArg] = 1
+    Global.Fn.monGuilDB({_id: "data_stats"}, "update", weathInc, "grw-data")
     // doc.$inc['activity.' + value]
     const hourInc = {$inc: {}};
     hourInc.$inc["hours.h" + tempHours] = 1
-    console.log(hourInc)
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", hourInc, "grw-data")
+    Global.Fn.monGuilDB({_id: "data_stats"}, "update", hourInc, "grw-data")
 
     Global.Msg.reply(msg, "Done.", 5)
 
