@@ -65,7 +65,7 @@ module.exports = {
         });
     },
 
-    monGuilDB: new Promise((obj, action, newObj, colName = "guilds") => {
+    monGuilDB: (obj, action, newObj, colName = "guilds") => {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db(process.env.DB_NAME);
@@ -102,5 +102,5 @@ module.exports = {
                 console.log("items removed");
             }
         });
-    })
+    }
 };
