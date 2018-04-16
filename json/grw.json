@@ -210,6 +210,7 @@
         }
     ],
     "hours": "7|8|16|18|22",
+    "regHours": [7, 16, 18, 22],
     "weatherName": "dégagé|temps_couvert|pluie|tempête|brumeux",
     "modesName": "Sabotage|Elimination|Uplink|Extraction",
     "modesColors": "blue|white|black|pink|purple|magenta|forest",
