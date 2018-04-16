@@ -6,6 +6,7 @@ const grw = require("../json/grw.json");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const Message = require("./purge")
+const strTo = require("./strTo.js")
 
 module.exports = {
     
@@ -119,7 +120,7 @@ module.exports = {
                 for(let hour in result[0].hours) {
                     totalHours += Math.round((result[0].hours[hour] / h) * 100)
                     const H = hour.replace("h", "")
-                    hr += `**${H}h00:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
+                    if(result[0].hours[hour] > 0) hr += `**${H}h00:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
                 }
         
                 let wr = "";
@@ -133,6 +134,7 @@ module.exports = {
         
                 const embed = {
                   title: "Stats Heure et Temps (" + h + ")",
+                  color: strTo.color("purple"),
                   fields: [
                     {
                       name: "__Heures:__ (" + totalHours + "%)",
