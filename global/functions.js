@@ -104,29 +104,26 @@ module.exports = {
             dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
                 if (err) throw err;
                 console.log("item found");
-                //console.log(result)
                 let h = 0;
-                for(let hour in result.hours) {
-                    h += result.hours[hour]
+                for(let hour in result[0].hours) {
+                    h += result[0].hours[hour]
                 }
         
                 let w = 0;
-                for(let weath in result.weather) {
-                    w += result.weather[weath]
+                for(let weath in result[0].weather) {
+                    w += result[0].weather[weath]
                 }
               
-                console.log("h: + h )
+                console.log("h: " + h + " w: " + w)
         
                 let hr = "";
-                for(let hour in result.hours) {
-                  hr += `${hour}: ${(result.hours[hour] / h) * 100}%\n`
-                  console.log(hr)
+                for(let hour in result[0].hours) {
+                  hr += `**${hour}:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
                 }
         
                 let wr = "";
-                for(let weath in result.weather) {
-                  wr += `${weath}: ${(result.weather[weath] / w) * 100}%\n`
-                  console.log(wr)
+                for(let weath in result[0].weather) {
+                  wr += `**${weath}:** ${Math.round((result[0].weather[weath] / w) * 100)}%\n`
                 }
 
         
@@ -135,17 +132,17 @@ module.exports = {
                   fields: [
                     {
                       name: "Heures:",
-                      value: "test",
+                      value: hr,
                       inline: true
                     },
                     {
                       name: "Temps:",
-                      value: "test",
+                      value: wr,
                       inline: true
                     }
                   ]
                 }
-                Message.embed(msg, embed, 20)
+                Message.embed(msg, embed, 60)
 
                 db.close();
             });
