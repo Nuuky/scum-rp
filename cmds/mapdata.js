@@ -22,47 +22,7 @@ module.exports = class MapDataCommand {
     if(!args[0] && !args[1]) return console.log("No query") // Global.Msg.reply(msg, `\`${prefix}mapdata [heure] [temps]\``)
 
     if(args[0] == "stats") {
-      const statsFn = (r) => {
-        console.log(r)
-        let h = 0;
-        r.hours.forEach(hour => {
-          h += hour;
-        });
-
-        let w = 0;
-        r.weather.forEach(weath => {
-          w += weath;
-        });
-
-        let hr = "";
-        for(let hour in r.hours) {
-          hr += `${hour}: ${(r.hours[hour] / h) * 100}%\n`
-        }
-
-        let wr = "";
-        for(let weath in r.weather) {
-          wr += `${weath}: ${(r.weather[weath] / w) * 100}%\n`
-        }
-
-
-        const embed = {
-          title: "Stats Heure et Temps",
-          fields: [
-            {
-              name: "Heures:",
-              value: hr
-            },
-            {
-              name: "Temps:",
-              value: wr
-            }
-          ]
-        }
-        Global.Msg.embed(msg, embed, 20)
-
-      }
-
-      Global.Fn.monGuilDB({_id:"data_stats"}, statsFn(), "find", "grw-data")
+      return Global.Fn.mapDataStats(msg)
     }
 
     if(args[2]) return console.log("Wrong msg format") // Global.Msg.reply(msg, "Le format de votre message n'est pas le bon.")

@@ -5,6 +5,7 @@ const Config = require("../json/config.json");
 const grw = require("../json/grw.json");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
+const Message = require("./purge")
 
 module.exports = {
     
@@ -70,15 +71,6 @@ module.exports = {
             if (err) throw err;
             var dbo = db.db(process.env.DB_NAME);
 
-            if(action == "find") {
-                dbo.collection(colName).find(obj).toArray(function(err, result) {
-                    if (err) throw err;
-                    console.log("item found");
-                    newObj(result);
-                    db.close();
-                });
-            }
-
             if(action == "create") {
                 dbo.collection(colName).insertOne(obj, function(err, res) {
                     if (err) throw err;
@@ -102,5 +94,62 @@ module.exports = {
                 console.log("items removed");
             }
         });
+    },
+    
+    mapDataStats: (msg) => {
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db(process.env.DB_NAME);
+
+            dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
+                if (err) throw err;
+                console.log("item found");
+                //console.log(result)
+                let h = 0;
+                for(let hour in result.hours) {
+                    h += result.hours[hour]
+                }
+        
+                let w = 0;
+                for(let weath in result.weather) {
+                    w += result.weather[weath]
+                }
+              
+                console.log("h: + h )
+        
+                let hr = "";
+                for(let hour in result.hours) {
+                  hr += `${hour}: ${(result.hours[hour] / h) * 100}%\n`
+                  console.log(hr)
+                }
+        
+                let wr = "";
+                for(let weath in result.weather) {
+                  wr += `${weath}: ${(result.weather[weath] / w) * 100}%\n`
+                  console.log(wr)
+                }
+
+        
+                const embed = {
+                  title: "Stats Heure et Temps",
+                  fields: [
+                    {
+                      name: "Heures:",
+                      value: "test",
+                      inline: true
+                    },
+                    {
+                      name: "Temps:",
+                      value: "test",
+                      inline: true
+                    }
+                  ]
+                }
+                Message.embed(msg, embed, 20)
+
+                db.close();
+            });
+
+        })
     }
 };

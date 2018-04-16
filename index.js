@@ -174,4 +174,4 @@ bot.on("warn", (e) => console.warn(e));
 
 
 
-bot.login(process.env.TOKEN) 
+bot.login(process.env.TOKEN);
