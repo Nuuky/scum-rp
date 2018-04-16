@@ -69,29 +69,29 @@ module.exports = class MapDataCommand {
     if(args[1].toLowerCase().match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
 
 
-    let hours = args[0];
-    hours.replace(" ", "")
-    hours.replace(":", "")
-    hours.replace(/[h|H]/, "")
-    hours.replace(/0/g, "")
-    if(isNaN(Number(hours))) return console.log("wrong hours (string)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Essayez l'un des formats suivant: `16 | 16h | 16h00 | 16:00`")
+    let tempHours = args[0];
+    tempHours.replace(" ", "")
+    tempHours.replace(":", "")
+    tempHours.replace(/[h|H]/, "")
+    tempHours.replace(/0/g, "")
+    if(isNaN(Number(tempHours))) return console.log("wrong hours (string)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Essayez l'un des formats suivant: `16 | 16h | 16h00 | 16:00`")
     regex = Json.grw.hours
-    if(hours.match(regex) == null) {
+    if(tempHours.match(regex) == null) {
       console.log(this.bot.fetchUser(process.env.MY_DISCORD_ID))
       this.bot.fetchUser(process.env.MY_DISCORD_ID)
-      .then(user => user.send(msg.author + " à voulu ajouter l'heure: `" + hours + "h` depuis la guild `" + msg.guild.name + "`"))
+      .then(user => user.send(msg.author + " à voulu ajouter l'heure: `" + tempHours + "h` depuis la guild `" + msg.guild.name + "`"))
       
       return console.log("wrong hours (number)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Valeurs acceptés: `" + regex + "`")
     }
 
 
-    const incWeath = {$inc: { weather: {}}};
-    incWeath.$inc.weather[args[1].toLowerCase()] = 1
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {incWeath}, "grw-data")
+    const weather = {};
+    weather[args[1].toLowerCase()] = 1
+    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {$inc: {weather}}, "grw-data")
 
-    const incHours = {$inc: { hours: {}}};
-    incHours.$inc.hours["h" + hours] = 1
-    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {incHours}, "grw-data")
+    const hours = {};
+    hours["h" + tempHours] = 1
+    Global.Fn.monGuilDB({id_: "data_stats"}, "update", {$inc: {hours}}, "grw-data")
 
     Global.Msg.reply(msg, "Done.", 5)
 
