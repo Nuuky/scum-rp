@@ -28,6 +28,8 @@ module.exports = class MapDataCommand {
     if(args[2]) return console.log("Wrong msg format") // Global.Msg.reply(msg, "Le format de votre message n'est pas le bon.")
     let regex = Json.grw.weatherName
     let weathArg = args[1].toLowerCase();
+    console.log("regex = " + regex + " | weathArg = " + weathArg)
+    console.log(weathArg.match(regex))
     if(weathArg.match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
 
 

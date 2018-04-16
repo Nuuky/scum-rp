@@ -131,12 +131,12 @@ module.exports = {
                   title: "Stats Heure et Temps",
                   fields: [
                     {
-                      name: "Heures:",
+                      name: "Heures: (" + h + ")",
                       value: hr,
                       inline: true
                     },
                     {
-                      name: "Temps:",
+                      name: "Temps: (" + w + ")",
                       value: wr,
                       inline: true
                     }

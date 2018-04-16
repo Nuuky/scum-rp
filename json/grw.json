@@ -209,9 +209,8 @@
             "mode":"Sabotage","url":"https://zupimages.net/up/18/15/08l5.jpg"
         }
     ],
-    "hours": [7, 8, 16, 18, 22],
-    "regHours": "7|8|16|18|22",
-    "regWeather": "dégagé|temps|couvert|pluie|tempête|brumeux",
+    "hours": "7|8|16|18|22",
+    "weatherName": "dégagé|temps_couvert|pluie|tempête|brumeux",
     "modesName": "Sabotage|Elimination|Uplink|Extraction",
     "modesColors": "blue|white|black|pink|purple|magenta|forest",
     "modesDecimalColors": [14367547, 4512600, 4700884, 16743680],
