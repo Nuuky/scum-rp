@@ -41,7 +41,7 @@ module.exports = class MapDataCommand {
     if(tempHours.match(regex) == null) {
       console.log(this.bot.fetchUser(process.env.MY_DISCORD_ID))
       this.bot.fetchUser(process.env.MY_DISCORD_ID)
-      .then(user => user.send(msg.author + " à voulu ajouter l'heure: `" + tempHours + "h` depuis la guild `" + msg.guild.name + "`"))
+      .then(user => user.send(msg.author + " a voulu ajouter l'heure: `" + tempHours + "h` depuis la guild `" + msg.guild.name + "`"))
       
       return console.log("wrong hours (number)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Valeurs acceptés: `" + regex + "`")
     }
