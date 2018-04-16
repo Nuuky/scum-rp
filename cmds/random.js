@@ -13,7 +13,7 @@ module.exports = class RandomCommand {
         const lang = this.guild.lang;
         const prefix = this.guild.prefix;
         const args = query.split(" ");
-        const hours = Json.grw.regHours;
+        const hours = Json.grw.hours;
 
         const randomWeather = Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)],
         randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)],
