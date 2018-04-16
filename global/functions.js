@@ -74,7 +74,7 @@ module.exports = {
                 dbo.collection(colName).find(obj).toArray(function(err, result) {
                     if (err) throw err;
                     console.log("item found");
-                    return result;
+                    newObj(result);
                     db.close();
                 });
             }
