@@ -115,14 +115,19 @@ module.exports = {
                 }
         
                 let hr = "";
+                let totalHours = 0;
                 for(let hour in result[0].hours) {
+                    totalHours += Math.round((result[0].hours[hour] / h) * 100)
                     const H = hour.replace("h", "")
                     hr += `**${H}h00:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
                 }
         
                 let wr = "";
+                let totalWeather = 0;
                 for(let weath in result[0].weather) {
-                  wr += `**${weath}:** ${Math.round((result[0].weather[weath] / w) * 100)}%\n`
+                    totalWeather += Math.round((result[0].weather[weath] / w) * 100);
+                    const weatherRenamed = weath[0].toUpperCase() + weath.slice(1, weath.length)
+                    wr += `**${weatherRenamed}:** ${Math.round((result[0].weather[weath] / w) * 100)}%\n`
                 }
 
         
@@ -130,18 +135,18 @@ module.exports = {
                   title: "Stats Heure et Temps (" + h + ")",
                   fields: [
                     {
-                      name: "Heures:",
+                      name: "__Heures:__ (" + totalHours + "%)",
                       value: hr,
                       inline: true
                     },
                     {
-                      name: "Temps:",
+                      name: "__Temps:__ (" + totalWeather + "%)",
                       value: wr,
                       inline: true
                     }
                   ]
                 }
-                Message.embed(msg, embed, 60)
+                Message.embed(msg, embed, 90)
 
                 db.close();
             });
