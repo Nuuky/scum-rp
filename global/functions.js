@@ -128,15 +128,15 @@ module.exports = {
 
         
                 const embed = {
-                  title: "Stats Heure et Temps",
+                  title: "Stats Heure et Temps (" + h + ")",
                   fields: [
                     {
-                      name: "Heures: (" + h + ")",
+                      name: "Heures:",
                       value: hr,
                       inline: true
                     },
                     {
-                      name: "Temps: (" + w + ")",
+                      name: "Temps:",
                       value: wr,
                       inline: true
                     }
