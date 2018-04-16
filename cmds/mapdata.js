@@ -45,7 +45,7 @@ module.exports = class MapDataCommand {
       return console.log("wrong hour (number)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Valeurs acceptés: `" + regex + "`")
     }
 
-    console.log(`-----> (${tempHours}h - ${weathArg}) added.`)
+    console.log(`-------------> (${tempHours}h - ${weathArg}) added.`)
 
     const weathInc = {$inc: {}};
     weathInc.$inc["weather." + weathArg] = 1
