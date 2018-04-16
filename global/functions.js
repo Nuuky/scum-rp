@@ -134,15 +134,15 @@ module.exports = {
         
                 const embed = {
                   title: "Stats Heure et Temps (" + h + ")",
-                  color: strTo.color("purple"),
+                  color: strTo.color("blue"),
                   fields: [
                     {
-                      name: "__Heures:__ (" + totalHours + "%)",
+                      name: "__Heures:__",  // name: "__Heures:__ (" + totalHours + "%)",
                       value: hr,
                       inline: true
                     },
                     {
-                      name: "__Temps:__ (" + totalWeather + "%)",
+                      name: "__Temps:__", // name: "__Temps:__ (" + totalWeather + "%)",
                       value: wr,
                       inline: true
                     }
