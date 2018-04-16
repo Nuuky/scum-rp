@@ -103,7 +103,7 @@ module.exports = {
 
             dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
                 if (err) throw err;
-                console.log("item found");
+                console.log("Displaying stats.");
                 let h = 0;
                 for(let hour in result[0].hours) {
                     h += result[0].hours[hour]
@@ -113,12 +113,11 @@ module.exports = {
                 for(let weath in result[0].weather) {
                     w += result[0].weather[weath]
                 }
-              
-                console.log("h: " + h + " w: " + w)
         
                 let hr = "";
                 for(let hour in result[0].hours) {
-                  hr += `**${hour}:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
+                    const H = hour.replace("h", "")
+                    hr += `**${H}h00:** ${Math.round((result[0].hours[hour] / h) * 100)}%\n`
                 }
         
                 let wr = "";
