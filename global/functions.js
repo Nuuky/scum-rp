@@ -82,7 +82,7 @@ module.exports = {
             if(action == "update") {
                 dbo.collection(colName).updateOne(obj, newObj, {upsert: true}, function(err, res) {
                     if (err) throw err;
-                    console.log(res.result.nModified + " document(s) updated");
+                    // console.log(res.result.nModified + " document(s) updated");
                     db.close();
                 });
             }
@@ -104,7 +104,7 @@ module.exports = {
 
             dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
                 if (err) throw err;
-                console.log("Displaying stats.");
+                console.log(">> " + msg.author.username + " is displaying stats. <<");
                 let h = 0;
                 for(let hour in result[0].hours) {
                     h += result[0].hours[hour]
