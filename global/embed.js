@@ -69,7 +69,8 @@ module.exports = {
     },
 
     map: (plObj, mapObj, numMap, dispMap, lang, prefix) => {
-        const randomWeather = Json.grw.weather[Fn.randomNumber(0, Json.grw.weather.length - 1)];
+        const randomWeather = Global.Fn.getRandomData("weather")
+        const randomTime = Global.Fn.getRandomData("hours")
         const map = Json.grw.maps[dispMap.id];
         const trans = Json.langs[lang];
         const hours = Json.grw.hours;
@@ -90,7 +91,7 @@ module.exports = {
             {
                 name: trans.vote.embed.mapParam,
                 value:  `\n\n
-                        🕑 - ${hours[Global.Fn.randomNumber(0, hours.length - 1)]}h\n\n${randomWeather.emoji} - ${randomWeather.name[lang]}
+                        🕑 - ${randomTime}h\n\n${randomWeather.emoji} - ${randomWeather.name[lang]}
                         `,
                 inline: true
             },

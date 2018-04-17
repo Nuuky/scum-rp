@@ -97,51 +97,25 @@ module.exports = {
         });
     },
     
-    getRandomData: (dataName, obj = false) => {
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db(process.env.DB_NAME);
+    getRandomData: (dataName) => {
+        const rand = Math.random()
+        let barIndex = 0
 
-            dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
-                if (err) throw err;
-        
-                let totalData = 0;
-                for(let data in result[0][dataName]) {
-                    totalData += result[0][dataName][data]
+        if(dataName == "hours") {
+            for(let i = 0; i < grw.hours.length; i++) {
+                if(rand < (grw.hours[i][1] + barIndex)) {
+                    return grw.hours[i][0];
                 }
-        
-                let arr = [];
-                for(let data in result[0][dataName]) {
-                    const dataRenamed = (dataName == "weather") ? data : data.replace("h", "")
-                    arr.push([dataRenamed, result[0][dataName][data] / totalData])
-                }
+                barIndex += grw.hours[i][1]
+            }
+        }
 
-                const rand = Math.random()
-                let barIndex = 0
-                let dataToReturn
-
-                for(let i = 0; i < arr.length; i++) {
-                    if(rand < (arr[i][1] + barIndex)) {
-                        dataToReturn = arr[i][0];
-                        break
-                    }
-                    barIndex += arr[i][1]
-                }
-                if(!dataToReturn) return console.log("No data to return !")
-
-                if(obj) {
-                    for(let item in obj) {
-                        console.log(obj[item].name["fr"].toLowerCase())
-                        if(obj[item].name["fr"].toLowerCase() == dataToReturn) return obj[item]
-                    }
-                }
-                console.log(dataToReturn)
-                return dataToReturn
-
-                db.close();
-            });
-
-        })
+        for(let weath in grw.weather) {
+            if(rand < (grw.weather[weath].probability + barIndex)) {
+                return grw.weather[weath];
+            }
+            barIndex += grw.weather[weath].probability
+        }
     },
     
     mapDataStats: (msg) => {
@@ -151,7 +125,7 @@ module.exports = {
 
             dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
                 if (err) throw err;
-                console.log(">> " + getNick(msg, msg.author.id) + " is displaying stats. <<");
+                console.log(">> " + msg.author.username + " is displaying stats. <<");
                 let h = 0;
                 for(let hour in result[0].hours) {
                     h += result[0].hours[hour]

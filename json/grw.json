@@ -209,12 +209,18 @@
             "mode":"Sabotage","url":"https://zupimages.net/up/18/15/08l5.jpg"
         }
     ],
+
+
     "regHours": "7|8|16|18|22",
-    "hours": [7, 16, 18, 22],
+    "hours": [[7, 0.05], [8, 0], [16, 0.7], [18, 0.05], [22, 0.2]],
     "weatherName": "dégagé|temps_couvert|pluie|tempête|brumeux",
+
+
     "modesName": "Sabotage|Elimination|Uplink|Extraction",
     "modesColors": "blue|white|black|pink|purple|magenta|forest",
     "modesDecimalColors": [14367547, 4512600, 4700884, 16743680],
+
+
     "modes": [
         {
             "name": {
@@ -255,7 +261,8 @@
                 "en": "Clear sky",
                 "fr": "Dégagé"
             },
-            "emoji": "☀️"
+            "emoji": "☀️",
+            "probability": 0.4
         },
 
         {
@@ -263,7 +270,8 @@
                 "en": "Overcast",
                 "fr": "Temps couvert"
             },
-            "emoji": "⛅"
+            "emoji": "⛅",
+            "probability": 0.3
         },
 
         {
@@ -271,7 +279,8 @@
                 "en": "Rain",
                 "fr": "Pluie"
             },
-            "emoji": "🌧️"
+            "emoji": "🌧️",
+            "probability": 0.15
         },
 
         {
@@ -279,7 +288,8 @@
                 "en": "Storm",
                 "fr": "Tempête"
             },
-            "emoji": "🌩️"
+            "emoji": "🌩️",
+            "probability": 0.05
         },
 
         {
@@ -287,7 +297,8 @@
                 "en": "Foggy",
                 "fr": "Brumeux"
             },
-            "emoji": "☁️"
+            "emoji": "☁️",
+            "probability": 0.1
         }
     ]
 }
