@@ -97,7 +97,7 @@ module.exports = {
         });
     },
     
-    getRandomData: (dataName, obj) => {
+    getRandomData: (dataName, obj = false) => {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db(process.env.DB_NAME);
@@ -112,7 +112,8 @@ module.exports = {
         
                 let arr = [];
                 for(let data in result[0][dataName]) {
-                    arr.puch([data, result[0][dataName][data] / totalData])
+                    const dataRenamed = (dataName == "weather") ? data : data.replace("h", "")
+                    arr.push([dataRenamed, result[0][dataName][data] / totalData])
                 }
 
                 const rand = Math.random()
@@ -128,9 +129,14 @@ module.exports = {
                 }
                 if(!dataToReturn) return console.log("No data to return !")
 
-                for(item in obj) {
-                    if(obj[item].name["fr"].toLowerCase() == dataToReturn) return obj[item]
+                if(obj) {
+                    for(let item in obj) {
+                        console.log(obj[item].name["fr"].toLowerCase())
+                        if(obj[item].name["fr"].toLowerCase() == dataToReturn) return obj[item]
+                    }
                 }
+                console.log(dataToReturn)
+                return dataToReturn
 
                 db.close();
             });
