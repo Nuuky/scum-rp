@@ -151,7 +151,7 @@ module.exports = {
 
             dbo.collection("grw-data").find({_id:"data_stats"}).toArray(function(err, result) {
                 if (err) throw err;
-                console.log(">> " + this.getNick(msg, msg.author.id) + " is displaying stats. <<");
+                console.log(">> " + getNick(msg, msg.author.id) + " is displaying stats. <<");
                 let h = 0;
                 for(let hour in result[0].hours) {
                     h += result[0].hours[hour]

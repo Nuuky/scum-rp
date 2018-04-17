@@ -15,15 +15,12 @@ module.exports = class RandomCommand {
         const args = query.split(" ");
         const hours = Json.grw.hours;
 
-        const randomWeather = Global.Fn.getRandomData("weather", Json.grw.weather) //  Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)]
-        console.log(randomWeather)
-        const randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)]
-        const randomTime = Global.Fn.getRandomData("hours")
-        console.log(randomTime)
-        const embed = {
+        const randomWeather = Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)],
+        randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)],
+        embed = {
             "title": (args[0] && args[1]) ? `[${args[0].toString()}] vs [${args[1].toString()}]` : '',
             "description": `**${randomMaps.name[lang].toUpperCase()}**
-            \n🕑 ${randomTime}h               ${randomWeather.emoji} ${randomWeather.name[lang]}`,
+            \n🕑 ${hours[Global.Fn.randomNumber(0, hours.length - 1)]}h               ${randomWeather.emoji} ${randomWeather.name[lang]}`,
             "color": Global.Fn.getMode(randomMaps.mode).color,
             "thumbnail": {
                 "url": randomMaps.url
