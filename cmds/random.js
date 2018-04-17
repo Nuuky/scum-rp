@@ -15,9 +15,9 @@ module.exports = class RandomCommand {
         const args = query.split(" ");
         const hours = Json.grw.hours;
 
-        const randomWeather = Global.Fn.getRandomData("weather") //  Json.grw.weather[Global.Fn.randomNumber(0, Json.grw.weather.length - 1)]
-        const randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)]
+        const randomWeather = Global.Fn.getRandomData("weather")
         const randomTime = Global.Fn.getRandomData("hours")
+        const randomMaps = Json.grw.maps[Global.Fn.randomNumber(0, Json.grw.maps.length - 1)]
         const embed = {
             "title": (args[0] && args[1]) ? `[${args[0].toString()}] vs [${args[1].toString()}]` : '',
             "description": `**${randomMaps.name[lang].toUpperCase()}**
