@@ -46,7 +46,7 @@ module.exports = class MapDataCommand {
     }
 
     const clWeather = weathArg[0].toUpperCase() + weathArg.slice(1, weathArg.length)
-    console.log(`-------------> (${tempHours}h00 - ${clWeather}) added by ${msg.author.username}`)
+    console.log(`-------------> (${tempHours}h00 - ${clWeather}) added by ${Global.Fn.getNick(msg, msg.author.id)}`)
 
     const weathInc = {$inc: {}};
     weathInc.$inc["weather." + weathArg] = 1
