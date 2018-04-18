@@ -29,7 +29,7 @@ module.exports = class MapDataCommand {
     let regex = Json.grw.weatherName
     let weathArg = args[1].toLowerCase();
     if(weathArg.match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
-
+    weathArg = weathArg.match(regex)[0]
 
     let tempHours = args[0];
     tempHours.replace(" ", "")
