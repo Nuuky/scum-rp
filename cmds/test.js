@@ -17,9 +17,11 @@ module.exports = class TestCommand {
         console.log("Test cmd. query = " + query);
         
 
-        let regex = Json.grw.regHours
-        
-        console.log(query.match(regex))
+        let regex = Json.grw.weatherName
+        let weathArg = query.toLowerCase();
+        let checkRegex = weathArg.match(regex)
+        console.log(checkRegex[0])
+        console.log(checkRegex[1] + " -- " + checkRegex[2] + " //// " + (checkRegex[1] = checkRegex[2]))
         query;
     }
 }
