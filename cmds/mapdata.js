@@ -44,6 +44,7 @@ module.exports = class MapDataCommand {
       
       return console.log("wrong hour (number)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Valeurs acceptés: `" + regex + "`")
     }
+    tempHours = tempHours.match(regex)[0]
 
     const clWeather = weathArg[0].toUpperCase() + weathArg.slice(1, weathArg.length)
     console.log(`-------------> (${tempHours}h00 - ${clWeather}) added by ${Global.Fn.getNick(msg, msg.author.id)}`)
