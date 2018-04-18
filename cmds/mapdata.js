@@ -38,7 +38,7 @@ module.exports = class MapDataCommand {
     tempHours.replace(/0/g, "")
     if(isNaN(Number(tempHours))) return console.log("wrong hour (string)") // Global.Msg.reply(msg, "L'heure indiqué n'est pas bonne. Essayez l'un des formats suivant: `16 | 16h | 16h00 | 16:00`")
     regex = Json.grw.regHours
-    if(tempHours.match(regex) == null) {
+    if(tempHours.match(regex) == null && (Number(tempHours) > 23 || Number(tempHours) < 0)) {
       this.bot.fetchUser(process.env.MY_DISCORD_ID)
       .then(user => user.send(msg.author + " a voulu ajouter l'heure: `" + tempHours + "h` depuis la guild `" + msg.guild.name + "`"))
       
