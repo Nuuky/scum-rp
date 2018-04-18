@@ -16,9 +16,10 @@ module.exports = class TestCommand {
         const bot = this.bot
         console.log("Test cmd. query = " + query);
         
+
+        let regex = Json.grw.regHours
         
-        const test = "h16";
-        //Global.Fn.monGuilDB({id_: "hours"}, "update", {$inc: { test:1 }}, "grw-data")
-        //console.log({test:1 })
+        console.log(query.match(regex))
+        query;
     }
 }
