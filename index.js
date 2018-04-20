@@ -38,7 +38,7 @@ MongoClient.connect(url, function(err, db) {
 
 // Ping bot every 5 minutes
 app.get("/", (request, response) => {
-  // console.log(Date.now() + " Ping Received");
+  console.log(Date.now() + " Ping Received");
   response.sendStatus(200);
 });
 const listener = app.listen(process.env.PORT, () => {
