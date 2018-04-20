@@ -212,7 +212,7 @@
 
 
     "regHours": "7|8|16|18|22",
-    "hours": [[7, 0.05], [8, 0], [16, 0.7], [18, 0.05], [22, 0.2]],
+    "hours": [[7, 0.10], [8, 0], [16, 0.65], [18, 0.05], [22, 0.2]],
     "weatherName": "dégagé|temps_couvert|pluie|tempête|brumeux",
 
 
@@ -271,7 +271,7 @@
                 "fr": "Temps couvert"
             },
             "emoji": "⛅",
-            "probability": 0.3
+            "probability": 0.2
         },
 
         {
@@ -280,7 +280,7 @@
                 "fr": "Pluie"
             },
             "emoji": "🌧️",
-            "probability": 0.15
+            "probability": 0.2
         },
 
         {
@@ -289,7 +289,7 @@
                 "fr": "Tempête"
             },
             "emoji": "🌩️",
-            "probability": 0.05
+            "probability": 0.1
         },
 
         {
