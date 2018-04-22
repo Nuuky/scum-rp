@@ -40,7 +40,6 @@ module.exports = class VoteCommand {
         // Who's next ?
         this.plObj.plBool = true;
         this.plObj.playerTurn = () => {
-            console.log("plBool: " + this.plObj.plBool);
             return (this.plObj.plBool) ? this.plObj.pl1 : this.plObj.pl2;
         };
 

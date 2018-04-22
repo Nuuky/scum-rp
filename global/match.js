@@ -29,7 +29,7 @@ module.exports = {
         if(!msg.channel.name.startsWith(Json.voteSet.channelName)) return Message.reply(msg, trans.vote.shld.wrgChan); // Check for channel name
         if(!args[1] || !args[2]) return Message.reply(msg, "**" + trans.vote.shld.noArgs[0] + "**\n``` " + prefix + trans.vote.shld.noArgs[1] + "```", 30); // Missing args
         if(!args[1].startsWith("<@")) return Message.reply(msg, trans.vote.shld.mention); // Opponent not @mentioned
-        let bestOfRegExp = args[2].match(/[Bb][Oo][135]||[135]||auto/);
+        let bestOfRegExp = args[2].match(/[Bb][Oo][135]|[135]|auto/);
         if(bestOfRegExp == null) return Message.reply(msg, trans.vote.shld.numbMaps); // args[1] not valide
         return true
     },
