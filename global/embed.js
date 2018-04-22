@@ -69,8 +69,8 @@ module.exports = {
     },
 
     map: (plObj, mapObj, numMap, dispMap, lang, prefix) => {
-        const randomWeather = Global.Fn.getRandomData("weather")
-        const randomTime = Global.Fn.getRandomData("hours")
+        const randomWeather = Fn.getRandomData("weather")
+        const randomTime = Fn.getRandomData("hours")
         const map = Json.grw.maps[dispMap.id];
         const trans = Json.langs[lang];
         const hours = Json.grw.hours;
