@@ -47,7 +47,6 @@ module.exports = class MapDataCommand {
       default:
         break;
     }
-    console.log("args[1] == " + args[1]);
 
     let regex = Json.grw.weatherName
     let weathArg = args[1].toLowerCase();
