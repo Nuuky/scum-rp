@@ -26,6 +26,29 @@ module.exports = class MapDataCommand {
     }
 
     if(args[2]) return console.log("Wrong msg format") // Global.Msg.reply(msg, "Le format de votre message n'est pas le bon.")
+
+    // FAST TYPE
+    switch(args[1]) {
+      case "d":
+        args[1] = "dégagé";
+        break;
+      case "tc":
+        args[1] = "temps_couvert";
+        break;
+      case "p":
+        args[1] = "pluie";
+        break;
+      case "t":
+        args[1] = "tempête";
+        break;
+      case "b":
+        args[1] = "brumeux";
+        break;
+      default:
+        break;
+    }
+    console.log("args[1] == " + args[1]);
+
     let regex = Json.grw.weatherName
     let weathArg = args[1].toLowerCase();
     if(weathArg.match(regex) == null) return console.log("Wrong weather") // Global.Msg.reply(msg, "Le temps indiqué est incorrect.")
