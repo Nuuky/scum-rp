@@ -105,6 +105,7 @@ packages:
       nan: 2.10.0
       prebuild-install: 2.5.1
     dev: false
+    requiresBuild: true
     resolution:
       integrity: sha512-7pKiG4FmtqMAcX/rs5iJaUSNVcCCwyEuqzr50KeoEV2by/jU/YKRAv/RSCVzy4Qy+3DznHxunlprtNKLcRIycA==
   /bytes/0.2.1:
@@ -310,6 +311,7 @@ packages:
       bindings: 1.3.0
       nan: 2.10.0
     dev: false
+    requiresBuild: true
     resolution:
       integrity: sha1-zx9PdV0HKOvC0RsuPJK9Lag0UU4=
   /escape-html/1.0.3:
@@ -646,6 +648,10 @@ packages:
     resolution:
       integrity: sha512-zwm6vU3SsVgw3e9fu48JBaRBCJGIvAgysDsqtf5+vEexFE71bEOtaMWb5zr/zODZNzTPtQlqUUpC79k68Hspow==
   /node-opus/0.2.7:
+    cpu:
+      - x64
+      - arm
+      - ia32
     dependencies:
       bindings: 1.2.1
       commander: 2.15.1
@@ -655,6 +661,12 @@ packages:
       node: '>=0.10.0'
     optionalDependencies:
       ogg-packet: 1.0.0
+    os:
+      - linux
+      - darwin
+      - win32
+      - freebsd
+    requiresBuild: true
     resolution:
       integrity: sha1-W3JuKXlbCxJ7TIfmYtTegWhAV5w=
   /node.js/0.0.0:
@@ -872,6 +884,7 @@ packages:
       nan: 2.10.0
     dev: false
     optional: true
+    requiresBuild: true
     resolution:
       integrity: sha512-2cBCniTtxcGUjDpvFfVpw323a83/0RLSGJJY5l5lcomZWhYpU2cuLdsvYqMixvsdLJ9+sTdzEkju8J8ZHDM2nA==
   /require_optional/1.0.1:
@@ -979,6 +992,7 @@ packages:
     dependencies:
       nan: 2.10.0
     dev: false
+    requiresBuild: true
     resolution:
       integrity: sha512-/z1tdOf+tn+MZr6uiKno709w2V5LwqukNWxOWi6NiSBia5E7Fp33f3CUHtCIR2184DEylytXdTZNryQUQwNKkQ==
   /stack-trace/0.0.10:
@@ -1102,6 +1116,7 @@ packages:
     dev: false
     engines:
       node: '>=4'
+    requiresBuild: true
     resolution:
       integrity: sha512-HNMztPP5A1sKuVFmdZ6BPVpBQd5bUjNC8EFMFiICK+oho/OQsAJy5hnIx4btMHiOk8j04f/DbIlqnEZ9d72dqg==
   /vary/1.1.2:
@@ -1151,7 +1166,7 @@ packages:
     resolution:
       integrity: sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
 registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 4
+shrinkwrapMinorVersion: 5
 shrinkwrapVersion: 3
 specifiers:
   bufferutil: 3.0.4
