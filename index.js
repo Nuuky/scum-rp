@@ -109,7 +109,7 @@ bot.on("message", message => {
 
 
     if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
-        .then(m => setTimeout( () => {m.delete()}, 500) ) 
+        .then(m => setTimeout( () => {m.delete()}, 700) ) 
         .catch(console.error);
   
   
