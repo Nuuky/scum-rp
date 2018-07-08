@@ -268,6 +268,7 @@ packages:
     dev: false
     engines:
       node: '>=0.10'
+    hasBin: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
   /discord.js/11.3.2:
@@ -345,6 +346,7 @@ packages:
     dev: false
     engines:
       node: '>= 0.8.0'
+    hasBin: true
     resolution:
       integrity: sha1-qnqJht4HBTM39Lxe2aZFPZzI4uE=
   /express/4.16.3:
@@ -573,6 +575,7 @@ packages:
       integrity: sha1-WCA+7Ybjpe8XrtK32evUfwpg3RA=
   /mime/1.4.1:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
   /mimic-response/1.0.0:
@@ -597,6 +600,7 @@ packages:
     dependencies:
       minimist: 0.0.8
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   /mongodb-core/3.0.5:
@@ -767,6 +771,7 @@ packages:
       tunnel-agent: 0.6.0
       which-pm-runs: 1.0.0
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-3DX9L6pzwc1m1ksMkW3Ky2WLgPQUBiySOfXVl3WZyAeJSyJb4wtoH9OmeRGcubAWsMlLiL8BTHbwfm/jPQE9Ag==
   /prism-media/0.0.2:
@@ -846,6 +851,7 @@ packages:
       minimist: 1.2.0
       strip-json-comments: 2.0.1
     dev: false
+    hasBin: true
     resolution:
       integrity: sha1-6xiYnG1PTxYsOZ953dKfODVWgJI=
   /readable-stream/1.1.14:
@@ -914,6 +920,7 @@ packages:
       integrity: sha1-dC5wdZfXNZAi5yhRB0+FmKvP1cg=
   /semver/5.5.0:
     dev: false
+    hasBin: true
     resolution:
       integrity: sha512-4SJ3dm0WAwWy/NVeioZh5AntkdJoWKxHxcmyP622fOkgHa4z3R0TdBJICINyaSDE6uNwVc8gZr+ZinwZAH4xIA==
   /send/0.1.4:
@@ -1166,7 +1173,7 @@ packages:
     resolution:
       integrity: sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
 registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 7
+shrinkwrapMinorVersion: 8
 shrinkwrapVersion: 3
 specifiers:
   bufferutil: 3.0.4
