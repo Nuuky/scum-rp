@@ -91,6 +91,14 @@
 
         {
             "name": {
+                "en": "Mountain Village",
+                "fr": "Village de Montagne"
+            },
+            "mode":"Elimination","url":"https://zupimages.net/up/18/13/qdpu.jpg"
+        },
+
+        {
+            "name": {
                 "en": "Burnt-out",
                 "fr": "Calciné"
             },
