@@ -91,10 +91,10 @@
 
         {
             "name": {
-                "en": "Mountain Village",
-                "fr": "Village de Montagne"
+                "en": "Checkpoint",
+                "fr": "Point de Contrôle"
             },
-            "mode":"Elimination","url":"https://zupimages.net/up/18/13/qdpu.jpg"
+            "mode":"Elimination","url":"https://zupimages.net/up/18/30/5ajf.jpg"
         },
 
         {
@@ -215,6 +215,14 @@
                 "fr": "Mine de Zinc"
             },
             "mode":"Sabotage","url":"https://zupimages.net/up/18/15/08l5.jpg"
+        },
+        
+        {
+            "name": {
+                "en": "Factory",
+                "fr": "Usine"
+            },
+            "mode":"Sabotage","url":"https://zupimages.net/up/18/30/kqd3.jpg"
         }
     ],
 
