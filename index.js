@@ -129,7 +129,7 @@ bot.on("message", message => {
         'ping': () => { return new Command.PingCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
         'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
-        'mapdata': () => { return new Command.MapDataCommand(bot, message) },
+        // 'mapdata': () => { return new Command.MapDataCommand(bot, message) },
       
       
         // ADMIN ---------------------------
