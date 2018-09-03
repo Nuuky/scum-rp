@@ -74,11 +74,7 @@ bot.on("guildCreate", (guild) => {
         "botInfo": {
             "ID": null,
             "msgID": null
-        },
-        "voteRef": 2,
-        "voteCap": 2,
-        "voteMax": false,
-        "channels": {}
+        }
     }
     bot.tempGuilds[guild.id] = newGuild;
   
@@ -128,26 +124,19 @@ bot.on("message", message => {
         'help': () => { return new Command.HelpCommand(bot, message) },
         'ping': () => { return new Command.PingCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
-        'vote'  : () => { if(Global.Mch.vote(bot, message)) return new Command.VoteCommand(bot, message) },
-        // 'mapdata': () => { return new Command.MapDataCommand(bot, message) },
+        'who': () => { return new Command.WhoCommand(bot, message) },
       
       
         // ADMIN ---------------------------
         'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
-        'lang': () => { if(Global.Mch.admin(message, lang)) return new Command.LangCommand(bot, message) }, // ADMIN
       
       
         // FRIENDS -------------------------
-        // 'addmap'  : () => { if(Global.Mch.friends(message)) return new Command.AddMapCommand(bot, message) }, // FRIENDS
-        // 'addmode'  : () => { if(Global.Mch.friends(message)) return new Command.AddModeCommand(bot, message) }, // FRIENDS
-        // 'removemap'  : () => { if(Global.Mch.friends(message)) return new Command.RemoveMapCommand(message) }, // FRIENDS
       
       
         // ME ------------------------------
         'test': () => { if(Global.Mch.me(message)) return new Command.TestCommand(bot, message) },
-        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) },
-        'hi': () => { if(Global.Mch.me(message)) return new Command.HiCommand(bot, message) },
-        'servervote'  : () => { if(Global.Mch.me(message)) return new Command.SerVoteCommand(bot, message) },
+        'slap': () => { if(Global.Mch.me(message)) return new Command.SlapCommand(bot, message) }
     };
   
   

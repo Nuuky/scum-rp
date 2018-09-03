@@ -6,5 +6,6 @@ module.exports = {
     PrefixCommand: require('./prefix'),
     SlapCommand: require('./slap'),
     RandomCommand: require('./random'),
+    WhoCommand: require('./test'),
     TestCommand: require('./test')
 };
