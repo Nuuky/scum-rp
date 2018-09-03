@@ -13,17 +13,83 @@ module.exports = class MapDataCommand {
   async run(query) {
     const args = query.split(" ");
     const msg = this.msg;
-    const Guild = this.bot.tempGuilds[msg.guild.id];
-    const prefix = Guild.prefix;
+    //const Guild = this.bot.tempGuilds[msg.guild.id];
+    //const prefix = Guild.prefix;
+    let embed;
 
+    if(args[0]) {
+        const searchObj = (args[0].startsWith("<")) ? {_id:args[0]} : {fullname: args[0]};
+        
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            const dbo = db.db(process.env.DB_NAME);
+
+            dbo.collection("scum_rp").findOne(searchObj, function(err, result) {
+                if (err) throw err;
+
+                // USERNAME -------
+                let surname = "";
+                result.surname.forEach(sur => { 
+                    surname += " / " + sur; 
+                });
+                surname = surname.slice(3, -1);
+        
+                embed = {
+                "embed": {
+                    "embed": {
+                      "title": "**" + result.name + " " + result.nick + "Nicoley Kavasky**",
+                      "description": `**Surnom:** *${surname}*
+                      **Age:** ${result.age}* ans*
+                      **Groupe:** *${result.groupe}*
+                      **Religion:** *${result.religion}*
+                      0fa8mi44ll3e\n\n`,
+                      "color": 10579647,
+                      "thumbnail": {
+                        "url": (result.url) ? result.url : "null"
+                      },
+                      "fields": [
+                        {
+                          "name": "Histoire",
+                          "value": result.story,
+                          "inline": true
+                        }
+                      ]
+                    }
+                  }
+                }
+                
+                // FAMILLE -------
+                dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
+                    if (err) throw err;
+
+                    if(!result) {
+                        embed.embed.description.replace("0fa8mi44ll3e", "");
+                        return db.close();
+                    }
+
+                    let famille = "";
+                    result.forEach(id => { 
+                        famille += " / " + id.name + " " + id.nick;
+                    });
+                    famille = famille.slice(3, -1);
+
+                    embed.embed.description.replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+
+                    db.close();
+                });
+
+                db.close();
+            });
+
+        })
+
+
+                
+        return Message.embed(msg, embed, 90);
+    }
 
     if(!args[0] && !args[1]) return console.log("No query") // Global.Msg.reply(msg, `\`${prefix}mapdata [heure] [temps]\``)
 
-    if(args[0] == "stats") {
-      return Global.Fn.mapDataStats(msg)
-    }
-
-    if(args[2]) return console.log("Wrong msg format") // Global.Msg.reply(msg, "Le format de votre message n'est pas le bon.")
 
     // FAST TYPE
     switch(args[1]) {
