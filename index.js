@@ -9,11 +9,31 @@ const Global = require("./global/")
 const http = require('http');
 const express = require('express');
 const app = express();
+const MongoClient = require('mongodb').MongoClient;
+const url = process.env.MONGODB;
 
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
 
+
+
+let Guilds = {};
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("rob-bot");
+  var query = {};
+  dbo.collection("guilds").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    bot.tempGuilds = {};
+    result.forEach(guild => {
+        bot.tempGuilds[guild._id] = guild;
+    })
+    //console.log(bot.tempGuilds)
+    db.close();
+  });
+});
 
 
 // Ping bot every 5 minutes
