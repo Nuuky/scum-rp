@@ -5,7 +5,7 @@ const Global = require("../global/");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 
-module.exports = class MapDataCommand {
+module.exports = class WhoCommand {
 
   constructor(bot, msg) {
     this.msg = msg;
@@ -15,21 +15,24 @@ module.exports = class MapDataCommand {
 
   async run(query) {
     const args = query.split(" ");
+    console.log("query: " + query)
     const msg = this.msg;
     //const Guild = this.bot.tempGuilds[msg.guild.id];
     //const prefix = Guild.prefix;
     let embed;
 
-    if(args[0]) {
+    if(query) {
       console.log("Il y a un critère"); 
-        const searchObj = (args[0].startsWith("<")) ? {_id:args[0]} : {fullname: args[0]};
+        const searchObj = (query.startsWith("<")) ? {_id: query.toString()} : {fullname: args[0]};
         
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             const dbo = db.db(process.env.DB_NAME);
+                console.log("" + searchObj)
 
             dbo.collection("scum_rp").findOne(searchObj, function(err, result) {
                 if (err) throw err;
+                console.log(result)
 
                 // USERNAME -------
                 let surname = "";
@@ -78,7 +81,9 @@ module.exports = class MapDataCommand {
                     famille = famille.slice(3, -1);
 
                     embed.embed.description.replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
-
+                  
+                    Global.Msg.embed(msg, embed, 90);
+                  
                     db.close();
                 });
 
@@ -89,7 +94,7 @@ module.exports = class MapDataCommand {
 
 
                 
-        return Global.Msg.embed(msg, embed, 90);
+        return;
     }
 
     if(!args[0] && !args[1]) return console.log("No query") // Global.Msg.reply(msg, `\`${prefix}mapdata [heure] [temps]\``)

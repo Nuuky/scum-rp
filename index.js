@@ -15,7 +15,8 @@ const url = process.env.MONGODB;
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
-let prefix = Json.cfg.botprefix;
+let prefix = Json.cfg.bot.prefix;
+console.log(prefix)
 
 
 
