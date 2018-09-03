@@ -15,8 +15,6 @@ module.exports = class MapDataCommand {
     const msg = this.msg;
     const Guild = this.bot.tempGuilds[msg.guild.id];
     const prefix = Guild.prefix;
-    const lang = Guild.lang;
-    const trans = Json.langs[lang]
 
 
     if(!args[0] && !args[1]) return console.log("No query") // Global.Msg.reply(msg, `\`${prefix}mapdata [heure] [temps]\``)
