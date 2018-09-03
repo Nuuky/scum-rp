@@ -15,10 +15,11 @@ const url = process.env.MONGODB;
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
+let prefix = Global.prefix;
 
 
 
-let Guilds = {};
+//let Guilds = {};
 
 // MongoClient.connect(url, function(err, db) {
 //   if (err) throw err;
@@ -55,7 +56,7 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "!help", //!help //GhostBot
+            "name": "$help", //!help //GhostBot
             "type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
             // "streaming": false,
             // "url": "" 
@@ -63,28 +64,6 @@ bot.on("ready", () => {
     })
     .catch(console.error);
     // bot.user.setUsername("nk-bot");
-});
-
-bot.on("guildCreate", (guild) => {
-    //Global.Fn.monGuilDB(newGuild, "create")
-    const newGuild = {
-        "_id": guild.id,
-        "prefix": "!",
-        "lang": "fr",
-        "botInfo": {
-            "ID": null,
-            "msgID": null
-        }
-    }
-    bot.tempGuilds[guild.id] = newGuild;
-  
-    Global.Fn.monGuilDB(newGuild, "create");
-});
-
-bot.on("guildDelete", (guild) => {
-    console.log("Guild deleted");
-    delete bot.tempGuilds[guild.id];
-    Global.Fn.monGuilDB({_id: guild.id}, "remove");
 });
 
 
@@ -95,10 +74,6 @@ bot.on("message", message => {
     if(message.author.bot) return;
 
 
-    // Guilds settings
-    const Guild = bot.tempGuilds[message.guild.id];
-    const prefix = Guild.prefix;
-    const lang = Guild.lang;
     if(!message.content.startsWith(prefix)) return;
     if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
 

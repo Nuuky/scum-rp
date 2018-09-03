@@ -1,5 +1,6 @@
 {
     "bot": {
-        "purgetime": 10
+        "purgetime": 10,
+        "prefix": "!"
     }
 }
