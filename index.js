@@ -3,7 +3,7 @@
 const Discord = require("discord.js")
 const bot = new Discord.Client({autorun: true})
 
-const Json = require("./json/")
+//const Json = require("./json/")
 const Command = require("./cmds/")
 const Global = require("./global/")
 const http = require('http');
@@ -20,20 +20,20 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 let Guilds = {};
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("rob-bot");
-  var query = {};
-  dbo.collection("guilds").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    bot.tempGuilds = {};
-    result.forEach(guild => {
-        bot.tempGuilds[guild._id] = guild;
-    })
-    //console.log(bot.tempGuilds)
-    db.close();
-  });
-});
+// MongoClient.connect(url, function(err, db) {
+//   if (err) throw err;
+//   var dbo = db.db("rob-bot");
+//   var query = {};
+//   dbo.collection("guilds").find({}).toArray(function(err, result) {
+//     if (err) throw err;
+//     bot.tempGuilds = {};
+//     result.forEach(guild => {
+//         bot.tempGuilds[guild._id] = guild;
+//     })
+//     //console.log(bot.tempGuilds)
+//     db.close();
+//   });
+// });
 
 
 // Ping bot every 5 minutes

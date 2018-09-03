@@ -2,7 +2,6 @@
 
 const fs = require("fs");
 const Config = require("../json/config.json");
-const grw = require("../json/grw.json");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const Message = require("./purge")
