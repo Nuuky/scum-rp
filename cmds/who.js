@@ -22,13 +22,18 @@ module.exports = class WhoCommand {
     let embed;
 
     if(query) {
-      console.log("Il y a un critère"); 
-        const searchObj = (query.startsWith("<")) ? {_id: query.toString()} : {fullname: args[0]};
+      console.log("Il y a un critère");
+        let searchObj;
+        if(query.startsWith("<")) {
+          searchObj = {_id: args[0]}
+        } else {
+          searchObj = {fullname: query}
+        }
         
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             const dbo = db.db(process.env.DB_NAME);
-                console.log("" + searchObj)
+                console.log("searchObj: " + searchObj["_id"])
 
             dbo.collection("scum_rp").findOne(searchObj, function(err, result) {
                 if (err) throw err;
