@@ -2,12 +2,15 @@
 
 const Json = require('../json/');
 const Global = require("../global/");
+const MongoClient = require('mongodb').MongoClient;
+const url = process.env.MONGODB;
 
 module.exports = class MapDataCommand {
 
   constructor(bot, msg) {
     this.msg = msg;
     this.bot = bot;
+    console.log("On y est !")
   }
 
   async run(query) {
@@ -18,6 +21,7 @@ module.exports = class MapDataCommand {
     let embed;
 
     if(args[0]) {
+      console.log("Il y a un critère"); 
         const searchObj = (args[0].startsWith("<")) ? {_id:args[0]} : {fullname: args[0]};
         
         MongoClient.connect(url, function(err, db) {
@@ -85,7 +89,7 @@ module.exports = class MapDataCommand {
 
 
                 
-        return Message.embed(msg, embed, 90);
+        return Global.Msg.embed(msg, embed, 90);
     }
 
     if(!args[0] && !args[1]) return console.log("No query") // Global.Msg.reply(msg, `\`${prefix}mapdata [heure] [temps]\``)

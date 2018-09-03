@@ -3,7 +3,7 @@
 const Discord = require("discord.js")
 const bot = new Discord.Client({autorun: true})
 
-//const Json = require("./json/")
+const Json = require("./json/")
 const Command = require("./cmds/")
 const Global = require("./global/")
 const http = require('http');
@@ -15,7 +15,7 @@ const url = process.env.MONGODB;
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
-let prefix = Global.prefix;
+let prefix = Json.cfg.botprefix;
 
 
 
@@ -103,7 +103,7 @@ bot.on("message", message => {
       
       
         // ADMIN ---------------------------
-        'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
+        //'prefix': () => { if(Global.Mch.admin(message, lang)) return new Command.PrefixCommand(bot, message) }, // ADMIN
       
       
         // FRIENDS -------------------------
@@ -117,7 +117,7 @@ bot.on("message", message => {
   
     const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
 
-    if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].voteMax) return; // Prevent spaming msg in a voting chan
+    //if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].voteMax) return; // Prevent spaming msg in a voting chan
 
     if(command === undefined) {
     console.log('Command not found'); 
