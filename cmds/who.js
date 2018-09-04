@@ -35,7 +35,7 @@ module.exports = class WhoCommand {
             const dbo = db.db(process.env.DB_NAME);
                 console.log("searchObj: " + searchObj["_id"])
 
-            dbo.collection("user_info").find({}).toArray(function(err, result) {
+            dbo.collection("user_info").findOne(searchObj, function(err, result) {
                 if (err) throw err;
                 console.log(result)
 
@@ -73,9 +73,9 @@ module.exports = class WhoCommand {
                 // FAMILLE -------
                 dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
                     if (err) throw err;
-
+                    console.log("embed: " + embed.embed["description"])
                     if(!result) {
-                        embed.embed.description.replace("0fa8mi44ll3e", "");
+                        embed["embed"].description.replace("0fa8mi44ll3e", "");
                         return db.close();
                     }
 
@@ -85,7 +85,7 @@ module.exports = class WhoCommand {
                     });
                     famille = famille.slice(3, -1);
 
-                    embed.embed.description.replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                    embed["embed"].description.replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
                   
                     Global.Msg.embed(msg, embed, 90);
                   
