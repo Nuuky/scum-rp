@@ -23,83 +23,86 @@ module.exports = class WhoCommand {
 
             // SEARCH USER --------
             if(query) {
+                let user, info;
 
-                // ASYNC FN TO MAKE THE USER INFO LIST (because of async MONGDB)
-                function makeList(callback) {
-                    console.log("Starting makeList...");
-                    let list = {};
-                    let desc = "";
+                async function makeList() { // GET USER -------
+                  // Research ID
+                  let searchObj;
+                  if(query.startsWith("<@")) {
+                      let req = args[0].replace("<@", "");
+                      req = req.replace(">", "");
+                      searchObj = {_id: req}
+                  } else {
+                      searchObj = {fullname: query}
+                  }
+                  
+                  console.log("Searching user..");
+                  return dbo.collection("user_info").findOne(searchObj);
+                }
+                makeList()
+                .then(userInfo => {
+                    user = userInfo;
 
-                    // Research ID
-                    let searchObj;
-                    if(query.startsWith("<@")) {
-                        let req = args[0].replace("<@", "");
-                        req = req.replace(">", "");
-                        searchObj = {_id: req}
-                    } else {
-                        searchObj = {fullname: query}
-                    }
-                    
-                    // Get User
-                    console.log("Searching user..");
-                    const userInfo = dbo.collection("user_info").findOne(searchObj);
-    
                     // Get religion name
                     if(userInfo.religion) {
                         console.log("Searching Religion.");
-                        const religion = dbo.collection("religion_info").findOne({_id: userInfo.religion});
-                        const religionDesc = religion.name + ((religion.leader == userInfo._id) ? " 🌟\n" : "\n")
-                        religionDesc.concat(desc);
-                    }
+                        return dbo.collection("religion_info").findOne({_id: userInfo.religion});
+                    } else {
+                        return
+                    } 
+                })
+                .then(religion => {
+                    info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
     
                     // Get groupe name
-                    if(userInfo.groupe) {
+                    if(user.groupe) {
                         console.log("Searching Groupe");
-                        const groupe = dbo.collection("groupe_info").findOne({_id: userInfo.groupe});
-                        const groupeDesc = groupe.name + ((groupe.leader == userInfo._id) ? " 👑\n" : "\n");
-                        groupeDesc.concat(desc);
-                    }
+                        return dbo.collection("groupe_info").findOne({_id: user.groupe});
+                    } else {
+                        return
+                    } 
+                })
+                .then(groupe => {
+                    let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                    info.desc = groupeStr.concat(info.desc);
+                    (user.age + "\n").concat(info.desc);
 
                     // Get Background Story
-                    if(userInfo.background) {
+                    if(user.background) {
                         console.log("Get Background.");
-                        list.background = userInfo.background;
-                    }
+                        info.background = user.background;
+                    } else {
+                        return
+                    } 
+                })
+                .then(() => {
+                    console.log("Startin Embed...");
                     
                     // Common Infos
-                    (userInfo.age + "\n").concat(desc);
+                    info.title = "'" + user.name + "'";
+                    info.color = 10579647;
+                    info.image = (user.image) ? user.image : "null";
 
-                    list.title = "'" + userInfo.name + "'";
-                    list.desc = desc;
-                    list.color = 10579647;
-                    list.image = (userInfo.url) ? userInfo.url : "null";
-                    console.log("Launching Callback..");
-                    callback(list);
-                }
-                function callback(list) {
-                    console.log("Callback Start...");
                     const embed = {
-                        "title": list.title,
-                        "description": list.desc,
-                        "color": list.color,
+                        "title":  "**" + user.name + "**",
+                        "description": info.desc,
+                        "color": info.color,
                         "thumbnail": {
-                            "url": (list.image) ? list.image : "null"
+                            "url": (user.image) ? user.image : "null"
                         }
                     }
 
-                    if(list.background) {
+                    if(info.background) {
                         embed["fields"] = [
                             {
                                 "name": "Background",
-                                "value" : list.background,
+                                "value" : info.background,
                             }
                         ];
                     }
 
                     Global.Msg.embed(msg, embed, 90);
-                }
-
-                makeList(callback);
+                })
             }
             db.close();
         });
