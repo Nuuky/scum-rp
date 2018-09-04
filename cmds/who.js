@@ -71,9 +71,10 @@ module.exports = class WhoCommand {
                     if(result.length < 2) {
                         console.log("Pas de famille");
                         for(var type in embed) {
-                            console.log(type) 
+                            console.log(type == "description") 
                             if(type == "description") {
-                                embed[type].replace("0fa8mi44ll3e", "");
+                                console.log(embed[type]);
+                                embed[type] = embed[type].replace("0fa8mi44ll3e", "");
                             }
                         }
                         Global.Msg.embed(msg, embed, 90);
@@ -90,7 +91,7 @@ module.exports = class WhoCommand {
 
                         for(var type in embed) {
                             if(type == "description") {
-                                embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                                embed[type] = embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
                             }
                         }
 
