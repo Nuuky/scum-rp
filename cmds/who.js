@@ -12,7 +12,7 @@ module.exports = class WhoCommand {
         this.bot = bot;
     }
 
-    async run(query) {
+    run(query) {
         const args = query.split(" ");
         const msg = this.msg;
         const rpData = this.bot.tempScum;
