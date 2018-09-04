@@ -35,73 +35,84 @@ module.exports = class WhoCommand {
                 
                 console.log("Searching user..");
                 
-                Global.Fn.findData("findOne", "user_info", searchObj)
-                .then((item) => {return item})
+                Global.Fn.findData("findOne", "user_info", searchObj).then(function(items) {
+                  console.info('The promise was fulfilled with items!');
+                  return items
+                }, function(err) {
+                  console.error('The promise was rejected', err, err.stack);
+                });
             }
             makeList()
             .then(userInfo => {
+                console.log(userInfo)
                 user = userInfo;
 
                 // Get religion name
                 if(userInfo.religion) {
                     console.log("Searching Religion.");
-                    return Global.Fn.findData("findOne", "religion_info", {_id: userInfo.religion});
-                } else {
-                    return
-                } 
-            })
-            .then(religion => {
-                info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-
-                // Get groupe name
-                if(user.groupe) {
-                    console.log("Searching Groupe");
-                    return Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-                } else {
-                    return
-                } 
-            })
-            .then(groupe => {
-                let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-                info.desc = groupeStr.concat(info.desc);
-                (user.age + "\n").concat(info.desc);
-
-                // Get Background Story
-                if(user.background) {
-                    console.log("Get Background.");
-                    info.background = user.background;
-                } else {
-                    return
-                } 
-            })
-            .then(() => {
-                console.log("Startin Embed...");
                 
-                // Common Infos
-                info.title = "'" + user.name + "'";
-                info.color = 10579647;
-                info.image = (user.image) ? user.image : "null";
-
-                const embed = {
-                    "title":  "**" + user.name + "**",
-                    "description": info.desc,
-                    "color": info.color,
-                    "thumbnail": {
-                        "url": (user.image) ? user.image : "null"
-                    }
-                }
-
-                if(info.background) {
-                    embed["fields"] = [
-                        {
-                            "name": "Background",
-                            "value" : info.background,
-                        }
-                    ];
-                }
-
-                Global.Msg.embed(msg, embed, 90);
+                    Global.Fn.findData("findOne", "religion_info", {_id: userInfo.religion}).then(function(items) {
+                      console.info('The promise was fulfilled with items!');
+                      return items
+                    }, function(err) {
+                      console.error('The promise was rejected', err, err.stack);
+                    });
+                } else {
+                    return
+                } 
             })
+//             .then(religion => {
+//                 info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
+
+//                 // Get groupe name
+//                 if(user.groupe) {
+//                     console.log("Searching Groupe");
+//                     return Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+//                 } else {
+//                     return
+//                 } 
+//             })
+//             .then(groupe => {
+//                 let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+//                 info.desc = groupeStr.concat(info.desc);
+//                 (user.age + "\n").concat(info.desc);
+
+//                 // Get Background Story
+//                 if(user.background) {
+//                     console.log("Get Background.");
+//                     info.background = user.background;
+//                 } else {
+//                     return
+//                 } 
+//             })
+//             .then(() => {
+//                 console.log("Startin Embed...");
+                
+//                 // Common Infos
+//                 info.title = "'" + user.name + "'";
+//                 info.color = 10579647;
+//                 info.image = (user.image) ? user.image : "null";
+
+//                 const embed = {
+//                     "title":  "**" + user.name + "**",
+//                     "description": info.desc,
+//                     "color": info.color,
+//                     "thumbnail": {
+//                         "url": (user.image) ? user.image : "null"
+//                     }
+//                 }
+
+//                 if(info.background) {
+//                     embed["fields"] = [
+//                         {
+//                             "name": "Background",
+//                             "value" : info.background,
+//                         }
+//                     ];
+//                 }
+
+//                 Global.Msg.embed(msg, embed, 90);
+//             })
         }
     };
 }

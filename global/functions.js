@@ -68,8 +68,9 @@ module.exports = {
                 return dbo.collection(colName).findOne(findObj);
             }
         })
-      .then(item => {
-          console.log(item)  
+      .then(items => {
+          console.log(items);
+          return items
       })
     }
 };
