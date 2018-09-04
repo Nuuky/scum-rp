@@ -49,7 +49,7 @@ module.exports = class WhoCommand {
                 embed = {
                 "embed": {
                     "embed": {
-                      "title": "**" + result.name + " " + result.nick + "Nicoley Kavasky**",
+                      "title": "**" + result.nick + " " + result.name + "**",
                       "description": `**Surnom:** *${surname}*
                       **Age:** ${result.age}* ans*
                       **Groupe:** *${result.groupe}*
@@ -73,10 +73,18 @@ module.exports = class WhoCommand {
                 // FAMILLE -------
                 dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
                     if (err) throw err;
-                    console.log("embed: " + embed.embed["description"])
+                  
                     if(!result) {
                         embed["embed"].description.replace("0fa8mi44ll3e", "");
-                        return db.close();
+                      
+                        for(var type in embed.embed) {
+                            console.log(embed.embed[type]);
+                            if(embed.embed[type] == "description") {
+                                embed.embed[type].replace("0fa8mi44ll3e", "");
+                                return db.close();
+                            }
+                        }
+                      
                     }
 
                     let famille = "";
