@@ -112,12 +112,24 @@ module.exports = class WhoCommand {
       authorID = authorID.replace(">", "")
 
       async function getThings(thing) {
-        return dbo.collection("user_info").findOne(thing)
+        let test = dbo.collection("user_info").findOne(thing)
+        console.log(test)
+        return test;
       }
 
       console.log("Start research...");
-      let authorInfo = getThings({_id: authorID})
-      console.log("athorInfo = " + authorInfo);
+      getThings({_id: "authorID"})
+      .then(authorInfo => {
+  
+        if(authorInfo) {
+          console.log("Existe !")
+        } else {
+          console.log("N'existe pas !")
+        }
+      })
+
+      console.log("FIN.")
+
     }  
 
     })
