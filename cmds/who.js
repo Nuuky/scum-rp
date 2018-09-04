@@ -21,9 +21,10 @@ module.exports = class WhoCommand {
 
     if(query) {
         let searchObj;
-        if(query.startsWith("<")) {
-          let req = args[
-          searchObj = {_id: args[0]}
+        if(query.startsWith("<@")) {
+          let req = args[0].replace("<@", "");
+          req = req.replace(">", "");
+          searchObj = {_id: req}
         } else {
           searchObj = {fullname: query}
         }
@@ -39,7 +40,6 @@ module.exports = class WhoCommand {
                 // USERNAME -------
                 let surname = "";
                 result.surname.forEach(sur => {
-                    console.log(sur);
                     surname += "/ " + sur + " "; 
                 });
                 surname = surname.slice(2, -1);
@@ -65,11 +65,11 @@ module.exports = class WhoCommand {
                 }
                 
                 // FAMILLE -------
-                dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
+                dbo.collection("user_info").find({name: result.name}).toArray(function(err, result) {
                     if (err) throw err;
                   
                     console.log("result: " + result);
-                  
+                    console.log(result.length);
                     if(result.length < 2) {
                         console.log("Pas de famille");
                         for(var type in embed) {
@@ -86,10 +86,11 @@ module.exports = class WhoCommand {
                     
                         console.log("Une famille");
                         let famille = "";
-                        result.forEach(id => { 
-                            famille += " / " + id.name + " " + id.nick;
+                        result.forEach(id => {
+                            
+                            famille += "/ " + id.name + " " + id.nick + " ";
                         });
-                        famille = famille.slice(3, -1);
+                        famille = famille.slice(2, -1);
 
                         for(var type in embed) {
                             if(type == "description") {
