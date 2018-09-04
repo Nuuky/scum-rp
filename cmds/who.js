@@ -25,7 +25,8 @@ module.exports = class WhoCommand {
             if(query) {
 
                 // ASYNC FN TO MAKE THE USER INFO LIST (because of async MONGDB)
-                async function makeList() {
+                function makeList(callback) {
+                    console.log("Starting makeList...");
                     let list = {};
                     let desc = "";
 
@@ -40,10 +41,12 @@ module.exports = class WhoCommand {
                     }
                     
                     // Get User
+                    console.log("Searching user..");
                     const userInfo = dbo.collection("user_info").findOne(searchObj);
     
                     // Get religion name
                     if(userInfo.religion) {
+                        console.log("Searching Religion.");
                         const religion = dbo.collection("religion_info").findOne({_id: userInfo.religion});
                         const religionDesc = religion.name + ((religion.leader == userInfo._id) ? " 🌟\n" : "\n")
                         religionDesc.concat(desc);
@@ -51,6 +54,7 @@ module.exports = class WhoCommand {
     
                     // Get groupe name
                     if(userInfo.groupe) {
+                        console.log("Searching Groupe");
                         const groupe = dbo.collection("groupe_info").findOne({_id: userInfo.groupe});
                         const groupeDesc = groupe.name + ((groupe.leader == userInfo._id) ? " 👑\n" : "\n");
                         groupeDesc.concat(desc);
@@ -58,6 +62,7 @@ module.exports = class WhoCommand {
 
                     // Get Background Story
                     if(userInfo.background) {
+                        console.log("Get Background.");
                         list.background = userInfo.background;
                     }
                     
@@ -68,15 +73,18 @@ module.exports = class WhoCommand {
                     list.desc = desc;
                     list.color = 10579647;
                     list.image = (userInfo.url) ? userInfo.url : "null";
-
-                    return list;
+                    console.log("Launching Callback..");
+                    callback(list);
                 }
-                makeList()
-                .then(list => {
+                function callback(list) {
+                    console.log("Callback Start...");
                     const embed = {
                         "title": list.title,
                         "description": list.desc,
-                        "color": list.color
+                        "color": list.color,
+                        "thumbnail": {
+                            "url": (list.image) ? list.image : "null"
+                        }
                     }
 
                     if(list.background) {
@@ -89,8 +97,9 @@ module.exports = class WhoCommand {
                     }
 
                     Global.Msg.embed(msg, embed, 90);
-                })
-                .catch(err => console.error(err))
+                }
+
+                makeList(callback);
             }
             db.close();
         });
