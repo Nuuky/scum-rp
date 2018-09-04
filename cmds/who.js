@@ -74,8 +74,7 @@ module.exports = class WhoCommand {
                 dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
                     if (err) throw err;
                   
-                    if(!result) {
-                        embed["embed"].description.replace("0fa8mi44ll3e", "");
+                    if(result.length < 2) {
                       
                         for(var type in embed.embed) {
                             console.log(embed.embed[type]);
@@ -92,14 +91,20 @@ module.exports = class WhoCommand {
                         famille += " / " + id.name + " " + id.nick;
                     });
                     famille = famille.slice(3, -1);
-
-                    embed["embed"].description.replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                      
+                    for(var type in embed.embed) {
+                        if(embed.embed[type] == "description") {
+                            embed.embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                        }
+                    }
                   
                     Global.Msg.embed(msg, embed, 90);
                   
                     db.close();
                 });
 
+                  
+                Global.Msg.embed(msg, embed, 90);
                 db.close();
             });
 
