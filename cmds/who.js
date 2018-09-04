@@ -41,79 +41,85 @@ module.exports = class WhoCommand {
         } else {
           searchObj = {fullname: query}
         }
+        
 
-          dbo.collection("user_info").findOne(searchObj, function(err, result) {
-              if (err) throw err;
 
-              // USERNAME -------
-              let surname = "";
-              result.surname.forEach(sur => {
-                  surname += "/ " + sur + " "; 
-              });
-              surname = surname.slice(2, -1);
-      
-              let embed = {
-                "title": "**" + result.nick + " " + result.name + "**",
-                "description": `**Surnom:** *${surname}*
-                **Age:** *${result.age} ans*
-                **Groupe:** *${result.groupe}*
-                **Religion:** *${result.religion}*\n\n`,
-                "color": 10579647,
-                "thumbnail": {
-                  "url": (result.url) ? result.url : "null"
-                },
-                "fields": []
-              }
+
+
+
+        getThings("findOne", searchObj)
+        .then(result => {
+  
+          let embed = {
+            "title": "**" + result.nick + " " + result.name + "**",
+            "description": `**Age:** \`*${result.age}*\`\n
+            **Groupe:** \`*${result.groupe}*\`\n
+            **Religion:** \`*${result.religion}*\``,
+            "color": 10579647,
+            "thumbnail": {
+              "url": (result.url) ? result.url : "null"
+            },
+            "fields": []
+          }
+
+
+          // USERNAME -------
+          if(result.surname) {
+            let surname = "";
+            result.surname.forEach(sur => {
+              surname += "/ " + sur + " "; 
+            });
+            surname = `**Surnom:** \`*${surname.slice(2, -1)}*\`\n`;
+            result.surname = surname.concat(result.surname);
+          }
+          
+          // STORY -------
+          if(result.story) {
+              embed.fields.push(
+              {
+                "name": "Description",
+                "value": result.story,
+                "inline": true
+              }) 
+          }
+
+          // getThings("find", {name: result.name})
+          // .then(res => {
+          //   if(res.length < 2) {
+          //       Global.Msg.embed(msg, embed, 90);
+          //       return db.close();
               
-              console.log(result.story)
-              // STORY -------
-              if(result.story) {
-                  embed.fields.push(
-                  {
-                    "name": "Description",
-                    "value": result.story,
-                    "inline": true
-                  }) 
-              }
+          //   } else {
+          //       let famille = "";
+          //       res.forEach(id => {
+          //           if(!(id.nick == result.nick)) {
+          //               famille += "- " + id.nick + " " + id.name + "\n ";
+          //           }
+          //       });
+          //       famille = famille.slice(0, -1);
               
-              // FAMILLE -------
-              dbo.collection("user_info").find({name: result.name}).toArray(function(err, res) {
-                  if (err) throw err;
-                
-                  if(res.length < 2) {
-                      Global.Msg.embed(msg, embed, 90);
-                      return db.close();
-                    
-                  } else {
-                      let famille = "";
-                      res.forEach(id => {
-                          if(!(id.nick == result.nick)) {
-                              famille += "- " + id.nick + " " + id.name + "\n ";
-                          }
-                      });
-                      famille = famille.slice(0, -1);
-                    
-                      embed.fields.push(
-                      {
-                        "name": "Famille",
-                        "value": famille,
-                        "inline": true
-                      }) 
+          //       embed.fields.push(
+          //       {
+          //         "name": "Famille",
+          //         "value": famille,
+          //         "inline": true
+          //       }) 
 
-                      for(var type in embed) {
-                          if(type == "description") {
-                              embed[type] = embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
-                          }
-                      }
+          //       for(var type in embed) {
+          //           if(type == "description") {
+          //               embed[type] = embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+          //           }
+          //       }
 
-                      Global.Msg.embed(msg, embed, 90);
-
-                      db.close();
-                  }
-              });
-              db.close();
-          });
-        return;
+          //       Global.Msg.embed(msg, embed, 90);
+          //   }
+          // })
+          // .catch(err => console.error(err));
+         Global.Msg.embed(msg, embed, 90);
+        })
+        .catch(err => console.error(err));
+      db.close();
+      return;
 
     } else {
       let authorID = msg.author.id;
@@ -129,6 +135,7 @@ module.exports = class WhoCommand {
           console.log("N'existe pas !")
         }
       })
+      .catch(err => console.error(err));
 
     }  
 
