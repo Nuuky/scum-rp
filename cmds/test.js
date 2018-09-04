@@ -3,6 +3,8 @@
 const Global = require('../global/')
 const Json = require("../json/")
 const say = require('say')
+const MongoClient = require('mongodb').MongoClient;
+const url = process.env.MONGODB;
 
 module.exports = class TestCommand {
 
@@ -16,12 +18,16 @@ module.exports = class TestCommand {
         const bot = this.bot
         console.log("Test cmd. query = " + query);
         
+        
 
-        let regex = Json.grw.weatherName
-        let weathArg = query.toLowerCase();
-        let checkRegex = weathArg.match(regex)
-        console.log(checkRegex[0])
-        console.log(checkRegex[1] + " -- " + checkRegex[2] + " //// " + (checkRegex[1] = checkRegex[2]))
-        query;
+        MongoClient.connect(url, (err, db) => {
+            if (err) throw err;
+            const dbo = db.db(process.env.DB_NAME);
+          
+            dbo.collection("religion_info").findOne({name: "Caprane"})
+            .then(religion => {
+              console.log(religion);
+            })
+        })
     }
 }
