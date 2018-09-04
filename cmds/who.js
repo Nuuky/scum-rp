@@ -121,9 +121,8 @@ module.exports = class WhoCommand {
       authorID = authorID.replace(">", "")
 
       console.log("Start research...");
-      getThings("find", {})
+      getThings("findOne", {_id: authorID})
       .then(authorInfo => {
-        console.log(authorInfo)
         if(authorInfo) {
           console.log("Existe !")
         } else {
