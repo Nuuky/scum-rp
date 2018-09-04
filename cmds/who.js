@@ -28,7 +28,7 @@ module.exports = class WhoCommand {
         let theThing = dbo.collection("user_info").findOne(thing)
         return theThing;
       } else if(find == "find") {
-        return dbo.collection("user_info").find(thing).toArray();
+        return dbo.collection("user_info").find(thing);
       }
     }
 
@@ -119,6 +119,7 @@ module.exports = class WhoCommand {
           })
           .catch(err => console.error(err));
         })
+        .catch(err => console.error(err));
 
       //Global.Msg.embed(msg, embed, 90);
       db.close();
