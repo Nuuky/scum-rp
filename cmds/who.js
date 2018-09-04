@@ -17,95 +17,94 @@ module.exports = class WhoCommand {
         const msg = this.msg;
         const rpData = this.bot.tempScum;
 
-        MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
-            const dbo = db.db(process.env.DB_NAME);
 
-            // SEARCH USER --------
-            if(query) {
-                let user, info;
+        // SEARCH USER --------
+        if(query) {
+            let user, info;
 
-                async function makeList() { // GET USER -------
-                  // Research ID
-                  let searchObj;
-                  if(query.startsWith("<@")) {
-                      let req = args[0].replace("<@", "");
-                      req = req.replace(">", "");
-                      searchObj = {_id: req}
-                  } else {
-                      searchObj = {fullname: query}
-                  }
-                  
-                  console.log("Searching user..");
-                  return dbo.collection("user_info").findOne(searchObj);
+            async function makeList() { // GET USER -------
+                // Research ID
+                let searchObj;
+                if(query.startsWith("<@")) {
+                    let req = args[0].replace("<@", "");
+                    req = req.replace(">", "");
+                    searchObj = {_id: req}
+                } else {
+                    searchObj = {fullname: query}
                 }
-                makeList()
-                .then(userInfo => {
-                    user = userInfo;
-
-                    // Get religion name
-                    if(userInfo.religion) {
-                        console.log("Searching Religion.");
-                        return dbo.collection("religion_info").findOne({_id: userInfo.religion});
-                    } else {
-                        return
-                    } 
-                })
-                .then(religion => {
-                    info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-    
-                    // Get groupe name
-                    if(user.groupe) {
-                        console.log("Searching Groupe");
-                        return dbo.collection("groupe_info").findOne({_id: user.groupe});
-                    } else {
-                        return
-                    } 
-                })
-                .then(groupe => {
-                    let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-                    info.desc = groupeStr.concat(info.desc);
-                    (user.age + "\n").concat(info.desc);
-
-                    // Get Background Story
-                    if(user.background) {
-                        console.log("Get Background.");
-                        info.background = user.background;
-                    } else {
-                        return
-                    } 
-                })
-                .then(() => {
-                    console.log("Startin Embed...");
-                    
-                    // Common Infos
-                    info.title = "'" + user.name + "'";
-                    info.color = 10579647;
-                    info.image = (user.image) ? user.image : "null";
-
-                    const embed = {
-                        "title":  "**" + user.name + "**",
-                        "description": info.desc,
-                        "color": info.color,
-                        "thumbnail": {
-                            "url": (user.image) ? user.image : "null"
-                        }
-                    }
-
-                    if(info.background) {
-                        embed["fields"] = [
-                            {
-                                "name": "Background",
-                                "value" : info.background,
-                            }
-                        ];
-                    }
-
-                    Global.Msg.embed(msg, embed, 90);
-                })
+                
+                console.log("Searching user..");
+              
+                const uuser = await Global.Fn.findData("findOne", "user_info", searchObj);
+                
+                return uuser;
             }
-            db.close();
-        });
+            makeList()
+            .then(userInfo => {
+                console.log(userInfo)
+                user = userInfo;
+
+                // Get religion name
+                if(userInfo.religion) {
+                    console.log("Searching Religion.");
+                    return Global.Fn.findData("findOne", "religion_info", {_id: userInfo.religion});
+                } else {
+                    return
+                } 
+            })
+            .then(religion => {
+                info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
+
+                // Get groupe name
+                if(user.groupe) {
+                    console.log("Searching Groupe");
+                    return Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+                } else {
+                    return
+                } 
+            })
+            .then(groupe => {
+                let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                info.desc = groupeStr.concat(info.desc);
+                (user.age + "\n").concat(info.desc);
+
+                // Get Background Story
+                if(user.background) {
+                    console.log("Get Background.");
+                    info.background = user.background;
+                } else {
+                    return
+                } 
+            })
+            .then(() => {
+                console.log("Startin Embed...");
+                
+                // Common Infos
+                info.title = "'" + user.name + "'";
+                info.color = 10579647;
+                info.image = (user.image) ? user.image : "null";
+
+                const embed = {
+                    "title":  "**" + user.name + "**",
+                    "description": info.desc,
+                    "color": info.color,
+                    "thumbnail": {
+                        "url": (user.image) ? user.image : "null"
+                    }
+                }
+
+                if(info.background) {
+                    embed["fields"] = [
+                        {
+                            "name": "Background",
+                            "value" : info.background,
+                        }
+                    ];
+                }
+
+                Global.Msg.embed(msg, embed, 90);
+            })
+        }
     };
 }
 
