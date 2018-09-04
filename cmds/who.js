@@ -10,7 +10,6 @@ module.exports = class WhoCommand {
   constructor(bot, msg) {
     this.msg = msg;
     this.bot = bot;
-    console.log("On y est !")
   }
 
   async run(query) {
@@ -21,7 +20,6 @@ module.exports = class WhoCommand {
     //const prefix = Guild.prefix;
 
     if(query) {
-      console.log("Il y a un critère");
         let searchObj;
         if(query.startsWith("<")) {
           searchObj = {_id: args[0]}
@@ -46,65 +44,61 @@ module.exports = class WhoCommand {
                 surname = surname.slice(3, -1);
         
                 const embed = {
-                "embed": {
-                    "embed": {
-                      "title": "**" + result.nick + " " + result.name + "**",
-                      "description": `**Surnom:** *${surname}*
-                      **Age:** ${result.age}* ans*
-                      **Groupe:** *${result.groupe}*
-                      **Religion:** *${result.religion}*
-                      0fa8mi44ll3e\n\n`,
-                      "color": 10579647,
-                      "thumbnail": {
-                        "url": (result.url) ? result.url : "null"
-                      },
-                      "fields": [
-                        {
-                          "name": "Histoire",
-                          "value": result.story,
-                          "inline": true
-                        }
-                      ]
+                  "title": "**" + result.nick + " " + result.name + "**",
+                  "description": `**Surnom:** *${surname}*
+                  **Age:** ${result.age}* ans*
+                  **Groupe:** *${result.groupe}*
+                  **Religion:** *${result.religion}*
+                  0fa8mi44ll3e\n\n`,
+                  "color": 10579647,
+                  "thumbnail": {
+                    "url": (result.url) ? result.url : "null"
+                  },
+                  "fields": [
+                    {
+                      "name": "Histoire",
+                      "value": result.story,
+                      "inline": true
                     }
-                  }
+                  ]
                 }
-                    
-                console.log(embed);
-                Global.Msg.embed(msg, embed, 90);
                 
                 // FAMILLE -------
                 dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
                     if (err) throw err;
                   
+                    console.log("result: " + result);
+                  
                     if(result.length < 2) {
-                      
+                        console.log("Pas de famille");
                         for(var type in embed.embed) {
                             if(embed.embed[type] == "description") {
                                 embed.embed[type].replace("0fa8mi44ll3e", "");
-                                console.log(embed);
-                                return db.close();
                             }
                         }
+                            Global.Msg.embed(msg, embed, 90);
+                            return db.close();
                       
-                    }
+                    } else {
+                    
+                        console.log("Une famille");
+                        let famille = "";
+                        result.forEach(id => { 
+                            famille += " / " + id.name + " " + id.nick;
+                        });
+                        famille = famille.slice(3, -1);
 
-                    let famille = "";
-                    result.forEach(id => { 
-                        famille += " / " + id.name + " " + id.nick;
-                    });
-                    famille = famille.slice(3, -1);
-                      
-                    for(var type in embed.embed) {
-                        if(embed.embed[type] == "description") {
-                            embed.embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                        for(var type in embed.embed) {
+                            if(embed.embed[type] == "description") {
+                                embed.embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                            }
                         }
-                    }
-                  
-                    db.close();
-                });
 
-                  
-                //Global.Msg.embed(msg, embed, 90);
+                        Global.Msg.embed(msg, embed, 90);
+
+                        db.close();
+                    }
+                });
                 db.close();
             });
 
