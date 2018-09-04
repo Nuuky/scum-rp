@@ -19,7 +19,6 @@ module.exports = class WhoCommand {
     const msg = this.msg;
     //const Guild = this.bot.tempGuilds[msg.guild.id];
     //const prefix = Guild.prefix;
-    let embed;
 
     if(query) {
       console.log("Il y a un critère");
@@ -46,7 +45,7 @@ module.exports = class WhoCommand {
                 });
                 surname = surname.slice(3, -1);
         
-                embed = {
+                const embed = {
                 "embed": {
                     "embed": {
                       "title": "**" + result.nick + " " + result.name + "**",
@@ -69,6 +68,9 @@ module.exports = class WhoCommand {
                     }
                   }
                 }
+                    
+                console.log(embed);
+                Global.Msg.embed(msg, embed, 90);
                 
                 // FAMILLE -------
                 dbo.collection("scum_rp").find({nick: result.nick}).toArray(function(err, result) {
@@ -77,9 +79,9 @@ module.exports = class WhoCommand {
                     if(result.length < 2) {
                       
                         for(var type in embed.embed) {
-                            console.log(embed.embed[type]);
                             if(embed.embed[type] == "description") {
                                 embed.embed[type].replace("0fa8mi44ll3e", "");
+                                console.log(embed);
                                 return db.close();
                             }
                         }
@@ -98,13 +100,11 @@ module.exports = class WhoCommand {
                         }
                     }
                   
-                    Global.Msg.embed(msg, embed, 90);
-                  
                     db.close();
                 });
 
                   
-                Global.Msg.embed(msg, embed, 90);
+                //Global.Msg.embed(msg, embed, 90);
                 db.close();
             });
 
