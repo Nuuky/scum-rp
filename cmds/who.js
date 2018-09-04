@@ -85,37 +85,37 @@ module.exports = class WhoCommand {
           }
         
           // FAMILLE -------
-          getThings("find", {"name": result.name})
+          getThings("find", {})
           .then(res => {
             console.log(res);
-            if(res.length < 2) {
-                Global.Msg.embed(msg, embed, 90);
-                return db.close();
+            // if(res.length < 2) {
+            //     Global.Msg.embed(msg, embed, 90);
+            //     return db.close();
               
-            } else {
-                let famille = "";
-                res.forEach(id => {
-                    if(!(id.nick == result.nick)) {
-                        famille += "- " + id.nick + " " + id.name + "\n ";
-                    }
-                });
-                famille = famille.slice(0, -1);
+            // } else {
+            //     let famille = "";
+            //     res.forEach(id => {
+            //         if(!(id.nick == result.nick)) {
+            //             famille += "- " + id.nick + " " + id.name + "\n ";
+            //         }
+            //     });
+            //     famille = famille.slice(0, -1);
               
-                embed.fields.push(
-                {
-                  "name": "Famille",
-                  "value": famille,
-                  "inline": true
-                }) 
+            //     embed.fields.push(
+            //     {
+            //       "name": "Famille",
+            //       "value": famille,
+            //       "inline": true
+            //     }) 
   
-                for(var type in embed) {
-                    if(type == "description") {
-                        embed[type] = embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
-                    }
-                }
+            //     for(var type in embed) {
+            //         if(type == "description") {
+            //             embed[type] = embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+            //         }
+            //     }
   
-                Global.Msg.embed(msg, embed, 90);
-            }
+            //     Global.Msg.embed(msg, embed, 90);
+            // }
           })
           .catch(err => console.error(err));
         })
