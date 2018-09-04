@@ -34,14 +34,12 @@ module.exports = class WhoCommand {
                 }
                 
                 console.log("Searching user..");
-              
-                const uuser = await Global.Fn.findData("findOne", "user_info", searchObj);
                 
-                return uuser;
+                Global.Fn.findData("findOne", "user_info", searchObj)
+                .then((item) => {return item})
             }
             makeList()
             .then(userInfo => {
-                console.log(userInfo)
                 user = userInfo;
 
                 // Get religion name
