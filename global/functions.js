@@ -65,6 +65,20 @@ module.exports = {
             console.log(text);
         });
     },
+  
+    findData: (findType, colName, findObj) => {
+        MongoClient.connect(url, (err, db) => {
+            if (err) throw err;
+            const dbo = db.db(process.env.DB_NAME);
+            
+            if(findType == "find") {
+                return dbo.collection(colName).find(findObj).toArray();
+            }
+            if(findType == "findOne") {
+                return dbo.collection(colName).findOne(findObj);
+            }
+        })
+    },
 
     monGuilDB: (obj, action, newObj, colName = "guilds") => {
         MongoClient.connect(url, function(err, db) {
