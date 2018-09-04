@@ -34,7 +34,6 @@ module.exports = class WhoCommand {
 
             dbo.collection("user_info").findOne(searchObj, function(err, result) {
                 if (err) throw err;
-                console.log(result)
 
                 // USERNAME -------
                 let surname = "";
@@ -43,7 +42,7 @@ module.exports = class WhoCommand {
                 });
                 surname = surname.slice(3, -1);
         
-                const embed = {
+                let embed = {
                   "title": "**" + result.nick + " " + result.name + "**",
                   "description": `**Surnom:** *${surname}*
                   **Age:** ${result.age}* ans*
@@ -71,13 +70,14 @@ module.exports = class WhoCommand {
                   
                     if(result.length < 2) {
                         console.log("Pas de famille");
-                        for(var type in embed.embed) {
-                            if(embed.embed[type] == "description") {
-                                embed.embed[type].replace("0fa8mi44ll3e", "");
+                        for(var type in embed) {
+                            console.log(type) 
+                            if(type == "description") {
+                                embed[type].replace("0fa8mi44ll3e", "");
                             }
                         }
-                            Global.Msg.embed(msg, embed, 90);
-                            return db.close();
+                        Global.Msg.embed(msg, embed, 90);
+                        return db.close();
                       
                     } else {
                     
@@ -88,9 +88,9 @@ module.exports = class WhoCommand {
                         });
                         famille = famille.slice(3, -1);
 
-                        for(var type in embed.embed) {
-                            if(embed.embed[type] == "description") {
-                                embed.embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
+                        for(var type in embed) {
+                            if(type == "description") {
+                                embed[type].replace("0fa8mi44ll3e", "**Famille:** *" + famille + "*");
                             }
                         }
 
