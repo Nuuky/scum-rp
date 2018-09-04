@@ -32,7 +32,6 @@ module.exports = class WhoCommand {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             const dbo = db.db(process.env.DB_NAME);
-                console.log("searchObj: " + searchObj["_id"])
 
             dbo.collection("user_info").findOne(searchObj, function(err, result) {
                 if (err) throw err;
@@ -47,7 +46,7 @@ module.exports = class WhoCommand {
                 let embed = {
                   "title": "**" + result.nick + " " + result.name + "**",
                   "description": `**Surnom:** *${surname}*
-                  **Age:** ${result.age}* ans*
+                  **Age:** *${result.age} ans*
                   **Groupe:** *${result.groupe}*
                   **Religion:** *${result.religion}*
                   0fa8mi44ll3e\n\n`,
@@ -65,17 +64,12 @@ module.exports = class WhoCommand {
                 }
                 
                 // FAMILLE -------
-                dbo.collection("user_info").find({name: result.name}).toArray(function(err, result) {
+                dbo.collection("user_info").find({name: result.name}).toArray(function(err, res) {
                     if (err) throw err;
                   
-                    console.log("result: " + result);
-                    console.log(result.length);
-                    if(result.length < 2) {
-                        console.log("Pas de famille");
+                    if(res.length < 2) {
                         for(var type in embed) {
-                            console.log(type == "description") 
                             if(type == "description") {
-                                console.log(embed[type]);
                                 embed[type] = embed[type].replace("0fa8mi44ll3e", "");
                             }
                         }
@@ -83,12 +77,11 @@ module.exports = class WhoCommand {
                         return db.close();
                       
                     } else {
-                    
-                        console.log("Une famille");
                         let famille = "";
-                        result.forEach(id => {
-                            
-                            famille += "/ " + id.name + " " + id.nick + " ";
+                        res.forEach(id => {
+                            if(!(id.nick == result.nick)) {
+                                famille += "/ " + id.nick + " " + id.name + " ";
+                            }
                         });
                         famille = famille.slice(2, -1);
 
