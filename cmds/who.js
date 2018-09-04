@@ -35,7 +35,7 @@ module.exports = class WhoCommand {
             const dbo = db.db(process.env.DB_NAME);
                 console.log("searchObj: " + searchObj["_id"])
 
-            dbo.collection("scum_rp").findOne(searchObj, function(err, result) {
+            dbo.collection("scum_rp").findOne({}, function(err, result) {
                 if (err) throw err;
                 console.log(result)
 
