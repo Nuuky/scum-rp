@@ -48,19 +48,23 @@ module.exports = class WhoCommand {
                   "description": `**Surnom:** *${surname}*
                   **Age:** *${result.age} ans*
                   **Groupe:** *${result.groupe}*
-                  **Religion:** *${result.religion}*
-                  0fa8mi44ll3e\n\n`,
+                  **Religion:** *${result.religion}*\n\n`,
                   "color": 10579647,
                   "thumbnail": {
                     "url": (result.url) ? result.url : "null"
                   },
-                  "fields": [
+                  "fields": []
+                }
+                
+                console.log(result.story)
+                // STORY -------
+                if(result.story) {
+                    embed.fields.push(
                     {
-                      "name": "Histoire",
+                      "name": "Description",
                       "value": result.story,
                       "inline": true
-                    }
-                  ]
+                    }) 
                 }
                 
                 // FAMILLE -------
@@ -68,11 +72,6 @@ module.exports = class WhoCommand {
                     if (err) throw err;
                   
                     if(res.length < 2) {
-                        for(var type in embed) {
-                            if(type == "description") {
-                                embed[type] = embed[type].replace("0fa8mi44ll3e", "");
-                            }
-                        }
                         Global.Msg.embed(msg, embed, 90);
                         return db.close();
                       
@@ -80,10 +79,17 @@ module.exports = class WhoCommand {
                         let famille = "";
                         res.forEach(id => {
                             if(!(id.nick == result.nick)) {
-                                famille += "/ " + id.nick + " " + id.name + " ";
+                                famille += "- " + id.nick + " " + id.name + "\n ";
                             }
                         });
-                        famille = famille.slice(2, -1);
+                        famille = famille.slice(0, -1);
+                      
+                        embed.fields.push(
+                        {
+                          "name": "Famille",
+                          "value": famille,
+                          "inline": true
+                        }) 
 
                         for(var type in embed) {
                             if(type == "description") {
