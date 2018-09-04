@@ -22,6 +22,7 @@ module.exports = class WhoCommand {
     if(query) {
         let searchObj;
         if(query.startsWith("<")) {
+          let req = args[
           searchObj = {_id: args[0]}
         } else {
           searchObj = {fullname: query}
@@ -37,10 +38,11 @@ module.exports = class WhoCommand {
 
                 // USERNAME -------
                 let surname = "";
-                result.surname.forEach(sur => { 
-                    surname += " / " + sur; 
+                result.surname.forEach(sur => {
+                    console.log(sur);
+                    surname += "/ " + sur + " "; 
                 });
-                surname = surname.slice(3, -1);
+                surname = surname.slice(2, -1);
         
                 let embed = {
                   "title": "**" + result.nick + " " + result.name + "**",
