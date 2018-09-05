@@ -22,7 +22,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            let info= {}, user, religion, groupe;
+            let info= {}, user, groupe;
 
              // GET USER -------
             // Research ID
@@ -46,25 +46,34 @@ module.exports = class WhoCommand {
                 return promise
             }
 
-            const getGroupesInfo = (userInfo) => {
+            const getGroupeInfo = (userInfo) => {
                 user = userInfo;
-                console.log("user: ", userInfo)
                 const promise = new Promise((resolve, reject) => {
                     console.log("getGroupe -------")
-                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId("5b8eee97fb6fc013752b76a0")}))
+                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(userInfo.groupe)}))
+                })
+                //console.log(promise)
+                return promise
+            }
+
+            const getReligionInfo = (groupeInfo) => {
+                groupe = groupeInfo;
+                const promise = new Promise((resolve, reject) => {
+                    console.log("getReligion -------")
+                    resolve(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)}))
                 })
                 //console.log(promise)
                 return promise
             }
 
             getUser()
-            .then(getGroupesInfo)
-            .then((groupe) => {
-                console.log("groupe: ", groupe)
+            .then(getGroupeInfo)
+            .then(getReligionInfo)
+            .then((religion) => {
 
-                console.log("then User: " + user);
-                console.log("then Religion: " + religion);
-                console.log("then Groupe: " + groupe);
+                // console.log("then User: ", user);
+                // console.log("then Religion: ", religion);
+                // console.log("then Groupe: ", groupe);
 
                 info.desc = user.age + "\n"
     

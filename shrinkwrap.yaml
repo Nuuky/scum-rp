@@ -1,6 +1,6 @@
 dependencies:
   bufferutil: 3.0.4
-  discord.js: 11.3.2
+  discord.js: 11.4.2
   erlpack: 0.1.2
   express: 4.16.3
   festival: 1.0.1
@@ -273,10 +273,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
-  /discord.js/11.3.2:
+  /discord.js/11.4.2:
     dependencies:
       long: 4.0.0
-      prism-media: 0.0.2
+      prism-media: 0.0.3
       snekfetch: 3.6.4
       tweetnacl: 1.0.0
       ws: 4.1.0
@@ -292,7 +292,7 @@ packages:
       sodium: ^2.0.3
       uws: ^9.14.0
     resolution:
-      integrity: sha512-Abw9CTMX3Jb47IeRffqx2VNSnXl/OsTdQzhvbw/JnqCyqc2imAocc7pX2HoRmgKd8CgSqsjBFBneusz/E16e6A==
+      integrity: sha512-MDwpu0lMFTjqomijDl1Ed9miMQe6kB4ifKdP28QZllmLv/HVOJXhatRgjS8urp/wBlOfx+qAYSXcdI5cKGYsfg==
   /ee-first/1.1.1:
     dev: false
     resolution:
@@ -782,10 +782,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-3DX9L6pzwc1m1ksMkW3Ky2WLgPQUBiySOfXVl3WZyAeJSyJb4wtoH9OmeRGcubAWsMlLiL8BTHbwfm/jPQE9Ag==
-  /prism-media/0.0.2:
+  /prism-media/0.0.3:
     dev: false
     resolution:
-      integrity: sha512-L6yc8P5NVG35ivzvfI7bcTYzqFV+K8gTfX9YaJbmIFfMXTs71RMnAupvTQPTCteGsiOy9QcNLkQyWjAafY/hCQ==
+      integrity: sha512-c9KkNifSMU/iXT8FFTaBwBMr+rdVcN+H/uNv1o+CuFeTThNZNTOrQ+RgXA1yL/DeLk098duAeRPP3QNPNbhxYQ==
   /process-nextick-args/2.0.0:
     dev: false
     resolution:
@@ -884,7 +884,7 @@ packages:
       inherits: 2.0.3
       isarray: 1.0.0
       process-nextick-args: 2.0.0
-      safe-buffer: 5.1.1
+      safe-buffer: 5.1.2
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
     dev: false
@@ -925,6 +925,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg==
+  /safe-buffer/5.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
   /say/0.14.0:
     dependencies:
       one-time: 0.0.4
@@ -1007,6 +1011,7 @@ packages:
     resolution:
       integrity: sha512-RkE9rGPHcxYZ/baYmgJtOSM63vH0Vyq+ma5TijBcLla41SWlh8t6XYIGMR/oeZcmr+/G8k+zrClkkVrtnQ0esg==
   /snekfetch/3.6.4:
+    deprecated: use node-fetch instead
     dev: false
     resolution:
       integrity: sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw==
@@ -1057,7 +1062,7 @@ packages:
       integrity: sha1-YuIDvEF2bGwoyfyEMB2rHFMQ+pQ=
   /string_decoder/1.1.1:
     dependencies:
-      safe-buffer: 5.1.1
+      safe-buffer: 5.1.2
     dev: false
     resolution:
       integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==
@@ -1177,7 +1182,7 @@ packages:
   /ws/4.1.0:
     dependencies:
       async-limiter: 1.0.0
-      safe-buffer: 5.1.1
+      safe-buffer: 5.1.2
     dev: false
     resolution:
       integrity: sha512-ZGh/8kF9rrRNffkLFV4AzhvooEclrOH0xaugmqGsIfFgOE/pIz4fMc4Ef+5HSQqTEug2S9JZIWDR47duDSLfaA==
@@ -1192,7 +1197,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   bufferutil: 3.0.4
-  discord.js: ^11.3.2
+  discord.js: ^11.4.2
   erlpack: ^0.1.2
   express: ^4.16.3
   festival: ^1.0.1
