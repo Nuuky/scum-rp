@@ -5,6 +5,7 @@ const Global = require("../global/");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const fetch = require('node-fetch');
+const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class WhoCommand {
 
