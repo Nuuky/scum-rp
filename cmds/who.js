@@ -41,13 +41,13 @@ module.exports = class WhoCommand {
                 const promise = new Promise((resolve, reject) => {
                     console.log("getUser -------")
                     resolve(Global.Fn.findData("findOne", "user_info", searchObj))
-                    reject(Global.Msg.send(msg, "Aucun joueur trouvé.", 180))
                 })
                 //console.log(promise)
                 return promise
             }
 
             const getGroupeInfo = (userInfo) => {
+                if (!userInfo) throw 'Aucun joueur trouvé.';
                 user = userInfo;
                 const promise = new Promise((resolve, reject) => {
                     console.log("getGroupe -------")
@@ -68,7 +68,7 @@ module.exports = class WhoCommand {
             }
 
             getUser()
-            .then(getGroupeInfo)
+            .then(getGroupeInfo, (err) => {console.log("Erreur, pas d'utilisateur trouvé: ", err)})
             .then(getReligionInfo)
             .then((religion) => {
 
