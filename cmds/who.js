@@ -40,11 +40,8 @@ module.exports = class WhoCommand {
                     resolve(Global.Fn.findData("findOne", "user_info", searchObj));
                 })
                 return promise
-                const userInfo = await 
                 user = userInfo;
                 console.log(user)
-
-                if(await userInfo) cb;
             }
 
             const getGroupesInfo = () => {
