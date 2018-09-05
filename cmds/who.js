@@ -20,7 +20,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            let info;
+            let info, user, religion, groupe;
 
              // GET USER -------
             // Research ID
@@ -32,18 +32,16 @@ module.exports = class WhoCommand {
             } else {
                 searchObj = {fullname: query}
             }
-            
-            console.log("Searching user..");
-            const user = dbo.collection("user_info").findOne(searchObj);
+            Promise.all([
+            fetch(Global.Fn.findData("findOne", "user_info", searchObj)),
 
-            console.log("Searching Religion.");
-            const religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
+            fetch(Global.Fn.findData("findOne", "religion_info", {_id: user.religion})),
 
-            console.log("Searching Groupe");
-            const groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-
-
-            Promise.all([user, religion, groupe]).then((user, religion, groupe) => {
+            fetch(Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))])
+            .then(([user, religion, groupe]) => {
+                console.log("then User: " + user);
+                console.log("then Religion: " + religion);
+                console.log("then Groupe: " + groupe);
 
                 // Get religion name
                 if(religion) {
@@ -91,6 +89,7 @@ module.exports = class WhoCommand {
 
                 Global.Msg.embed(msg, embed, 90);
             })
+            .catch(err => console.error(err))
         }
     };
 }
