@@ -33,10 +33,24 @@ module.exports = class WhoCommand {
             } else {
                 searchObj = {fullname: query}
             }
-            Promise.all([
-                fetch(Global.Fn.findData("findOne", "user_info", searchObj))
-            ])
-            .then(([user, religion, groupe]) => {
+
+
+            async function getData() {
+                let user = await Global.Fn.findData("findOne", "user_info", searchObj);
+                console.log(user)
+
+                let religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
+                console.log(religion)
+
+                let groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+                console.log(groupe)
+
+                
+                return Promise.all([user, religion, groupe]);
+            }
+
+            getData()
+            .then(() => {
                 console.log("then User: " + user);
                 console.log("then Religion: " + religion);
                 console.log("then Groupe: " + groupe);
