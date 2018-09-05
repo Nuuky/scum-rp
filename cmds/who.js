@@ -41,6 +41,7 @@ module.exports = class WhoCommand {
                 const promise = new Promise((resolve, reject) => {
                     console.log("getUser -------")
                     resolve(Global.Fn.findData("findOne", "user_info", searchObj))
+                    reject(Global.Msg.send(msg, "Aucun joueur trouvé.", 180))
                 })
                 //console.log(promise)
                 return promise
@@ -122,7 +123,7 @@ module.exports = class WhoCommand {
                     ];
                 }
 
-                Global.Msg.embed(msg, embed, 90);
+                Global.Msg.embed(msg, embed, 180);
             })
             .catch(err => console.error(err))
         }
