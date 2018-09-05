@@ -26,7 +26,7 @@ module.exports = class WhoCommand {
                 // Research ID
                 let searchObj;
                 if(query.startsWith("<@")) {
-                    let req = args[0].replace("<@", "");
+                    let req = args[0].replace("<@", ""); 
                     req = req.replace(">", "");
                     searchObj = {_id: req}
                 } else {
