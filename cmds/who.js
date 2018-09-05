@@ -22,7 +22,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            let info= {}, user, religion, groupe;
+            let info= {}, user, religion, groupe; 
 
              // GET USER -------
             // Research ID
