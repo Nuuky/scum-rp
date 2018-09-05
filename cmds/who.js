@@ -13,7 +13,7 @@ module.exports = class WhoCommand {
         this.bot = bot;
     }
 
-    run(query) {
+    async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
         const rpData = this.bot.tempScum;
@@ -33,24 +33,23 @@ module.exports = class WhoCommand {
             } else {
                 searchObj = {fullname: query}
             }
+            //Global.Fn.findData("findOne", "religion_info", {_id: user.religion})
 
 
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", searchObj));
+                    resolve(Global.Fn.findData("findOne", "user_info", searchObj))
                 })
+                console.log(promise)
                 return promise
-                user = userInfo;
-                console.log(user)
             }
 
-            const getGroupesInfo = () => {
+            const getGroupesInfo = (user) => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve([Global.Fn.findData("findOne", "religion_info", {_id: "5b8ef088fb6fc013752b7799"}), Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"})])
+                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"}))
                 })
-            }
-
-            const makeList = () => {
+                console.log(promise)
+                return promise
             }
 
             getUser()
