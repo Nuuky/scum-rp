@@ -20,99 +20,77 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            let user, info;
+            let info;
 
-            async function makeList() { // GET USER -------
-                // Research ID
-                let searchObj;
-                if(query.startsWith("<@")) {
-                    let req = args[0].replace("<@", ""); 
-                    req = req.replace(">", "");
-                    searchObj = {_id: req}
-                } else {
-                    searchObj = {fullname: query}
-                }
-                
-                console.log("Searching user..");
-                
-                Global.Fn.findData("findOne", "user_info", searchObj).then(function(items) {
-                  console.info('The promise was fulfilled with items!');
-                  return items
-                }, function(err) {
-                  console.error('The promise was rejected', err, err.stack);
-                });
+             // GET USER -------
+            // Research ID
+            let searchObj;
+            if(query.startsWith("<@")) {
+                let req = args[0].replace("<@", "");
+                req = req.replace(">", "");
+                searchObj = {_id: req}
+            } else {
+                searchObj = {fullname: query}
             }
-            makeList()
-            .then(userInfo => {
-                console.log(userInfo)
-                user = userInfo;
+            
+            console.log("Searching user..");
+            
+            const user = Global.Fn.findData("findOne", "user_info", searchObj);
 
-                // Get religion name
-                if(userInfo.religion) {
-                    console.log("Searching Religion.");
+            // Get religion name
+            if(user.religion) {
+                console.log("Searching Religion.");
+                const religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
+            }
+
+
+            // Get groupe name
+            if(user.groupe) {
+                console.log("Searching Groupe");
+                const groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+            }
+
+            Promise.all([user, religion, groupe]).then(() => {
+
+                info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
+            
+                let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                info.desc = groupeStr.concat(info.desc);
+                (user.age + "\n").concat(info.desc);
+    
+                // Get Background Story
+                if(user.background) {
+                    console.log("Get Background.");
+                    info.background = user.background;
+                }
+
+                console.log("Startin Embed...");
                 
-                    Global.Fn.findData("findOne", "religion_info", {_id: userInfo.religion}).then(function(items) {
-                      console.info('The promise was fulfilled with items!');
-                      return items
-                    }, function(err) {
-                      console.error('The promise was rejected', err, err.stack);
-                    });
-                } else {
-                    return
-                } 
+                // Common Infos
+                info.title = "'" + user.name + "'";
+                info.color = 10579647;
+                info.image = (user.image) ? user.image : "null";
+
+                const embed = {
+                    "title":  "**" + user.name + "**",
+                    "description": info.desc,
+                    "color": info.color,
+                    "thumbnail": {
+                        "url": (user.image) ? user.image : "null"
+                    }
+                }
+
+                if(info.background) {
+                    embed["fields"] = [
+                        {
+                            "name": "Background",
+                            "value" : info.background,
+                        }
+                    ];
+                }
+
+                Global.Msg.embed(msg, embed, 90);
             })
-//             .then(religion => {
-//                 info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-
-//                 // Get groupe name
-//                 if(user.groupe) {
-//                     console.log("Searching Groupe");
-//                     return Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-//                 } else {
-//                     return
-//                 } 
-//             })
-//             .then(groupe => {
-//                 let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-//                 info.desc = groupeStr.concat(info.desc);
-//                 (user.age + "\n").concat(info.desc);
-
-//                 // Get Background Story
-//                 if(user.background) {
-//                     console.log("Get Background.");
-//                     info.background = user.background;
-//                 } else {
-//                     return
-//                 } 
-//             })
-//             .then(() => {
-//                 console.log("Startin Embed...");
-                
-//                 // Common Infos
-//                 info.title = "'" + user.name + "'";
-//                 info.color = 10579647;
-//                 info.image = (user.image) ? user.image : "null";
-
-//                 const embed = {
-//                     "title":  "**" + user.name + "**",
-//                     "description": info.desc,
-//                     "color": info.color,
-//                     "thumbnail": {
-//                         "url": (user.image) ? user.image : "null"
-//                     }
-//                 }
-
-//                 if(info.background) {
-//                     embed["fields"] = [
-//                         {
-//                             "name": "Background",
-//                             "value" : info.background,
-//                         }
-//                     ];
-//                 }
-
-//                 Global.Msg.embed(msg, embed, 90);
-//             })
         }
     };
 }
@@ -136,3 +114,64 @@ module.exports = class WhoCommand {
         "story": "lorem ipsum"
     }
 */
+
+
+
+
+
+  
+findData: (findType, colName, findObj) => {
+    return MongoClient.connect.then((db) => {
+        const dbo = db.db(process.env.DB_NAME);
+        
+        if(findType == "find") {
+            return dbo.collection(colName).find(findObj).toArray();
+        }
+        if(findType == "findOne") {
+            return dbo.collection(colName).findOne(findObj);
+        }
+    })
+}
+    
+    
+    
+    (url, (err, db) => {
+        if (err) throw err;
+        const dbo = db.db(process.env.DB_NAME);
+        
+        if(findType == "find") {
+            return dbo.collection(colName).find(findObj).toArray();
+        }
+        if(findType == "findOne") {
+            return dbo.collection(colName).findOne(findObj);
+        }
+    });
+
+
+
+
+// db1.js
+var MongoClient = require('mongodb').MongoClient;
+                       
+module.exports = {
+  FindinCol1: function() {
+    return MongoClient.connect('mongodb://localhost:27017/db1').then(function(db) {
+      var collection = db.collection('col1');
+      
+      return collection.find().toArray();
+    }).then(function(items) {
+      console.log(items);
+      return items;
+    });
+  }
+};
+
+
+// app.js
+var db = require('./db1');
+    
+db.FindinCol1().then(function(items) {
+  console.info('The promise was fulfilled with items!', items);
+}, function(err) {
+  console.error('The promise was rejected', err, err.stack);
+});
