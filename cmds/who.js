@@ -34,28 +34,28 @@ module.exports = class WhoCommand {
             }
             
             console.log("Searching user..");
+            const user = dbo.collection("user_info").findOne(searchObj);
+
+            console.log("Searching Religion.");
+            const religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
+
+            console.log("Searching Groupe");
+            const groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+
+
+            Promise.all([user, religion, groupe]).then((user, religion, groupe) => {
+
+                // Get religion name
+                if(religion) {
+                    info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
+                }
+    
+                // Get groupe name
+                if(groupe) {
+                    let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                    info.desc = groupeStr.concat(info.desc);
+                }
             
-            const user = Global.Fn.findData("findOne", "user_info", searchObj);
-
-            // Get religion name
-            if(user.religion) {
-                console.log("Searching Religion.");
-                const religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
-            }
-
-
-            // Get groupe name
-            if(user.groupe) {
-                console.log("Searching Groupe");
-                const groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-            }
-
-            Promise.all([user, religion, groupe]).then(() => {
-
-                info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-            
-                let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-                info.desc = groupeStr.concat(info.desc);
                 (user.age + "\n").concat(info.desc);
     
                 // Get Background Story
@@ -114,64 +114,3 @@ module.exports = class WhoCommand {
         "story": "lorem ipsum"
     }
 */
-
-
-
-
-
-  
-findData: (findType, colName, findObj) => {
-    return MongoClient.connect.then((db) => {
-        const dbo = db.db(process.env.DB_NAME);
-        
-        if(findType == "find") {
-            return dbo.collection(colName).find(findObj).toArray();
-        }
-        if(findType == "findOne") {
-            return dbo.collection(colName).findOne(findObj);
-        }
-    })
-}
-    
-    
-    
-    (url, (err, db) => {
-        if (err) throw err;
-        const dbo = db.db(process.env.DB_NAME);
-        
-        if(findType == "find") {
-            return dbo.collection(colName).find(findObj).toArray();
-        }
-        if(findType == "findOne") {
-            return dbo.collection(colName).findOne(findObj);
-        }
-    });
-
-
-
-
-// db1.js
-var MongoClient = require('mongodb').MongoClient;
-                       
-module.exports = {
-  FindinCol1: function() {
-    return MongoClient.connect('mongodb://localhost:27017/db1').then(function(db) {
-      var collection = db.collection('col1');
-      
-      return collection.find().toArray();
-    }).then(function(items) {
-      console.log(items);
-      return items;
-    });
-  }
-};
-
-
-// app.js
-var db = require('./db1');
-    
-db.FindinCol1().then(function(items) {
-  console.info('The promise was fulfilled with items!', items);
-}, function(err) {
-  console.error('The promise was rejected', err, err.stack);
-});
