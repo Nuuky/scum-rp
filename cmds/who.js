@@ -11,104 +11,103 @@ module.exports = class WhoCommand {
     constructor(bot, msg) {
         this.msg = msg;
         this.bot = bot;
+
+        // GET USER -------
+       // Research ID
+       let searchObj;
+       if(query.startsWith("<@")) {
+           let req = args[0].replace("<@", "");
+           req = req.replace(">", "");
+           searchObj = {_id: req}
+       } else {
+           searchObj = {fullname: query}
+       }
+
+       const getUser = () => {
+           const promise = new Promise((resolve, reject) => {
+               resolve(this.user = Global.Fn.findData("findOne", "user_info", searchObj))
+           })
+           //console.log(promise)
+           return promise
+       }
+
+       const getGroupesInfo = (userR) => {
+           console.log("user: ", user)
+           const promise = new Promise((resolve, reject) => {
+               resolve(this.groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))
+           })
+           //console.log(promise)
+           return promise
+       }
+       getUser()
+       .then(getGroupesInfo)
+
     }
 
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
         const rpData = this.bot.tempScum;
+        const user = this.user;
+        const groupe = this.groupe;
 
 
         // SEARCH USER --------
         if(query) {
-            let info, user, religion, groupe;
-
-             // GET USER -------
-            // Research ID
-            let searchObj;
-            if(query.startsWith("<@")) {
-                let req = args[0].replace("<@", "");
-                req = req.replace(">", "");
-                searchObj = {_id: req}
-            } else {
-                searchObj = {fullname: query}
-            }
+            let info= {}, user, religion, groupe;
             //Global.Fn.findData("findOne", "religion_info", {_id: user.religion})
 
+            console.log("groupe: ", groupe)
 
-            const getUser = () => {
-                const promise = new Promise((resolve, reject) => {
-                    resolve(user = Global.Fn.findData("findOne", "user_info", searchObj))
-                })
-                //console.log(promise)
-                return promise
+            console.log("then User: " + user);
+            console.log("then Religion: " + religion);
+            console.log("then Groupe: " + groupe);
+
+            // Get religion name
+            if(religion) {
+                info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
             }
 
-            const getGroupesInfo = (user) => {
-                console.log("user: ", user)
-                const promise = new Promise((resolve, reject) => {
-                    resolve(groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))
-                })
-                //console.log(promise)
-                return promise
+            // Get groupe name
+            if(groupe) {
+                let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                info.desc = groupeStr.concat(info.desc);
+            }
+        
+            (user.age + "\n").concat(info.desc);
+
+            // Get Background Story
+            if(user.background) {
+                console.log("Get Background.");
+                info.background = user.background;
             }
 
-            getUser()
-            .then(getGroupesInfo)
-            .then((religion) => {
-                console.log("groupe: ", groupe)
-
-                console.log("then User: " + user);
-                console.log("then Religion: " + religion);
-                console.log("then Groupe: " + groupe);
-
-                // Get religion name
-                if(religion) {
-                    info.desc = religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-                }
-    
-                // Get groupe name
-                if(groupe) {
-                    let groupeStr = groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-                    info.desc = groupeStr.concat(info.desc);
-                }
+            console.log("Startin Embed...");
             
-                (user.age + "\n").concat(info.desc);
-    
-                // Get Background Story
-                if(user.background) {
-                    console.log("Get Background.");
-                    info.background = user.background;
+            // Common Infos
+            info.title = "'" + user.name + "'";
+            info.color = 10579647;
+            info.image = (user.image) ? user.image : "null";
+
+            const embed = {
+                "title":  "**" + user.name + "**",
+                "description": info.desc,
+                "color": info.color,
+                "thumbnail": {
+                    "url": (user.image) ? user.image : "null"
                 }
+            }
 
-                console.log("Startin Embed...");
-                
-                // Common Infos
-                info.title = "'" + user.name + "'";
-                info.color = 10579647;
-                info.image = (user.image) ? user.image : "null";
-
-                const embed = {
-                    "title":  "**" + user.name + "**",
-                    "description": info.desc,
-                    "color": info.color,
-                    "thumbnail": {
-                        "url": (user.image) ? user.image : "null"
+            if(info.background) {
+                embed["fields"] = [
+                    {
+                        "name": "Background",
+                        "value" : info.background,
                     }
-                }
+                ];
+            }
 
-                if(info.background) {
-                    embed["fields"] = [
-                        {
-                            "name": "Background",
-                            "value" : info.background,
-                        }
-                    ];
-                }
-
-                Global.Msg.embed(msg, embed, 90);
-            })
-            .catch(err => console.error(err))
+            Global.Msg.embed(msg, embed, 90);
         }
     };
 }
