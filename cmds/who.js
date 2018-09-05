@@ -38,23 +38,26 @@ module.exports = class WhoCommand {
 
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", searchObj))
+                    resolve(user = Global.Fn.findData("findOne", "user_info", searchObj))
                 })
-                console.log(promise)
+                //console.log(promise)
                 return promise
             }
 
             const getGroupesInfo = (user) => {
+                console.log("user: ", user)
                 const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"}))
+                    resolve(groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))
                 })
-                console.log(promise)
+                //console.log(promise)
                 return promise
             }
 
             getUser()
             .then(getGroupesInfo)
-            .then(() => {
+            .then((religion) => {
+                console.log("groupe: ", groupe)
+
                 console.log("then User: " + user);
                 console.log("then Religion: " + religion);
                 console.log("then Groupe: " + groupe);
