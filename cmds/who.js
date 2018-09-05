@@ -22,7 +22,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            let info= {}, user, religion, groupe; 
+            let info= {}, user, religion, groupe;
 
              // GET USER -------
             // Research ID
@@ -40,7 +40,7 @@ module.exports = class WhoCommand {
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
                     console.log("getUser -------")
-                    resolve(Global.Fn.findData("findOne", "user_info", {_id: ObjectId("5b8eee97fb6fc013752b76a0")}))
+                    resolve(Global.Fn.findData("findOne", "user_info", searchObj))
                 })
                 //console.log(promise)
                 return promise
@@ -51,8 +51,7 @@ module.exports = class WhoCommand {
                 console.log("user: ", userInfo)
                 const promise = new Promise((resolve, reject) => {
                     console.log("getGroupe -------")
-                    console.log(userInfo);
-                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"}))
+                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId("5b8eee97fb6fc013752b76a0")}))
                 })
                 //console.log(promise)
                 return promise
@@ -72,11 +71,15 @@ module.exports = class WhoCommand {
                 // Get groupe name
                 if(groupe) {
                     info.desc += groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
+                } else {
+                    info.desc += "Lone Wolf\n";
                 }
 
                 // Get religion name
                 if(religion) {
                     info.desc += religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
+                } else {
+                    info.desc += "Athés\n";
                 }
 
                 // Get Background Story
