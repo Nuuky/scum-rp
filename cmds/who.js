@@ -38,10 +38,8 @@ module.exports = class WhoCommand {
 
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        console.log("getUser -------")
-                        resolve(Global.Fn.findData("findOne", "user_info", searchObj))
-                    }, 2000)
+                    console.log("getUser -------")
+                    resolve(Global.Fn.findData("findOne", "user_info", {_id: ObjectId("5b8eee97fb6fc013752b76a0")}))
                 })
                 //console.log(promise)
                 return promise
@@ -51,10 +49,9 @@ module.exports = class WhoCommand {
                 user = userInfo;
                 console.log("user: ", userInfo)
                 const promise = new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        console.log("getGroupe -------")
-                        resolve(Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))
-                    }, 1000)
+                    console.log("getGroupe -------")
+                    console.log(userInfo);
+                    resolve(Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"}))
                 })
                 //console.log(promise)
                 return promise
@@ -62,7 +59,7 @@ module.exports = class WhoCommand {
 
             getUser()
             .then(getGroupesInfo)
-            .then((religion) => {
+            .then((groupe) => {
                 console.log("groupe: ", groupe)
 
                 console.log("then User: " + user);
