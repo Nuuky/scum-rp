@@ -35,21 +35,26 @@ module.exports = class WhoCommand {
             }
 
 
-            async function getData() {
-                let user = await Global.Fn.findData("findOne", "user_info", searchObj);
+            async function getData(cb) {
+                const userInfo = await Global.Fn.findData("findOne", "user_info", searchObj);
+                user = userInfo;
                 console.log(user)
 
-                let religion = Global.Fn.findData("findOne", "religion_info", {_id: user.religion});
-                console.log(religion)
-
-                let groupe = Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-                console.log(groupe)
-
-                
-                return Promise.all([user, religion, groupe]);
+                if(await userInfo) cb;
             }
 
-            getData()
+            async function getMoreData() {
+
+                religion = await Global.Fn.findData("findOne", "religion_info", {_id: "5b8ef088fb6fc013752b7799"});
+                console.log(religion)
+
+                groupe = await Global.Fn.findData("findOne", "groupe_info", {_id: "5b8eee97fb6fc013752b76a0"});
+                console.log(groupe)
+
+                return Promise.all([religion, groupe]);
+            }
+
+            getData(getMoreData())
             .then(() => {
                 console.log("then User: " + user);
                 console.log("then Religion: " + religion);
