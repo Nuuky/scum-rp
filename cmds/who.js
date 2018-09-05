@@ -31,12 +31,16 @@ module.exports = class WhoCommand {
           
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    console.log("getUser -------")
-                    resolve(Global.Fn.findData("findOne", "user_info", {_idauthorID}))
+                    resolve(Global.Fn.findData("findOne", "user_info", {_id: authorID}))
                 })
-                //console.log(promise)
                 return promise
             }
+            getUser()
+            .then(user => {
+                if(user) return
+                else return
+            })
+            .catch(err => console.error(err))
         }
     };
 }
