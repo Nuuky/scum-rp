@@ -21,6 +21,7 @@
     "ffmpeg-binaries": "^3.2.2",
     "libsodium-wrappers": "0.7.3",
     "mongodb": "^3.0.5",
+    "node-fetch": "^2.2.0",
     "node-opus": "0.2.7",
     "node.js": "0.0.0",
     "opusscript": "0.0.6",

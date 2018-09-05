@@ -7,6 +7,7 @@ dependencies:
   ffmpeg-binaries: 3.2.2
   libsodium-wrappers: 0.7.3
   mongodb: 3.0.5
+  node-fetch: 2.2.0
   node-opus: 0.2.7
   node.js: 0.0.0
   opusscript: 0.0.6
@@ -652,6 +653,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zwm6vU3SsVgw3e9fu48JBaRBCJGIvAgysDsqtf5+vEexFE71bEOtaMWb5zr/zODZNzTPtQlqUUpC79k68Hspow==
+  /node-fetch/2.2.0:
+    dev: false
+    engines:
+      node: 4.x || >=6.0.0
+    resolution:
+      integrity: sha512-OayFWziIxiHY8bCUyLX6sTpDH8Jsbp4FfYd1j1f7vZyfgkcOnAyM4oQR16f8a0s7Gl/viMGRey8eScYk4V4EZA==
   /node-opus/0.2.7:
     cpu:
       - x64
@@ -1192,6 +1199,7 @@ specifiers:
   ffmpeg-binaries: ^3.2.2
   libsodium-wrappers: 0.7.3
   mongodb: ^3.0.5
+  node-fetch: ^2.2.0
   node-opus: 0.2.7
   node.js: 0.0.0
   opusscript: 0.0.6

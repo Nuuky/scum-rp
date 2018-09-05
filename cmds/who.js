@@ -4,6 +4,7 @@ const Json = require('../json/');
 const Global = require("../global/");
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
+const fetch = require('node-fetch');
 
 module.exports = class WhoCommand {
 
@@ -33,11 +34,8 @@ module.exports = class WhoCommand {
                 searchObj = {fullname: query}
             }
             Promise.all([
-            fetch(Global.Fn.findData("findOne", "user_info", searchObj)),
-
-            fetch(Global.Fn.findData("findOne", "religion_info", {_id: user.religion})),
-
-            fetch(Global.Fn.findData("findOne", "groupe_info", {_id: user.groupe}))])
+                fetch(Global.Fn.findData("findOne", "user_info", searchObj))
+            ])
             .then(([user, religion, groupe]) => {
                 console.log("then User: " + user);
                 console.log("then Religion: " + religion);
