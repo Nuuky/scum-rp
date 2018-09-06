@@ -47,10 +47,11 @@ module.exports = class WhoCommand {
             getUser()
             .then(user => {
                 if(user) {
-                    User.SearchUser.run(msg, user);
+                    return User.SearchUser.run(msg, user);
                 }
-                return Global.Msg.Send(msg, "Aucun joueur trouvé.", 60);
+                return Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
             })
+          .catch(err => console.error(err))
           
           
         } else {
