@@ -39,27 +39,11 @@ module.exports = class SearchUserCommand {
             // console.log("then Religion: ", religion);
             // console.log("then Groupe: ", groupe);
 
-            info.desc = user.age + "\n"
-
-            // Get groupe name
-            if(groupe) {
-                info.desc += groupe.name + ((groupe.leader == user._id) ? " 👑\n" : "\n");
-            } else {
-                info.desc += "Lone Wolf\n";
-            }
-
-            // Get religion name
-            if(religion) {
-                info.desc += religion.name + ((religion.leader == user._id) ? " 🌟\n" : "\n");
-            } else {
-                info.desc += "Athés\n";
-            }
-
-            // Get Background Story
-            if(user.background) {
-                console.log("Get Background.");
-                info.background = user.background;
-            }
+            info.desc += "**Sexe:** `" + (user.style.sex == 1) ? "Homme" : "Femme" + "`\n"
+            info.desc += "**Age:** `" + user.age + "`\n"
+            info.desc += "**Job:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
+            info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? " 👑" : "")) : "Aucun groupe") + "`\n"
+            info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id)) ? " 🌟" : "") : "Athés") + "`\n"
 
             console.log("Startin Embed...");
 
@@ -77,11 +61,12 @@ module.exports = class SearchUserCommand {
                 }
             }
 
-            if(info.background) {
+            // Get Background Story
+            if(user.background) {
                 embed["fields"] = [
                     {
                         "name": "Background",
-                        "value" : info.background,
+                        "value" : user.background,
                     }
                 ];
             }
@@ -96,18 +81,28 @@ module.exports = class SearchUserCommand {
 
 /* 
     user: {
-        "_id": "idObj()",
+        "_id": "DiscordID",
 
-        "name": "Bilbo Kavasky",
+        "name": "Nuri Kavasky",
 
         "age": 32,
 
-        "groupe": "$groupeID",
+        "style": {
+            "sex": 1,
+            "head": 1,
+            "tatoo": 1,
+        },
 
-        "religion": "$religionID",
+        "job": "Chasseur / Paysan / Eleveur / Prêtre / ...", (opt)
 
-        "image": "https://i.gyazo.com/0023bb1e3275bccbd93c3727607c6152.png",
+        "hostility": "Amicale / Méfiant / Dangereux", (opt)
 
-        "story": "lorem ipsum"
+        "groupe": "$groupeID", (opt)
+
+        "religion": "$religionID", (opt)
+
+        "image": "https://i.gyazo.com/0023bb1e3275bccbd93c3727607c6152.png", (opt)
+
+        "background": "Background du personnage" (opt)
     }
 */
