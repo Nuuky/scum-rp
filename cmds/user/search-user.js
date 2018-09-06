@@ -8,9 +8,9 @@ const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class SearchUserCommand {
-
-    async run(query, msg) {
-        const args = query.split(" ");
+    static match(query, msg) {
+        this.msg = msg;
+        const args = this.query.split(" ");
 
         // SEARCH USER --------
         let info= {}, user, groupe;
@@ -18,34 +18,40 @@ module.exports = class SearchUserCommand {
          // GET USER -------
         // Research ID
         let searchObj;
-        if(query.startsWith("<@")) {
+        if(this.query.startsWith("<@")) {
             let req = args[0].replace("<@", "");
             req = req.replace(">", "");
             searchObj = {_id: req}
         } else {
-            searchObj = {fullname: query}
+            searchObj = {fullname: this.query}
         }
-        //Global.Fn.findData("findOne", "religion_info", {_id: user.religion})
 
-
+        // Search for User
         const getUser = () => {
             const promise = new Promise((resolve, reject) => {
                 console.log("getUser -------")
                 resolve(Global.Fn.findData("findOne", "user_info", searchObj))
             })
-            //console.log(promise)
             return promise
         }
+        getUser()
+        .then(user => {
+            if(user) return user
+            return
+        })
+    }
 
-        const getGroupeInfo = (userInfo) => {
-            if (!userInfo) {
+    static run(user) {
+        const msg = this.msg;
+
+        const getGroupeInfo = (user) => {
+            if (!user) {
                 Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
                 throw 'No user found.';
             }
-            user = userInfo;
             const promise = new Promise((resolve, reject) => {
                 console.log("getGroupe -------")
-                resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(userInfo.groupe)}))
+                resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
             })
             //console.log(promise)
             return promise

@@ -23,7 +23,8 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            User.SearchUser(query, msg);
+            if(User.SearchUser(query, msg).match)
+            new User.SearchUser(query, msg);
         } else {
             let authorID = msg.author.id;
             authorID = authorID.replace("<", "");
