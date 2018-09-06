@@ -39,11 +39,13 @@ module.exports = class SearchUserCommand {
             // console.log("then Religion: ", religion);
             // console.log("then Groupe: ", groupe);
 
-            info.desc += "**Sexe:** `" + (user.style.sex == 1) ? "Homme" : "Femme" + "`\n"
+            console.log("sex: ", user.style.sex)
+
+            info.desc = "**Sexe:** `" + ((user.style.sex == 1) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
             info.desc += "**Job:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
-            info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? " 👑" : "")) : "Aucun groupe") + "`\n"
-            info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id)) ? " 🌟" : "") : "Athés") + "`\n"
+            info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
+            info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
 
             console.log("Startin Embed...");
 
