@@ -23,8 +23,8 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            if(User.SearchUser(query, msg).match)
-            new User.SearchUser(query, msg);
+            if(User.SearchUser.match(query, msg)) return User.SearchUser.run();
+            Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
         } else {
             let authorID = msg.author.id;
             authorID = authorID.replace("<", "");

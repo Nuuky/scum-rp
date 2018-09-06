@@ -8,9 +8,8 @@ const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class SearchUserCommand {
-    static match(query, msg) {
-        this.msg = msg;
-        const args = this.query.split(" ");
+    static match(query) {
+        const args = query.split(" ");
 
         // SEARCH USER --------
         let info= {}, user, groupe;
@@ -18,12 +17,12 @@ module.exports = class SearchUserCommand {
          // GET USER -------
         // Research ID
         let searchObj;
-        if(this.query.startsWith("<@")) {
+        if(query.startsWith("<@")) {
             let req = args[0].replace("<@", "");
             req = req.replace(">", "");
             searchObj = {_id: req}
         } else {
-            searchObj = {fullname: this.query}
+            searchObj = {fullname: query}
         }
 
         // Search for User
@@ -36,19 +35,20 @@ module.exports = class SearchUserCommand {
         }
         getUser()
         .then(user => {
-            if(user) return user
+            console.log(user);
+            if(user) {
+                this.user = user;
+                return true;
+            }
             return
         })
     }
 
-    static run(user) {
-        const msg = this.msg;
+    static run(msg) {
+        const user = this.user;
+        let info= {}, groupe;
 
         const getGroupeInfo = (user) => {
-            if (!user) {
-                Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
-                throw 'No user found.';
-            }
             const promise = new Promise((resolve, reject) => {
                 console.log("getGroupe -------")
                 resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
@@ -67,8 +67,7 @@ module.exports = class SearchUserCommand {
             return promise
         }
 
-        getUser()
-        .then(getGroupeInfo, (err) => {console.log("Erreur, pas d'utilisateur trouvé: ", err)})
+        getGroupeInfo()
         .then(getReligionInfo)
         .then((religion) => {
 
