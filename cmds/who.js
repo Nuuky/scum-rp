@@ -23,10 +23,17 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            console.log("User.match: ", User.SearchUser.match(query))
-            if (await User.SearchUser.match(query)) return User.SearchUser.run(msg);
-            else console.log("Buuuug !")
-            Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
+            const userExist = () => {
+                const promise = new Promise((resolve, reject) => {
+                    resolve(User.SearchUser.match(query))
+                })
+                return promise
+            }
+            userExist()
+            .then(bool => {
+                if(bool) return User.SearchUser.run(msg);
+                return Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
+            })
         } else {
             let authorID = msg.author.id;
             authorID = authorID.replace("<", "");
