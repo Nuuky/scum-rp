@@ -51,10 +51,13 @@ module.exports = class SearchUserCommand {
             info.color = Global.Fn.hostilityColor(user.hostility);
             info.image = (user.image) ? user.image : "null";
 
-            console.log(Json.charStyle)
-
             let defImage = Json.charStyle[user.style.sex][user.style.head][user.style.tatoo];
             let image = (user.url) ? user.url : defImage;
+
+            let crimes = "";
+            user.crimes.forEach(crime => {
+                crimes += `\`${crime}\` `
+            })
 
             const embed = {
                 "title":  "**" + user.name + "**",
@@ -62,8 +65,21 @@ module.exports = class SearchUserCommand {
                 "color": info.color,
                 "thumbnail": {
                     "url": image
-                }
+                },
+                "fields": [
+                    {
+                        "name": "Appartenance",
+                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`")}
+                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`")}`
+                    },
+                    {
+                        "name": "Crimes",
+                        "value": crimes
+                    }
+                ]
             }
+
+
 
             // Get Background Story
             if(user.background) {
@@ -97,7 +113,7 @@ module.exports = class SearchUserCommand {
             "tatoo": 1,
         },
 
-        "crime": "Vole",
+        "crimes": ["Vole", "Meurtre"],
 
         "job": "Chasseur / Paysan / Eleveur / Prêtre / ...", (opt)
 
