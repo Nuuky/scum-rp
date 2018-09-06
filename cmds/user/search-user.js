@@ -51,8 +51,10 @@ module.exports = class SearchUserCommand {
             info.color = Global.Fn.hostilityColor(user.hostility);
             info.image = (user.image) ? user.image : "null";
 
-            let defImage = Json.charStyle[user.style.head][user.style.tatoo];
-            let image = (user.url) ? user.url : image;
+            console.log(Json.charStyle)
+
+            let defImage = Json.charStyle[user.style.sex][user.style.head][user.style.tatoo];
+            let image = (user.url) ? user.url : defImage;
 
             const embed = {
                 "title":  "**" + user.name + "**",
