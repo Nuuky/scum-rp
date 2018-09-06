@@ -68,5 +68,22 @@ module.exports = {
                 return dbo.collection(colName).findOne(findObj);
             }
         })
+    },
+  
+    hostilityColor: (value) => {
+      
+        switch(value) {
+            case "Amicale":
+                return 432896;
+                break;
+            case "Méfiant":
+                return 31487;
+                break;
+            case "Hostile":
+                return 14680064;
+                break;
+            default:
+                console.error("This hostility type doesn't exist !")
+        }
     }
 };
