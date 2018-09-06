@@ -23,6 +23,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
+            console.log("User.match: ", User.SearchUser.match(query))
             if (await User.SearchUser.match(query)) return User.SearchUser.run(msg);
             else console.log("Buuuug !")
             Global.Msg.send(msg, "Aucun joueur trouvé.", 60);

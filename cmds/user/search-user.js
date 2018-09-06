@@ -25,23 +25,25 @@ module.exports = class SearchUserCommand {
             searchObj = {fullname: query}
         }
 
+        this.user = Global.Fn.findData("findOne", "user_info", searchObj);
+        return user;
+
         // Search for User
-        const getUser = () => {
-            const promise = new Promise((resolve, reject) => {
-                console.log("getUser -------")
-                resolve(Global.Fn.findData("findOne", "user_info", searchObj))
-            })
-            return promise
-        }
-        getUser()
-        .then(user => {
-            console.log(user);
-            if(user) {
-                this.user = user;
-                return true;
-            }
-            return
-        })
+        //     const promise = new Promise((resolve, reject) => {
+        //         console.log("getUser -------")
+        //         resolve(Global.Fn.findData("findOne", "user_info", searchObj))
+        //     })
+        //     return promise
+        // }
+        // getUser()
+        // .then(user => {
+        //     console.log(user);
+        //     if(user) {
+        //         this.user = user;
+        //         return true;
+        //     }
+        //     return
+        // })
     }
 
     static run(msg) {
