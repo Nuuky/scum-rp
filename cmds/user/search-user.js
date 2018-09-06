@@ -41,8 +41,8 @@ module.exports = class SearchUserCommand {
             info.desc = "**Sexe:** `" + ((user.style.sex == 1) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
             info.desc += "**Job:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
-            info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
-            info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
+            // info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
+            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
 
             console.log("Startin Embed...");
 
@@ -69,12 +69,14 @@ module.exports = class SearchUserCommand {
                 "fields": [
                     {
                         "name": "Appartenance",
-                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`")}
-                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`")}`
+                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "`" : "`")) : "Aucun groupe`")}
+                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "`" : "`")) : "Athés`")}`,
+                        "inline": true
                     },
                     {
                         "name": "Crimes",
-                        "value": crimes
+                        "value": crimes,
+                        "inline": true
                     }
                 ]
             }
