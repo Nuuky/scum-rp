@@ -2,9 +2,6 @@
 
 const Json = require('../../json/');
 const Global = require("../../global/");
-const MongoClient = require('mongodb').MongoClient;
-const url = process.env.MONGODB;
-const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class SearchUserCommand {
@@ -51,15 +48,18 @@ module.exports = class SearchUserCommand {
 
             // Common Infos
             info.title = "'" + user.name + "'";
-            info.color = 10579647;
+            info.color = Global.Fn.hostilityColor(user.hostility);
             info.image = (user.image) ? user.image : "null";
+
+            let defImage = Json.charStyle[user.style.head][user.style.tatoo];
+            let image = (user.url) ? user.url : image;
 
             const embed = {
                 "title":  "**" + user.name + "**",
                 "description": info.desc,
                 "color": info.color,
                 "thumbnail": {
-                    "url": "https://i.gyazo.com/0023bb1e3275bccbd93c3727607c6152.png"
+                    "url": image
                 }
             }
 
@@ -94,6 +94,8 @@ module.exports = class SearchUserCommand {
             "head": 1,
             "tatoo": 1,
         },
+
+        "crime": "Vole",
 
         "job": "Chasseur / Paysan / Eleveur / Prêtre / ...", (opt)
 
