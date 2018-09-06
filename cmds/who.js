@@ -23,18 +23,39 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
-            const userExist = () => {
+          
+
+             // GET USER -------
+            // Research ID
+            let searchObj;
+            if(query.startsWith("<@")) {
+                let req = args[0].replace("<@", "");
+                req = req.replace(">", "");
+                searchObj = {_id: req}
+            } else {
+                searchObj = {fullname: query}
+            }
+
+            // Search for User
+            const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve(User.SearchUser.match(query))
+                    console.log("getUser -------")
+                    resolve(Global.Fn.findData("findOne", "user_info", searchObj))
                 })
                 return promise
             }
-            userExist()
-            .then(bool => {
-                if(bool) return User.SearchUser.run(msg);
-                return Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
+            getUser()
+            .then(user => {
+                if(user) {
+                    User.SearchUser.run(msg, user);
+                }
+                return Global.Msg.Send(msg, "Aucun joueur trouvé.", 60);
             })
+          
+          
         } else {
+          
+          
             let authorID = msg.author.id;
             authorID = authorID.replace("<", "");
             authorID = authorID.replace(">", "");
@@ -51,6 +72,8 @@ module.exports = class WhoCommand {
                 else return
             })
             .catch(err => console.error(err))
+          
+          
         }
     };
 }

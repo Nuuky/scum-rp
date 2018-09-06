@@ -8,49 +8,11 @@ const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class SearchUserCommand {
-    static match(query) {
-        const args = query.split(" ");
 
-        // SEARCH USER --------
-        let info= {}, user, groupe;
-
-         // GET USER -------
-        // Research ID
-        let searchObj;
-        if(query.startsWith("<@")) {
-            let req = args[0].replace("<@", "");
-            req = req.replace(">", "");
-            searchObj = {_id: req}
-        } else {
-            searchObj = {fullname: query}
-        }
-
-        this.user = Global.Fn.findData("findOne", "user_info", searchObj);
-        return user;
-
-        // Search for User
-        //     const promise = new Promise((resolve, reject) => {
-        //         console.log("getUser -------")
-        //         resolve(Global.Fn.findData("findOne", "user_info", searchObj))
-        //     })
-        //     return promise
-        // }
-        // getUser()
-        // .then(user => {
-        //     console.log(user);
-        //     if(user) {
-        //         this.user = user;
-        //         return true;
-        //     }
-        //     return
-        // })
-    }
-
-    static run(msg) {
-        const user = this.user;
+    static run(msg, user) {
         let info= {}, groupe;
 
-        const getGroupeInfo = (user) => {
+        const getGroupeInfo = () => {
             const promise = new Promise((resolve, reject) => {
                 console.log("getGroupe -------")
                 resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
