@@ -69,7 +69,7 @@ module.exports = class WhoCommand {
             }
             getUser()
             .then(user => {
-                if(false) return // User.UpdateUser.run(msg, user)
+                if(user) return User.UpdateUser.run(msg, user)
                 else return User.NewUser.run(msg)
             })
             .catch(err => console.error(err))
