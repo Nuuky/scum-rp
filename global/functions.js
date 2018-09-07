@@ -56,7 +56,7 @@ module.exports = {
         });
     },
 
-    mongUpdate: (obj, action, newObj, colName = "user_info") => {
+    mongUpdate: (obj, action, colName = "user_info", newObj) => {
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db(process.env.DB_NAME);
