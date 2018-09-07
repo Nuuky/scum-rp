@@ -13,7 +13,10 @@ module.exports = class NewUserCommand {
                 setTimeout(() => {
                     m.delete();
                 }, 300*1000)
-            })
+            });
+      
+        const voteCollector = new Discord.MessageCollector(omsg.channel, m => ((m.author.id === plObj.pl1.user.id) || (m.author.id === plObj.pl2.user.id)));
+        voteCollector.on("collect", message => {})
       
     };
 }
