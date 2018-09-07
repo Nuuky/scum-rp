@@ -42,7 +42,7 @@ module.exports = class NewUserCommand {
 
                                 case "end":
                                     // Bot canceled (With User approbation)
-                                    if(!obj[2]) return Collector.stop("canceled");
+                                    if(!obj[1]) return Collector.stop("canceled");
                                     // Collection end
                                     else return Collector.stop("save");
                                     break;
