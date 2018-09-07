@@ -33,13 +33,13 @@ module.exports = class WhoCommand {
                 req = req.replace(">", "");
                 searchObj = {_id: req}
             } else {
-                searchObj = {fullname: query}
+                searchObj = {name: query}
             }
+            // console.log(searchObj)
 
             // Search for User
             const getUser = () => {
                 const promise = new Promise((resolve, reject) => {
-                    console.log("getUser -------")
                     resolve(Global.Fn.findData("findOne", "user_info", searchObj))
                 })
                 return promise

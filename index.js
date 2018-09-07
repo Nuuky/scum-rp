@@ -70,19 +70,15 @@ bot.on("ready", () => {
 
 
 bot.on("message", message => {
-    // Watch if the message is for the bot
+    // Watch if the message is for the bot + Permissions
     if(message.author.bot) return;
-
-
     if(!message.content.startsWith(prefix)) return;
-    if(message.channel.type != "dm")
+    if(message.channel.type != "dm") {
         if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
-
-
-
-    if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
-        .then(m => setTimeout( () => {m.delete()}, 700) ) 
-        .catch(console.error);
+        if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id)
+            .then(m => setTimeout( () => {m.delete()}, 1000) ) 
+            .catch(console.error);
+    }
   
   
     // Test area ----------
@@ -132,7 +128,7 @@ bot.on("message", message => {
 
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
-bot.on("debug", (e) => console.info(e));
+// bot.on("debug", (e) => console.info(e));
 
 
 
