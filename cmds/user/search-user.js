@@ -9,36 +9,22 @@ module.exports = class SearchUserCommand {
     static run(msg, user) {
         let info= {}, groupe;
 
-        const getGroupeInfo = () => {
-            const promise = new Promise((resolve, reject) => {
-                resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
-            })
-            //console.log(promise)
-            return promise
-        }
-
-        const getReligionInfo = (groupeInfo) => {
+        Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
+        .then((groupeInfo) => {
             groupe = groupeInfo;
-            const promise = new Promise((resolve, reject) => {
-                resolve(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)}))
-            })
-            //console.log(promise)
-            return promise
-        }
-
-        getGroupeInfo()
-        .then(getReligionInfo)
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)}))
+        })
         .then((religion) => {
 
             // console.log("then User: ", user);
             // console.log("then Religion: ", religion);
             // console.log("then Groupe: ", groupe);
 
-            info.desc = "**Sexe:** `" + ((user.style.sex == 1) ? "Homme" : "Femme") + "`\n"
+            info.desc = "**Sexe:** `" + ((user.style.sex == 0) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
             info.desc += "**Métier:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
             // info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
-            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n" 
+            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
 
             // Common Infos
             info.title = "'" + user.name + "'";

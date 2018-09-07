@@ -86,6 +86,13 @@ module.exports = {
         });
     },
   
+    waitFor: (action) => {
+        const promise = new Promise((resolve, reject) => {
+            resolve(action)
+        })
+        return promise
+    },
+  
   
     findData: (findType, colName, findObj) => {
         return MongoClient.connect(url).then((db) => {
