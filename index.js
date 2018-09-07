@@ -46,9 +46,9 @@ const listener = app.listen(process.env.PORT, () => {
   console.log(`Your app is listening on port ${listener.address().port}`)
 })
 
-setInterval(() => { 
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000); 
+// setInterval(() => { 
+//   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+// }, 280000); 
 
 
 bot.on("ready", () => {

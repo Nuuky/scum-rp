@@ -69,8 +69,8 @@ module.exports = class WhoCommand {
             }
             getUser()
             .then(user => {
-                if(user) return
-                else return
+                if(user) return //User.UpdateUser.run(msg, user)
+                else return User.NewUser.run(msg)
             })
             .catch(err => console.error(err))
           
@@ -78,23 +78,3 @@ module.exports = class WhoCommand {
         }
     };
 }
-
-
-
-/* 
-    user: {
-        "_id": "idObj()",
-
-        "name": "Bilbo Kavasky",
-
-        "age": 32,
-
-        "groupe": "$groupeID",
-
-        "religion": "$religionID",
-
-        "image": "https://i.gyazo.com/0023bb1e3275bccbd93c3727607c6152.png",
-
-        "story": "lorem ipsum"
-    }
-*/
