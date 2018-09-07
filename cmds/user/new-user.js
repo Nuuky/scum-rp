@@ -8,7 +8,12 @@ module.exports = class NewUserCommand {
 
     static run(msg) {
       
-        Global.Msg.reply(msg, "f", 300)
+        msg.author.send("f")
+            .then((m) => {
+                setTimeout(() => {
+                    m.delete();
+                }, 300*1000)
+            })
       
     };
 }
