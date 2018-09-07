@@ -55,6 +55,36 @@ module.exports = {
             console.log(text);
         });
     },
+
+    mongUpdate: (obj, action, newObj, colName = "user_info") => {
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db(process.env.DB_NAME);
+
+            if(action == "create") {
+                dbo.collection(colName).insertOne(obj, function(err, res) {
+                    if (err) throw err;
+                    console.log("item added");
+                    db.close();
+                });
+            }
+            if(action == "update") {
+                dbo.collection(colName).updateOne(obj, newObj, {upsert: true}, function(err, res) {
+                    if (err) throw err;
+                    // console.log(res.result.nModified + " document(s) updated");
+                    db.close();
+                });
+            }
+            if(action == "createMany") {
+                dbo.collection(colName).insertMany(obj);
+                console.log("items added");
+            }
+            if(action == "remove") {
+                dbo.collection(colName).remove(obj);
+                console.log("items removed");
+            }
+        });
+    },
   
   
     findData: (findType, colName, findObj) => {
