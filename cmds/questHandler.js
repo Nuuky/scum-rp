@@ -22,41 +22,40 @@ module.exports = class NewUserCommand {
                         return Collector.stop("canceled");
                     }
 
-                    const treatAnsw = () => {
-                        const promise = new Promise((resolve, reject) => {
-                            resolve(userQuest.questions[questNumber].answer(message))
+                    Global.Fn.waitFor(userQuest.questions[questNumber].answer(message))
+                        .then((obj) => {
+                            switch(obj[0]) {
+                                case "save":
+                                    objColl[obj[1].name] = obj[1].content;
+                                    questNumber++
+                                    omsg.edit(userQuest.questions[questNumber].question)
+                                    break;
+                                case "skip":
+                                    questNumber++
+                                    omsg.edit(userQuest.questions[questNumber].question)
+                                    break;
+
+                                case "end":
+                                    // Bot canceled (With User approbation)
+                                    if(!obj[2]) return Collector.stop("canceled");
+                                    // Collection end
+                                    else return Collector.stop("save");
+                                    break;
+
+                                default:
+                            }
                         })
-                        return promise
-                    }
-                    treatAnsw()
-                    .then((obj) => {
-                        switch(obj.action) {
-                            case "save":
-                                objColl[obj.data.name] = obj.data.content;
-                                questNumber++
-                                omsg.edit(userQuest.questions[questNumber].question)
-                                break;
-                            case "skip":
-                                questNumber++
-                                omsg.edit(userQuest.questions[questNumber].question)
-                                break;
-
-                            case "end":
-                                // Bot canceled (With User approbation)
-                                if(!obj.save) return Collector.stop("canceled");
-                                // Collection end
-                                else return Collector.stop("save");
-                                break;
-
-                            default:
-                        }
-                    })
-                    
 
                 })
                 .on("end", (collected, reason) => {
                     if(reason == "canceled") return false
-                    if(reason == "save") return Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                    if(reason == "save") {
+                        Global.Fn.waitFor(Global.Fn.mongUpdate(objColl, mongoAction, mongoColl))
+                            .then((item) => {
+                                if(item) return true
+                                return false
+                            })
+                    }
                 })
 
             });
