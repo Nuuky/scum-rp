@@ -56,11 +56,11 @@ module.exports = class NewUserCommand {
                 .on("end", (collected, reason) => {
                     if(reason == "canceled") return false
                     if(reason == "save") {
-                        Global.Fn.waitFor(Global.Fn.mongUpdate(objColl, mongoAction, mongoColl))
-                            .then((item) => {
-                                if(item) return true
-                                return false
-                            })
+                        Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                        omsg.edit({
+                          "title": "**Succès !**",
+                          "description": "Votre profile a été créé avec succès !\nVous pouvez dés à présent consulter votre carte d'identité en tappant:\n`" + Json.cfg.prefix + "who" + "`"
+                        })
                     }
                 })
 

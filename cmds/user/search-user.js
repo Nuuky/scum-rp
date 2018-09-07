@@ -9,35 +9,40 @@ module.exports = class SearchUserCommand {
     static run(msg, user) {
         let info= {}, groupe;
 
-        Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
+        Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)}))
         .then((groupeInfo) => {
             groupe = groupeInfo;
-            Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)}))
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)}))
         })
         .then((religion) => {
 
-            // console.log("then User: ", user);
-            // console.log("then Religion: ", religion);
-            // console.log("then Groupe: ", groupe);
 
             info.desc = "**Sexe:** `" + ((user.style.sex == 0) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
             info.desc += "**Métier:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
-            // info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
-            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
 
             // Common Infos
             info.title = "'" + user.name + "'";
             info.color = Global.Fn.hostilityColor(user.hostility);
             info.image = (user.image) ? user.image : "null";
 
-            let defImage = Json.scumData.charStyle[user.style.sex][user.style.head][user.style.tatoo];
+            let defImage = Json.charStyle[user.style.sex][user.style.head][user.style.tatoo];
             let image = (user.url) ? user.url : defImage;
 
             let crimes = "";
             user.crimes.forEach(crime => {
                 crimes += `\`${crime}\` `
             })
+
+            let grpPend = "";
+            if(user.groupe.pending) {
+                grpPend = " *(pending)*"
+            }
+
+            let relPend = "";
+            if(user.religion.pending) {
+                grpPend = " *(pending)*"
+            }
 
             const embed = {
                 "title":  "**" + user.name + "**",
@@ -54,8 +59,8 @@ module.exports = class SearchUserCommand {
                     },
                     {
                         "name": "Appartenance",
-                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`")}
-                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "`" : "` 🌟")) : "Athés`")}`,
+                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun groupe`")}
+                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`" + relPend)) : "Athés`")}`,
                         "inline": true
                     }
                 ]
