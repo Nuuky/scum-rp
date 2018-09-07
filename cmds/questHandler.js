@@ -59,7 +59,10 @@ module.exports = class NewUserCommand {
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
                         omsg.edit({
                           "title": "**Succès !**",
-                          "description": "Votre profile a été créé avec succès !\nVous pouvez dés à présent consulter votre carte d'identité en tappant:\n`" + Json.cfg.prefix + "who" + "`"
+                          "description": `Votre profile a été créé avec succès !\n
+                              Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
+                              \`${Json.cfg.prefix} who pseudoIG\`\n
+                              \`${Json.cfg.prefix} who @pseudoDisc\``
                         })
                     }
                 })
