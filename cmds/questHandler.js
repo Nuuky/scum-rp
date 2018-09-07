@@ -26,8 +26,12 @@ module.exports = class NewUserCommand {
                         .then((obj) => {
                             switch(obj[0]) {
                                 case "save":
-                                    if(objColl[obj[1].name])
-                                    objColl[obj[1].name] = obj[1].content;
+                                    if(objColl[obj[1].obj]) {
+                                        objColl[obj[1].name] = {}
+                                        objColl[obj[1].name][obj[1].inner] = obj[1].content;
+                                    } else {
+                                        objColl[obj[1].name] = obj[1].content;
+                                    }
                                     questNumber++
                                     omsg.edit(userQuest.questions[questNumber].question)
                                     break;
