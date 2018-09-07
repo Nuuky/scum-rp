@@ -16,7 +16,6 @@ require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
 let prefix = Json.cfg.bot.prefix;
-console.log(prefix)
 
 
 
@@ -76,7 +75,8 @@ bot.on("message", message => {
 
 
     if(!message.content.startsWith(prefix)) return;
-    if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
+    if(message.channel.type != "dm")
+        if(!message.channel.permissionsFor(bot.user).has("SEND_MESSAGES")) return console.log("Can't send message in " + message.channel.name);
 
 
 
@@ -116,9 +116,7 @@ bot.on("message", message => {
     };
   
   
-    const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined;
-
-    //if(Guild.channels[message.channel.id] && Guild.channels[message.channel.id].voteMax) return; // Prevent spaming msg in a voting chan
+    const command = dispatcher.hasOwnProperty(query[1]) ? dispatcher[query[1]]() : undefined
 
     if(command === undefined) {
     console.log('Command not found'); 
@@ -134,7 +132,7 @@ bot.on("message", message => {
 
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
-//bot.on("debug", (e) => console.info(e));
+bot.on("debug", (e) => console.info(e));
 
 
 
