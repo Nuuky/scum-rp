@@ -31,7 +31,7 @@ module.exports = class SearchUserCommand {
             info.color = Global.Fn.hostilityColor(user.hostility);
             info.image = (user.image) ? user.image : "null";
 
-            let defImage = Json.charStyle[user.style.sex][user.style.head][user.style.tatoo];
+            let defImage = Json.scumData.charStyle[user.style.sex][user.style.head][user.style.tatoo];
             let image = (user.url) ? user.url : defImage;
 
             let crimes = "";

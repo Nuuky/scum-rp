@@ -11,7 +11,7 @@ module.exports = class NewUserCommand {
     static run(msg, mongoColl, mongoAction = "create") {
         let questNumber = 0, objColl = {};
       
-        msg.author.send(userQuest.steps[0].question)
+        msg.author.send(Global.Fn.waitFor(userQuest.steps[0].question()))
             .then((omsg) => {
       
                 const Collector = new Discord.MessageCollector(omsg.channel, {"time": 1000*60*60});
@@ -33,11 +33,11 @@ module.exports = class NewUserCommand {
                                         objColl[obj[1].name] = obj[1].content;
                                     }
                                     questNumber++
-                                    omsg.edit(userQuest.questions[questNumber].question)
+                                    omsg.edit(Global.Fn.waitFor(userQuest.questions[questNumber].question()))
                                     break;
                                 case "skip":
                                     questNumber++
-                                    omsg.edit(userQuest.questions[questNumber].question)
+                                    omsg.edit(Global.Fn.waitFor(userQuest.questions[questNumber].question()))
                                     break;
 
                                 case "end":
