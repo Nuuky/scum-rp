@@ -26,6 +26,7 @@ module.exports = class NewUserCommand {
                         .then((obj) => {
                             switch(obj[0]) {
                                 case "save":
+                                    if(objColl[obj[1].name])
                                     objColl[obj[1].name] = obj[1].content;
                                     questNumber++
                                     omsg.edit(userQuest.questions[questNumber].question)
@@ -43,6 +44,7 @@ module.exports = class NewUserCommand {
                                     break;
 
                                 default:
+                                    break;
                             }
                         })
 
