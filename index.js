@@ -57,7 +57,7 @@ bot.on("ready", () => {
     bot.user.setPresence({
         status: "online", //dnd //online //invisible //idle
         game: {
-            "name": "$help", //!help //GhostBot
+            "name": "$cmd", //!help //GhostBot
             "type": "PLAYING", //PLAYING //STREAMING //LISTENING //WATCHING
             // "streaming": false,
             // "url": "" 
