@@ -11,7 +11,6 @@ module.exports = class SearchUserCommand {
 
         const getGroupeInfo = () => {
             const promise = new Promise((resolve, reject) => {
-                console.log("getGroupe -------")
                 resolve(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)}))
             })
             //console.log(promise)
@@ -21,7 +20,6 @@ module.exports = class SearchUserCommand {
         const getReligionInfo = (groupeInfo) => {
             groupe = groupeInfo;
             const promise = new Promise((resolve, reject) => {
-                console.log("getReligion -------")
                 resolve(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)}))
             })
             //console.log(promise)
@@ -40,9 +38,7 @@ module.exports = class SearchUserCommand {
             info.desc += "**Age:** `" + user.age + "`\n"
             info.desc += "**Métier:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
             // info.desc += "**Groupe:** `" + ((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`")) : "Aucun groupe`") + "\n"
-            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n"
-
-            console.log("Startin Embed...");
+            // info.desc += "**Religion:** `" + ((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`") + "\n" 
 
             // Common Infos
             info.title = "'" + user.name + "'";
@@ -87,6 +83,7 @@ module.exports = class SearchUserCommand {
                     {
                         "name": "Background",
                         "value" : user.background,
+                        "inline": false
                     }
                 ];
             }

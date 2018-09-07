@@ -1,6 +1,6 @@
-'use strict'
+'ue strict'
 
-const Discord = require("discord.js")
+//nst Discord = require("discord.js")
 const bot = new Discord.Client({autorun: true})
 
 const Json = require("./json/")
