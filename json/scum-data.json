@@ -32,5 +32,6 @@
     ],
     []
   ],
-  "crimes": ["Vol", "Meurtre", "Viole", "Canibalisme", "Terrorisme", "Drogue", "Accident"]
+  "crimes": ["Vol", "Meurtre", "Viole", "Canibalisme", "Terrorisme", "Drogue", "Accident"],
+  "métiers": ["Cuisinier", "Chasseur", "Milicien", "Musicien", "Paysan", "Eleveur", "Artisant", "Armurier", ""],
 }
