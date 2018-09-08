@@ -13,7 +13,7 @@ module.exports = class SearchUserCommand {
         Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)}))
         .then((groupeInfo) => {
             groupe = groupeInfo;
-            Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)}))
+            return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)}))
         })
         .then((religion) => {
 
@@ -60,8 +60,8 @@ module.exports = class SearchUserCommand {
                     },
                     {
                         "name": "Appartenance",
-                        "value": `**Groupe:** \` ${((groupe) ? (groupe.name + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun groupe`")}
-                        **Religion:** \` ${((religion) ? (religion.name + ((religion.leader == user._id) ? "` 🌟" : "`" + relPend)) : "Athés`")}`,
+                        "value": `**Groupe:** \` ${((groupe) ? (Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun groupe`")}
+                        **Religion:** \` ${((religion) ? (Global.Fn.capitalize(religion.name) + ((religion.leader == user._id) ? "` 🌟" : "`" + relPend)) : "Athés`")}`,
                         "inline": true
                     }
                 ]

@@ -121,7 +121,7 @@ module.exports = {
                     "fields": [
                         {
                             "name": "Réponses",
-                            "value": "`0` -> `4` `Aucun`"
+                            "value": "`0` -> `4`"
                         }
                     ]
                 }
@@ -257,7 +257,7 @@ module.exports = {
                 .then(groupeArr => {
                     let groupes = ""
                     groupeArr.forEach(groupe => {
-                        groupes += "`" + groupe.name + "`\n"
+                        groupes += "`" + Global.Fn.capitalize(groupe.name) + "`\n"
                     })
                     let embed = {
                         "title": "**Avez vous un groupe ?**",
@@ -295,7 +295,7 @@ module.exports = {
                 .then(religionArr => {
                     let religions = ""
                     religionArr.forEach(religion => {
-                        religions += "`" + religion.name + "`\n"
+                        religions += "`" + Global.Fn.capitalize(religion.name) + "`\n"
                     })
 
                     let embed = {

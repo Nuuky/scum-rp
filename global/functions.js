@@ -126,8 +126,10 @@ module.exports = {
   
     capitalize: (string) => {
         let capitalizing = string.split(" ");
-        capitalizing.forEach(word => {
-            
+        let newStr = "";
+        capitalizing.forEach((word, index) => {
+            newStr += word.replace(/\b\w/g, l => l.toUpperCase()) + " "
         })
+        return newStr;
     }
 };
