@@ -82,12 +82,42 @@ module.exports = class NewUserCommand {
               
                 if(reason == "canceled") return false 
                 if(reason == "save") {
+                    let authID = msg.author.id.replace("<", "")
+                    authID = msg.author.id.replace(">", "")
                     Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
+
+                    // Update Groupe DB
                     if(objColl.groupe) {
-                        const grpInc = {$inc: {}};
-                        grpInc = grpInc.$inc["pending"] = 1
-                        Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                        let grpUpdt = {
+                            $inc: {
+                                pending: 1
+                            },
+                            $addToSet: { 
+                                members: {
+                                    id: authID, 
+                                    pending: objColl.groupe.pending
+                                }
+                            }
+                        }
+                        Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", grpUpdt)
                     }
+
+                    // Update Religion DB
+                    if(objColl.religion) {
+                        let relUpdt = {
+                            $inc: {
+                                pending: 1
+                            },
+                            $addToSet: { 
+                                members: {
+                                    id: authID, 
+                                    pending: objColl.religion.pending
+                                }
+                            }
+                        }
+                        Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", relUpdt)
+                    }
+
                     msg.author.send({embed: {
                         "title": "**Succès !**",
                         "description": `Votre profile a été créé avec succès !\n
