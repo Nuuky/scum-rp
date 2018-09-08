@@ -72,7 +72,7 @@ module.exports = class WhoCommand {
             getUser()
             .then(user => {
                 if(user) {
-                    User.UpdateUser.run(msg, user)
+                    //UpdateHandler.run(msg, User.UpdateUser, "user_info")
                }
                 else {
                     QuestHandler.run(msg, User.NewUser, "user_info")
