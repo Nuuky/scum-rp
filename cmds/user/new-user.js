@@ -207,10 +207,12 @@ module.exports = {
             "answer": (msg) => {
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "job", "content": "Vagabond"}]
 
+                let exist = false;
                 Json.scumData.jobs.forEach(job => {
-                    console.log(job.content.toLowerCase() + " == " + msg.content.toLowerCase())
-                    if(msg.content.toLowerCase() == job.toLowerCase()) return ["save", {"name": "job", "content": msg.content}]
+                    if(msg.content.toLowerCase() == job.toLowerCase()) exist = true
                 })
+
+                if(exist) return ["save", {"name": "job", "content": msg.content}]
 
                 msg.author.send("Erreur: Le métier choisis est invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
@@ -234,9 +236,13 @@ module.exports = {
             },
             "answer": (msg) => {
                 let host = ["amicale", "méfiant", "hostile"]
+
+                let exist = false;
                 host.forEach(h => {
-                    if(msg.content.toLowerCase() == h) return ["save", {"name": "hostility", "content": msg.content}]
+                    if(msg.content.toLowerCase() == h) exist = true;
                 })
+
+                if(exist) return ["save", {"name": "hostility", "content": msg.content}]
 
                 msg.author.send("Erreur: Hostilité invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})

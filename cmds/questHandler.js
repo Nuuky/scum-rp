@@ -39,14 +39,14 @@ module.exports = class NewUserCommand {
                                 objColl[obj[1].name] = obj[1].content;
                             }
                             questNumber++
-                            embed = Global.Fn.waitFor(userQuest.steps[questNumber].question())
-                            .then(embed => msg.author.send({embed}))
+                            Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                            .then(emd => {console.log("EMD: ", emd); return msg.author.send({emd})})
                             break;
                         
                         case "skip":
                             questNumber++
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
-                            .then(embed => msg.author.send({embed}))
+                            .then(emd => {console.log("EMD: ", emd); return msg.author.send({emd})})
                             
                             break;
 
@@ -65,6 +65,7 @@ module.exports = class NewUserCommand {
 
         })
         questCollector.on("end", (collected, reason) => {
+          
             if(reason == "canceled") return false 
             if(reason == "save") {
                 Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
@@ -76,6 +77,8 @@ module.exports = class NewUserCommand {
                         \`${Json.cfg.prefix} who @pseudoDisc\``
                 })
             }
+          
+            console.log("Ended.")
         })
           
             
