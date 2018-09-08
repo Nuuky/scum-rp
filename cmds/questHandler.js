@@ -15,7 +15,7 @@ module.exports = class NewUserCommand {
         msg.author.send("test")
             .then((omsg) => {
       
-                const questCollector = new Discord.MessageCollector(omsg.channel);
+                const questCollector = new Discord.MessageCollector(omsg.channel, {time: 1000*60*60});
                 questCollector.on("collect", message => {
 
                     // User canceled
@@ -55,9 +55,8 @@ module.exports = class NewUserCommand {
                         .catch(err => console.error(err))
 
                 })
-          
-                console.log(questCollector.ended)
                 questCollector.on("end", (collected, reason) => {
+                  console.log("Collectés: ", collected)
                     if(reason == "canceled") return false 
                     if(reason == "save") {
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
@@ -71,6 +70,8 @@ module.exports = class NewUserCommand {
                     }
                 })
             })
+          
+            
       
     };
 }
