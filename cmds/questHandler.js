@@ -30,6 +30,9 @@ module.exports = class NewUserCommand {
             Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
                 .then((obj) => {
                     console.log("Treating answer...")
+              
+                    if(questNumber >= userQuest.length) return 
+                    
                     switch(obj[0]) {
                         case "save":
                             if(objColl[obj[1].obj]) {
