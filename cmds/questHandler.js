@@ -12,14 +12,15 @@ module.exports = class NewUserCommand {
       
       console.log(userQuest.steps[0].question())
         const Q = Global.Fn.waitFor(userQuest.steps[0].question())
-        msg.author.send("test")
+        msg.author.send(userQuest.steps[0].question())
             .then((omsg) => {
       
-                const questCollector = new Discord.MessageCollector(omsg.channel, {time: 1000*60*60});
+                const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
                 questCollector.on("collect", message => {
 
                     // User canceled
                     if(message == "stop!!") {
+                        console.log("Canceling...")
                         return questCollector.stop("canceled");
                     }
 
@@ -56,7 +57,6 @@ module.exports = class NewUserCommand {
 
                 })
                 questCollector.on("end", (collected, reason) => {
-                  console.log("Collectés: ", collected)
                     if(reason == "canceled") return false 
                     if(reason == "save") {
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
