@@ -84,6 +84,8 @@ module.exports = class NewUserCommand {
                 if(reason == "save") {
                     Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
                     if(objColl.groupe) {
+                        const grpInc = {$inc: {}};
+                        grpInc = grpInc.$inc["pending"] = 1
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
                     }
                     msg.author.send({embed: {
