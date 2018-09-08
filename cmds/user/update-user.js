@@ -112,24 +112,24 @@ module.exports = {
                         return embed;
                         break;
                         
-                case "job":
-                    let jobs = "";
-                    Json.scumData.jobs.forEach(job => {
-                        jobs += "`" + job + "` "
-                    })
-                    embed.description = "⚠️ Vous êtes limité aux choix proposés.\nTappez `stop` pour annuler"
-                    embed.fields = [
-                            {
-                                "name": "Réponses",
-                                "value": jobs
-                            }
-                        ]
-                    return embed;
-                    break;
+                    case "job":
+                        let jobs = "";
+                        Json.scumData.jobs.forEach(job => {
+                            jobs += "`" + job + "` "
+                        })
+                        embed.description = "⚠️ Vous êtes limité aux choix proposés.\nTappez `stop` pour annuler"
+                        embed.fields = [
+                                {
+                                    "name": "Réponses",
+                                    "value": jobs
+                                }
+                            ]
+                        return embed;
+                        break;
 
-                case "hostility":
-                    embed.description = "⚠️ Vous êtes limité aux choix proposés.\nTappez `stop` pour annuler"
-                    embed.fields = [
+                    case "hostility":
+                        embed.description = "⚠️ Vous êtes limité aux choix proposés.\nTappez `stop` pour annuler"
+                        embed.fields = [
                             {
                                 "name": "Réponses",
                                 "value": "`Amicale` `Méfiant` `Hostile`"
@@ -145,6 +145,21 @@ module.exports = {
             },
             "answer": (msg, dataIndex) => {
                 if(userDefData[dataIndex].data.match("groupe|religion")) {
+                    if(msg.content.toLowerCase() == "skip") {
+                        const collName = userDefData[dataIndex].data + "_info"
+                        return Global.waitFor(Global.Fn.findData("findOne", collName, {name: msg.content.toLowerCase()}))
+                        .then(obj => {
+                            if(!obj) {
+                                return msg.channel.send("Erreur: " + userDefData[dataIndex].name + " introuvable.")
+                                    .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
+                            }
+                            let objUpdt = {$set: {}}
+                            objUpdt.$set[userDefData[dataIndex].data] = false
+                            Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
+                            return ["end", true]
+                        })
+                    }
+
                     const collName = userDefData[dataIndex].data + "_info"
                     return Global.waitFor(Global.Fn.findData("findOne", collName, {name: msg.content.toLowerCase()}))
                     .then(obj => {
@@ -172,14 +187,24 @@ module.exports = {
                     if(!exist) return msg.channel.send("Erreur: " + userDefData[dataIndex].name + " introuvable.")
                         .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
                     
+                    let dataContent = msg.content
+                    
+                    if(userDefData[dataIndex].data == "job" && msg.content.toLowerCase() == "skip") dataContent = false
                     let objUpdt = {$set: {}}
-                    objUpdt.$set[userDefData[dataIndex].data] = msg.content;
+                    objUpdt.$set[userDefData[dataIndex].data] = dataContent;
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 } 
                 
                 
                 else if(userDefData[dataIndex].data.match("crimes")) {
+                    if(msg.content.toLowerCase() == "skip") {
+                        let objUpdt = {$set: {}}
+                        objUpdt.$set[userDefData[dataIndex].data] = false;
+                        Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
+                        return ["end", true]
+                    }
+
                     let userCrimes = msg.content.toLowerCase().replace(" ", "")
                     userCrimes = userCrimes.split(",")
                     if(userCrimes.length > 2) return msg.channel.send("Erreur: Vous avez selectionné trop de crimes.")
@@ -242,6 +267,9 @@ module.exports = {
 
                     let objUpdt = {$set: {}}
                     objUpdt.$set[userDefData[dataIndex].data] = msg.content;
+                    if(userDefData[dataIndex].data == "description" && msg.content.toLowerCase() == "skip")
+                        objUpdt.$set[userDefData[dataIndex].data] = false;
+
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 }
