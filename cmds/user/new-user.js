@@ -128,7 +128,7 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
+                if(!isNaN(msg.content) && (msg.content >= 0 && msg.content <= 4)) return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
                 msg.author.send("Erreur: Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }

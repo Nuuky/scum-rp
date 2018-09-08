@@ -37,12 +37,12 @@ module.exports = class SearchUserCommand {
 
             let grpPend = "";
             if(user.groupe.pending) {
-                grpPend = " *(pending)*"
+                grpPend = " ⌛"
             }
 
             let relPend = "";
             if(user.religion.pending) {
-                grpPend = " *(pending)*"
+                grpPend = " ⌛"
             }
 
             const embed = {

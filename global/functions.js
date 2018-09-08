@@ -122,5 +122,12 @@ module.exports = {
             default:
                 console.error("This hostility type doesn't exist !")
         }
+    },
+  
+    capitalize: (string) => {
+        let capitalizing = string.split(" ");
+        capitalizing.forEach(word => {
+            
+        })
     }
 };
