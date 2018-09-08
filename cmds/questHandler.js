@@ -15,7 +15,7 @@ module.exports = class NewUserCommand {
         msg.author.send("test")
             .then((omsg) => {
       
-                const questCollector = new Discord.MessageCollector(omsg.channel, 1000*60*60);
+                const questCollector = new Discord.MessageCollector(omsg.channel);
                 questCollector.on("collect", message => {
 
                     // User canceled
@@ -52,6 +52,7 @@ module.exports = class NewUserCommand {
                                     break;
                             }
                         })
+                        .catch(err => console.error(err))
 
                 })
           
@@ -70,7 +71,6 @@ module.exports = class NewUserCommand {
                     }
                 })
             })
-            .catch(err => console.error(err));
       
     };
 }
