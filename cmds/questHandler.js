@@ -40,14 +40,23 @@ module.exports = class NewUserCommand {
                             }
                             questNumber++
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
-                            .then(emd => {console.log("EMD: ", emd); return msg.author.send({emd})})
+                            .then(emd => {
+                                console.log("EMD: ", emd);
+                                msg.author.send({embed: emd})
+                                .catch(err => console.error(err))
+                            })
+                            .catch(err => console.error(err))
                             break;
                         
                         case "skip":
                             questNumber++
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
-                            .then(emd => {console.log("EMD: ", emd); return msg.author.send({emd})})
-                            
+                            .then(emd => {
+                                console.log("EMD: ", emd);
+                                msg.author.send({embed: emd})
+                                .catch(err => console.error(err))
+                            })
+                            .catch(err => console.error(err))
                             break;
 
                         case "end":
