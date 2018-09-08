@@ -15,12 +15,12 @@ module.exports = class NewUserCommand {
         msg.author.send("test")
             .then((omsg) => {
       
-                const Collector = new Discord.MessageCollector(omsg.channel, 1000*60*60);
-                Collector.on("collect", message => {
+                const questCollector = new Discord.MessageCollector(omsg.channel, 1000*60*60);
+                questCollector.on("collect", message => {
 
                     // User canceled
                     if(message == "stop!!") {
-                        return Collector.stop("canceled");
+                        return questCollector.stop("canceled");
                     }
 
                     Global.Fn.waitFor(userQuest.questions[questNumber].answer(message))
@@ -43,9 +43,9 @@ module.exports = class NewUserCommand {
 
                                 case "end":
                                     // Bot canceled (With User approbation)
-                                    if(!obj[1]) return Collector.stop("canceled");
+                                    if(!obj[1]) return questCollector.stop("canceled");
                                     // Collection end
-                                    else return Collector.stop("save");
+                                    else return questCollector.stop("save");
                                     break;
 
                                 default:
@@ -55,8 +55,8 @@ module.exports = class NewUserCommand {
 
                 })
           
-          
-                Collector.on("end", reason => {
+                console.log(questCollector.ended)
+                questCollector.on("end", (collected, reason) => {
                     if(reason == "canceled") return false 
                     if(reason == "save") {
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
