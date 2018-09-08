@@ -5,17 +5,14 @@ const Global = require("../global/");
 const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
 
-module.exports = class NewUserCommand {
+module.exports = class UpdateHandler {
 
-    static run(msg, userQuest, mongoColl, mongoAction = "create") {
-        let questNumber = 0, objColl = {}
+    static run(msg, userQuest) {
+        let questNumber = 0, indexData;
       
         let embed = userQuest.steps[0].question()
-        console.log(embed)
         msg.author.send({embed})
         .then(omsg => {
-
-            console.log("Author ID: ", msg.author.id)
     
             const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
             console.log("Collector created !")
@@ -23,29 +20,23 @@ module.exports = class NewUserCommand {
                 console.log("Collecting Quest " + (questNumber + 1) + " of " + userQuest.steps.length + "...")
     
                 // User canceled
-                if(message == "stop!!") {
+                if(message == "stop") {
                     console.log("Canceling...")
                     return questCollector.stop("canceled");
                 }
     
-                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
+                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message, indexData))
                     .then((obj) => {
                         console.log("Treating answer...")
                   
                         
                         switch(obj[0]) {
-                            case "save":
-                                if(obj[1].obj) {
-                                    if(!objColl[obj[1].name]) objColl[obj[1].name] = {}
-                                    objColl[obj[1].name][obj[1].inner] = obj[1].content;
-                                } else {
-                                    objColl[obj[1].name] = obj[1].content;
-                                }
+                            case "next":
+                                indexData = obj[1].data
                                 questNumber++
                                 if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                                Global.Fn.waitFor(userQuest.steps[questNumber].question(indexData))
                                 .then(emd => {
-                                    console.log("EMD: ", emd);
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
                                 })
@@ -55,9 +46,8 @@ module.exports = class NewUserCommand {
                             case "skip":
                                 questNumber++
                                 if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                                Global.Fn.waitFor(userQuest.steps[questNumber].question(indexData))
                                 .then(emd => {
-                                    console.log("EMD: ", emd);
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
                                 })
@@ -82,48 +72,9 @@ module.exports = class NewUserCommand {
               
                 if(reason == "canceled") return false 
                 if(reason == "save") {
-                    let authID = msg.author.id.replace("<", "")
-                    authID = msg.author.id.replace(">", "")
-                    Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
-
-                    // Update Groupe DB
-                    if(objColl.groupe) {
-                        let grpUpdt = {
-                            $inc: {
-                                pending: 1
-                            },
-                            $addToSet: { 
-                                members: {
-                                    id: authID, 
-                                    pending: objColl.groupe.pending
-                                }
-                            }
-                        }
-                        Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", grpUpdt)
-                    }
-
-                    // Update Religion DB
-                    if(objColl.religion) {
-                        let relUpdt = {
-                            $inc: {
-                                pending: 1
-                            },
-                            $addToSet: { 
-                                members: {
-                                    id: authID, 
-                                    pending: objColl.religion.pending
-                                }
-                            }
-                        }
-                        Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", relUpdt)
-                    }
-
                     msg.author.send({embed: {
                         "title": "**Succès !**",
-                        "description": `Votre profile a été créé avec succès !\n
-                            Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
-                            \`${Json.cfg.bot.prefix}who pseudoIG\`\n
-                            \`${Json.cfg.bot.prefix}who @pseudoDisc\``
+                        "description": `Information modifié avec succès`
                     }})
                 }
               
