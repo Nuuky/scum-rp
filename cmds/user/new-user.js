@@ -160,7 +160,6 @@ module.exports = {
             "answer": (msg) => {
                 let crimes = msg.content.replace(" ", "")
                 crimes = crimes.split(",")
-                console.log(crimes)
 
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
 
@@ -209,6 +208,7 @@ module.exports = {
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "job", "content": "Vagabond"}]
 
                 Json.scumData.jobs.forEach(job => {
+                    console.log(job.content.toLowerCase() + " == " + msg.content.toLowerCase())
                     if(msg.content.toLowerCase() == job.toLowerCase()) return ["save", {"name": "job", "content": msg.content}]
                 })
 
