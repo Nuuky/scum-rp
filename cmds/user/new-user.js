@@ -35,229 +35,229 @@ module.exports = {
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel est le nom de votre personnage ?**"
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                return ["save", {"name": "name", "content": msg.content}]
-            }
-        },
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel est le nom de votre personnage ?**"
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         return ["save", {"name": "name", "content": msg.content}]
+        //     }
+        // },
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel est le sexe de votre personnage ?**",
-                    "description": "Répondez par un nombre",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "`homme` `femme`"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                if(msg.content.toLowerCase() == "homme") return ["save", {"name": "style", "inner": "sex", "content": 0, "obj": true}]
-                if(msg.content.toLowerCase() == "femme") return ["save", {"name": "style", "inner": "sex", "content": 1, "obj": true}]
-                msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel est le sexe de votre personnage ?**",
+        //             "description": "Répondez par un nombre",
+        //             "fields": [
+        //                 {
+        //                     "name": "Réponses",
+        //                     "value": "`homme` `femme`"
+        //                 }
+        //             ]
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         if(msg.content.toLowerCase() == "homme") return ["save", {"name": "style", "inner": "sex", "content": 0, "obj": true}]
+        //         if(msg.content.toLowerCase() == "femme") return ["save", {"name": "style", "inner": "sex", "content": 1, "obj": true}]
+        //         msg.author.send("Erreur: Réponse invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel age a votre personnage ?**",
-                    "description": "Ecrivez uniquement le chiffre, n'ajoutez pas \"ans\"",
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                if(!isNaN(msg.content) && (msg.content >= 20 && msg.content <= 50)) return ["save", {"name": "age", "content": msg.content}]
-                msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel age a votre personnage ?**",
+        //             "description": "Ecrivez uniquement le chiffre, n'ajoutez pas \"ans\"",
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         if(!isNaN(msg.content) && (msg.content >= 20 && msg.content <= 50)) return ["save", {"name": "age", "content": msg.content}]
+        //         msg.author.send("Erreur: Réponse invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel tête avez-vous choisis ?**",
-                    "description": "Répondez par un nombre",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "`1` -> `4`"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "head", "content": msg.content - 1, "obj": true}]
-                msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel tête avez-vous choisis ?**",
+        //             "description": "Répondez par un nombre",
+        //             "fields": [
+        //                 {
+        //                     "name": "Réponses",
+        //                     "value": "`1` -> `4`"
+        //                 }
+        //             ]
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "head", "content": msg.content - 1, "obj": true}]
+        //         msg.author.send("Erreur: Réponse invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel est votre tatouage ?**",
-                    "description": "Répondez par un nombre\n⚠️ Si vous n'avez pas de tatouage c'est 0.\n⚠️ Le premium est le numéro 1",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "`0` -> `4` `Aucun`"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
-                msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel est votre tatouage ?**",
+        //             "description": "Répondez par un nombre\n⚠️ Si vous n'avez pas de tatouage c'est 0.\n⚠️ Le premium est le numéro 1",
+        //             "fields": [
+        //                 {
+        //                     "name": "Réponses",
+        //                     "value": "`0` -> `4` `Aucun`"
+        //                 }
+        //             ]
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
+        //         msg.author.send("Erreur: Réponse invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
 
 
 
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel sont vos crimes ?**",
-                    "description": "Séparez chaque crimes par une virgules (2 crimes max)\nTappez `skip` si vous êtes innocent.",
-                    "fields": [
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel sont vos crimes ?**",
+        //             "description": "Séparez chaque crimes par une virgules (2 crimes max)\nTappez `skip` si vous êtes innocent.",
+        //             "fields": [
                         
-                    ]
-                }
-                let crimes = ""
-                Json.scumData.crimes.forEach(crime => {
-                    crimes += "`" + crime + "` "
-                });
-                const field = {
-                    "name": "Réponses",
-                    "value": crimes
-                } 
-                embed.fields.push(field)
+        //             ]
+        //         }
+        //         let crimes = ""
+        //         Json.scumData.crimes.forEach(crime => {
+        //             crimes += "`" + crime + "` "
+        //         });
+        //         const field = {
+        //             "name": "Réponses",
+        //             "value": crimes
+        //         } 
+        //         embed.fields.push(field)
 
-                return embed
-            },
-            "answer": (msg) => {
-                let crimes = msg.content.replace(" ", "")
-                crimes = crimes.split(",")
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         let crimes = msg.content.replace(" ", "")
+        //         crimes = crimes.split(",")
 
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
+        //         if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
 
-                if(crimes.length <= 2) {
-                    crimes.forEach((msgCrime) => {
-                        let exist = false
-                        Json.scumData.crimes.forEach(crime => {
-                            if(msgCrime.toLowerCase() == crime.toLowerCase()) {
-                                exist = true;
-                            }
-                        })
-                        if(!exist) {
-                            return msg.author.send("Erreur: Crime(s) non valide(s).")
-                            .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-                        }
-                    })
-                    return ["save", {"name": "crimes", "content": crimes}]
-                }
-                msg.author.send("Erreur: Vous avez séléctionnez trop de crimes.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
+        //         if(crimes.length <= 2) {
+        //             crimes.forEach((msgCrime) => {
+        //                 let exist = false
+        //                 Json.scumData.crimes.forEach(crime => {
+        //                     if(msgCrime.toLowerCase() == crime.toLowerCase()) {
+        //                         exist = true;
+        //                     }
+        //                 })
+        //                 if(!exist) {
+        //                     return msg.author.send("Erreur: Crime(s) non valide(s).")
+        //                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //                 }
+        //             })
+        //             return ["save", {"name": "crimes", "content": crimes}]
+        //         }
+        //         msg.author.send("Erreur: Vous avez séléctionnez trop de crimes.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
+
+
+
+        // {
+        //     "question": () => {
+        //         let jobs = ""
+        //         Json.scumData.jobs.forEach(job => {
+        //             jobs += "`" + job + "` "
+        //         })
+
+        //         let embed = {
+        //             "title": "**Quel est votre métier ?**",
+        //             "description": "Tappez `skip` si vous n'avez pas encore choisis de métier.",
+        //             "fields": [
+        //                 {
+        //                     "name": "Réponses",
+        //                     "value": jobs
+        //                 }
+        //             ]
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         if(msg.content.toLowerCase() == "skip") return ["save", {"name": "job", "content": "Vagabond"}]
+
+        //         let exist = false;
+        //         Json.scumData.jobs.forEach(job => {
+        //             if(msg.content.toLowerCase() == job.toLowerCase()) exist = true
+        //         })
+
+        //         if(exist) return ["save", {"name": "job", "content": msg.content}]
+
+        //         msg.author.send("Erreur: Le métier choisis est invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
+
+
+
+        // {
+        //     "question": () => {
+        //         let embed = {
+        //             "title": "**Quel est votre degré d'hostilé ?**",
+        //             "fields": [
+        //                 {
+        //                     "name": "Réponses",
+        //                     "value": "`Amicale` `Méfiant` `Hostile`"
+        //                 }
+        //             ]
+        //         }
+        //         return embed
+        //     },
+        //     "answer": (msg) => {
+        //         let host = ["amicale", "méfiant", "hostile"]
+
+        //         let exist = false;
+        //         host.forEach(h => {
+        //             if(msg.content.toLowerCase() == h) exist = true;
+        //         })
+
+        //         if(exist) return ["save", {"name": "hostility", "content": msg.content}]
+
+        //         msg.author.send("Erreur: Hostilité invalide.")
+        //         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+        //     }
+        // },
 
 
 
         {
             "question": () => {
-                let jobs = ""
-                Json.scumData.jobs.forEach(job => {
-                    jobs += "`" + job + "` "
-                })
-
-                let embed = {
-                    "title": "**Quel est votre métier ?**",
-                    "description": "Tappez `skip` si vous n'avez pas encore choisis de métier.",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": jobs
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "job", "content": "Vagabond"}]
-
-                let exist = false;
-                Json.scumData.jobs.forEach(job => {
-                    if(msg.content.toLowerCase() == job.toLowerCase()) exist = true
-                })
-
-                if(exist) return ["save", {"name": "job", "content": msg.content}]
-
-                msg.author.send("Erreur: Le métier choisis est invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
-
-
-
-        {
-            "question": () => {
-                let embed = {
-                    "title": "**Quel est votre degré d'hostilé ?**",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "`Amicale` `Méfiant` `Hostile`"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                let host = ["amicale", "méfiant", "hostile"]
-
-                let exist = false;
-                host.forEach(h => {
-                    if(msg.content.toLowerCase() == h) exist = true;
-                })
-
-                if(exist) return ["save", {"name": "hostility", "content": msg.content}]
-
-                msg.author.send("Erreur: Hostilité invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-            }
-        },
-
-
-
-        {
-            "question": () => {
-                Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
+                return Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
                 .then(groupeArr => {
                     let groupes = ""
                     groupeArr.forEach(groupe => {
-                        groupes += "`" + groupe + "`\n"
+                        groupes += "`" + groupe.name + "`\n"
                     })
                     let embed = {
                         "title": "**Avez vous un groupe ?**",
@@ -275,8 +275,9 @@ module.exports = {
             "answer": (msg) => {
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "groupe", "content": "Aucun"}]
 
-                Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {"name": msg.content.toLowerCase()}))
+                return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {"name": msg.content.toLowerCase()}))
                 .then(groupe => {
+                    console.log(groupe)
                     if(groupe) return ["save", {"name": "groupe", "content": { "id": groupe._id, "number": groupe.pending + 1 }}]
 
                     msg.author.send("Erreur: Le groupe indiqué n'éxiste pas.")
@@ -289,11 +290,11 @@ module.exports = {
 
         {
             "question": () => {
-                Global.Fn.waitFor(Global.Fn.findData("find", "religion_info", {}))
+                return Global.Fn.waitFor(Global.Fn.findData("find", "religion_info", {}))
                 .then(religionArr => {
                     let religions = ""
                     religionArr.forEach(religion => {
-                        religions += "`" + religion + "`\n"
+                        religions += "`" + religion.name + "`\n"
                     })
 
                     let embed = {
@@ -312,7 +313,7 @@ module.exports = {
             "answer": (msg) => {
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "religion", "content": "Athés"}]
 
-                Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {"name": msg.content.toLowerCase()}))
+                return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {"name": msg.content.toLowerCase()}))
                 .then(religion => {
                     if(religion) return ["save", {"name": "religion", "content": { "id": religion._id, "number": religion.pending + 1 }}]
 
