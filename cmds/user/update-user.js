@@ -41,11 +41,8 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                let dataToUpdt
-
-                userDefData.forEach((entry, index) => {
-                    if(msg.content.toLowerCase() == entry.toLowerCase()) dataToUpdt = index
-                })
+                let dataToUpdt;
+                if(!isNaN(msg.content) && (msg.content >= 0 && msg.content <= userDefData.length - 1)) dataToUpdt = msg.content
                 if(dataToUpdt) return ["next", {data: dataToUpdt}]
                 else {
                     msg.author.send("Erreur: Veuillez répondre avec l'un des thermes proposés.")

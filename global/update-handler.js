@@ -1,7 +1,7 @@
 'use strict'
 
 const Json = require('../json/');
-const Fn = require("./functions.js");
+const Fn = require("./functions");
 const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
 
@@ -25,7 +25,7 @@ module.exports = class UpdateHandler {
                     return questCollector.stop("canceled");
                 }
     
-                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message, indexData))
+                Fn.waitFor(userQuest.steps[questNumber].answer(message, indexData))
                     .then((obj) => {
                         console.log("Treating answer...")
                   
@@ -35,7 +35,7 @@ module.exports = class UpdateHandler {
                                 indexData = obj[1].data
                                 questNumber++
                                 if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question(indexData))
+                                Fn.waitFor(userQuest.steps[questNumber].question(indexData))
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
@@ -46,7 +46,7 @@ module.exports = class UpdateHandler {
                             case "skip":
                                 questNumber++
                                 if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question(indexData))
+                                Fn.waitFor(userQuest.steps[questNumber].question(indexData))
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
