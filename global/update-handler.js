@@ -1,7 +1,7 @@
 'use strict'
 
 const Json = require('../json/');
-const Global = require("../global/");
+const Fn = require("./functions.js");
 const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
 
