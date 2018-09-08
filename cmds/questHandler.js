@@ -10,7 +10,7 @@ module.exports = class NewUserCommand {
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let questNumber = 0, objColl = {}
       
-        const embed = userQuest.steps[0].question()
+        let embed = userQuest.steps[0].question()
         console.log(embed)
         msg.author.send({embed})
 
@@ -20,7 +20,6 @@ module.exports = class NewUserCommand {
         console.log("Collector created !")
         questCollector.on("collect", message => {
             console.log("Collecting...")
-            console.log("Questions: ", userQuest)
 
             // User canceled
             if(message == "stop!!") {
@@ -30,6 +29,7 @@ module.exports = class NewUserCommand {
 
             Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
                 .then((obj) => {
+                    console.log("Treating answer...")
                     switch(obj[0]) {
                         case "save":
                             if(objColl[obj[1].obj]) {
@@ -39,11 +39,15 @@ module.exports = class NewUserCommand {
                                 objColl[obj[1].name] = obj[1].content;
                             }
                             questNumber++
-                            msg.author.send(Global.Fn.waitFor(userQuest.steps[questNumber].question()))
+                            embed = Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                            .then(embed => msg.author.send({embed}))
                             break;
+                        
                         case "skip":
                             questNumber++
-                            msg.author.send(Global.Fn.waitFor(userQuest.steps[questNumber].question()))
+                            Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                            .then(embed => msg.author.send({embed}))
+                            
                             break;
 
                         case "end":

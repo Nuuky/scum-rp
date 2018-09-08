@@ -22,15 +22,13 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                console.log("Answer: ", msg)
-
                 if(msg.content.toLowerCase() == "oui") {
                     return ["save", {"name": "_id", "content": msg.author.id}]
                 } else if(msg.content.toLowerCase() == "non") {
                     return ["end"]
                 } else {
                     msg.author.send("Erreur: Veuillez répondre avec l'un des thermes proposés.")
-                    .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*60)})
+                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
                 }
             }
         },
@@ -69,7 +67,7 @@ module.exports = {
                 if(msg.content.toLowerCase() == "homme") return ["save", {"name": "style", "inner": "sex", "content": 0, "obj": true}]
                 if(msg.content.toLowerCase() == "femme") return ["save", {"name": "style", "inner": "sex", "content": 1, "obj": true}]
                 msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -86,7 +84,7 @@ module.exports = {
             "answer": (msg) => {
                 if(!isNaN(msg.content) && (msg.content >= 20 && msg.content <= 50)) return ["save", {"name": "age", "content": msg.content}]
                 msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -109,7 +107,7 @@ module.exports = {
             "answer": (msg) => {
                 if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "head", "content": msg.content - 1, "obj": true}]
                 msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -132,7 +130,7 @@ module.exports = {
             "answer": (msg) => {
                 if(!isNaN(msg.content) && (msg.content >= 1 && msg.content <= 4)) return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
                 msg.author.send("Erreur: Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -160,7 +158,7 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                const crimes = msg.content.replace(" ", "")
+                let crimes = msg.content.replace(" ", "")
                 crimes = crimes.split(",")
 
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
@@ -170,14 +168,14 @@ module.exports = {
                         crimes.forEach((msgCrime) => {
                             if(msgCrime.toLowerCase() != crime.toLowerCase()) {
                                 return msg.author.send("Erreur: Crime(s) non valide(s).")
-                                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                             }
                         })
                     });
                     return ["save", {"name": "crimes", "content": crimes}]
                 }
                 msg.author.send("Erreur: Vous avez séléctionnez trop de crimes.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -204,7 +202,7 @@ module.exports = {
                 })
 
                 msg.author.send("Erreur: Le métier choisis est invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -230,7 +228,7 @@ module.exports = {
                 })
 
                 msg.author.send("Erreur: Hostilité invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         },
 
@@ -265,7 +263,7 @@ module.exports = {
                     if(groupe) return ["save", {"name": "groupe", "content": { "id": groupe._id, "number": groupe.pending + 1 }}]
 
                     msg.author.send("Erreur: Le groupe indiqué n'éxiste pas.")
-                    .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 })
             }
         },
@@ -302,7 +300,7 @@ module.exports = {
                     if(religion) return ["save", {"name": "religion", "content": { "id": religion._id, "number": religion.pending + 1 }}]
 
                     msg.author.send("Erreur: La religion indiqué n'éxiste pas.")
-                    .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 })
             }
         },
@@ -322,7 +320,7 @@ module.exports = {
                 if(msg.content.length <= 1024) return ["save", {"name": "background", "content": msg.content}]
 
                 msg.author.send("Erreur: Votre texte est trop long.\nVous devez enlever `" + msg.content.length - 1024 + "` caractères.")
-                .then(omsg => {setTimeout(() => {omsg.delet()}, 1000*5)})
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
         }
     ]
