@@ -11,7 +11,7 @@ module.exports = {
             "question": () => {
                 let embed = {
                     "title": "**Création de profile**",
-                    "description": "⚠️ Vous vous apprêtez à créer un profile de personnage, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop!!`\n- Vous pourrez modifier les information par la suite en tappant `!who`",
+                    "description": "⚠️ Vous vous apprêtez à créer un profile de personnage, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop!!`\n- Vous pourrez modifier les informations par la suite en tappant `!who`",
                     "fields": [
                         {
                             "name": "Réponses",
