@@ -10,9 +10,9 @@ module.exports = class NewUserCommand {
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let questNumber = 0, objColl = {};
       
-      console.log(userQuest)
-      
-        msg.author.send(Global.Fn.waitFor(userQuest.steps[0].question()))
+      console.log(userQuest.steps[0].question())
+        const Q = Global.Fn.waitFor(userQuest.steps[0].question())
+        msg.author.send("test")
             .then((omsg) => {
       
                 const Collector = new Discord.MessageCollector(omsg.channel, {"time": 1000*60*60});
@@ -54,8 +54,8 @@ module.exports = class NewUserCommand {
                         })
 
                 })
-                .on("end", (collected, reason) => {
-                    if(reason == "canceled") return false
+                Collector.on("end", (reason) => {
+                    if(reason == "canceled") return false 
                     if(reason == "save") {
                         Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
                         omsg.edit({
