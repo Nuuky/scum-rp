@@ -19,7 +19,7 @@ module.exports = class NewUserCommand {
         const questCollector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
         console.log("Collector created !")
         questCollector.on("collect", message => {
-            console.log("Collecting Quest " + questNumber + 1 + " of " + userQuest.steps.length + "...")
+            console.log("Collecting Quest " + (questNumber + 1) + " of " + userQuest.steps.length + "...")
 
             // User canceled
             if(message == "stop!!") {
@@ -41,7 +41,7 @@ module.exports = class NewUserCommand {
                                 objColl[obj[1].name] = obj[1].content;
                             }
                             questNumber++
-                            if(questNumber + 1 >= userQuest.steps.length)  return questCollector.stop("save");
+                            if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
                             .then(emd => {
                                 console.log("EMD: ", emd);
@@ -53,7 +53,7 @@ module.exports = class NewUserCommand {
                         
                         case "skip":
                             questNumber++
-                            if(questNumber + 1 >= userQuest.steps.length)  return questCollector.stop("save");
+                            if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
                             .then(emd => {
                                 console.log("EMD: ", emd);
@@ -86,8 +86,8 @@ module.exports = class NewUserCommand {
                     "title": "**Succès !**",
                     "description": `Votre profile a été créé avec succès !\n
                         Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
-                        \`${Json.cfg.prefix} who pseudoIG\`\n
-                        \`${Json.cfg.prefix} who @pseudoDisc\``
+                        \`${Json.cfg.bot.prefix}who pseudoIG\`\n
+                        \`${Json.cfg.bot.prefix}who @pseudoDisc\``
                 }})
             }
           

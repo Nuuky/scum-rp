@@ -278,7 +278,8 @@ module.exports = {
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {"name": msg.content.toLowerCase()}))
                 .then(groupe => {
                     console.log(groupe)
-                    if(groupe) return ["save", {"name": "groupe", "content": { "id": groupe._id, "number": groupe.pending + 1 }}]
+                    const makeCtt = { "id": groupe._id, "number": (groupe.pending + 1) }
+                    if(groupe) return ["save", {"name": "groupe", "content": makeCtt}]
 
                     msg.author.send("Erreur: Le groupe indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
@@ -315,7 +316,8 @@ module.exports = {
 
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {"name": msg.content.toLowerCase()}))
                 .then(religion => {
-                    if(religion) return ["save", {"name": "religion", "content": { "id": religion._id, "number": religion.pending + 1 }}]
+                    const makeCtt = { "id": religion._id, "number": (religion.pending + 1) }
+                    if(religion) return ["save", {"name": "religion", "content": makeCtt}]
 
                     msg.author.send("Erreur: La religion indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
