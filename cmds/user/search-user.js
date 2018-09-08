@@ -82,11 +82,11 @@ module.exports = class SearchUserCommand {
 
 
             // Get Background Story
-            if(user.background) {
+            if(user.description) {
                  embed["fields"].push(
                     {
                         "name": "Background",
-                        "value" : user.background
+                        "value" : user.description
                     }
                  )
             }
