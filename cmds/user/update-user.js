@@ -54,12 +54,12 @@ module.exports = {
 
 
         {
-            "question": (dataObj) => {
+            "question": (dataIndex) => {
                 let embed = {
-                    "title": "**Modification de votre " + userDefData[dataObj].name + "**"
+                    "title": "**Modification de votre " + userDefData[dataIndex].name + "**"
                 }
 
-                switch(userDefData[dataObj].data) {
+                switch(userDefData[dataIndex].data) {
                     case "groupe":
                         return Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
                         .then(groupeArr => {
@@ -143,17 +143,17 @@ module.exports = {
                         break;
                 }
             },
-            "answer": (msg, data) => {
-                if(data.data.match("groupe|religion")) {
-                    const collName = data.data + "_info"
+            "answer": (msg, dataIndex) => {
+                if(userDefData[dataIndex].data.match("groupe|religion")) {
+                    const collName = userDefData[dataIndex].data + "_info"
                     return Global.waitFor(Global.Fn.findData("findOne", collName, {name: msg.content.toLowerCase()}))
                     .then(obj => {
                         if(!obj) {
-                            return msg.channel.send("Erreur: " + data.name + " introuvable.")
+                            return msg.channel.send("Erreur: " + userDefData[dataIndex].name + " introuvable.")
                                 .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
                         }
                         let objUpdt = {$set: {}}
-                        objUpdt.$set[data.data] = {
+                        objUpdt.$set[userDefData[dataIndex].data] = {
                             id: obj._id,
                             pending: obj.pending + 1
                         }
@@ -163,23 +163,23 @@ module.exports = {
                 } 
                 
                 
-                else if(data.data.match("job|hostility")) {
+                else if(userDefData[dataIndex].data.match("job|hostility")) {
                     let exist = false;
                     Json.scumData.jobs.forEach(job => {
                         if(job.toLowerCase() == msg.content) exist = true
                     })
                     if(msg.content.toLowerCase().match("amicale|méfiant|hostile")) exist = true
-                    if(!exist) return msg.channel.send("Erreur: " + data.name + " introuvable.")
+                    if(!exist) return msg.channel.send("Erreur: " + userDefData[dataIndex].name + " introuvable.")
                         .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
                     
                     let objUpdt = {$set: {}}
-                    objUpdt.$set[data.data] = msg.content;
+                    objUpdt.$set[userDefData[dataIndex].data] = msg.content;
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 } 
                 
                 
-                else if(data.data.match("crimes")) {
+                else if(userDefData[dataIndex].data.match("crimes")) {
                     let userCrimes = msg.content.toLowerCase().replace(" ", "")
                     userCrimes = userCrimes.split(",")
                     if(userCrimes.length > 2) return msg.channel.send("Erreur: Vous avez selectionné trop de crimes.")
@@ -195,25 +195,25 @@ module.exports = {
                     })
 
                     let objUpdt = {$set: {}}
-                    objUpdt.$set[data.data] = userCrimes;
+                    objUpdt.$set[userDefData[dataIndex].data] = userCrimes;
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 } 
                 
                 
-                else if(data.data.match("sex|head|tatoo")) {
+                else if(userDefData[dataIndex].data.match("sex|head|tatoo")) {
                     if(!msg.content.toLowerCase().match("homme|femme") || !isNaN(msg.content)) return msg.channel.send("Erreur: Réponse incorrecte.")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
 
                     let dataDef;
 
-                    if(data.data == "sex") {
+                    if(userDefData[dataIndex].data == "sex") {
                         if(isNaN(msg.content)) return msg.channel.send("Erreur: Votre sexe ne peux pas être numérique !.")
                         .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
                         dataDef = (msg.content.toLowerCase() == "homme") ? 0 : 1
                     }
 
-                    if(data.data == "head") {
+                    if(userDefData[dataIndex].data == "head") {
                         if(!msg.content >= 1 && !msg.content <= 4) return msg.channel.send("Erreur: Numéro de tête incorrecte.")
                         .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
                         dataDef = msg.content
@@ -226,22 +226,22 @@ module.exports = {
                     }
 
                     let objUpdt = {$set: {style: {}}}
-                    objUpdt.$set.style[data.data] = dataDef;
+                    objUpdt.$set.style[userDefData[dataIndex].data] = dataDef;
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 }
 
                 else {
-                    if(data.data == "age" && !isNaN(msg.data)) return msg.channel.send("Erreur: Age incorrecte.")
+                    if(userDefData[dataIndex].data == "age" && !isNaN(msg.content)) return msg.channel.send("Erreur: Age incorrecte.")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
-                    if(!(data.data == "age" && (msg.content >= 20 && msg.content <= 50))) return msg.channel.send("Erreur: Age incorrecte (20 -> 50).")
+                    if(!(userDefData[dataIndex].data == "age" && (msg.content >= 20 && msg.content <= 50))) return msg.channel.send("Erreur: Age incorrecte (20 -> 50).")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
 
-                    if(data.data == "description" && msg.content.length > 1024) return msg.channel.send("Erreur: Texte trop long, enlevez `" + msg.content.length - 1024 + "` caractère.")
+                    if(userDefData[dataIndex].data == "description" && msg.content.length > 1024) return msg.channel.send("Erreur: Texte trop long, enlevez `" + msg.content.length - 1024 + "` caractère.")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
 
                     let objUpdt = {$set: {}}
-                    objUpdt.$set[data.data] = msg.content;
+                    objUpdt.$set[userDefData[dataIndex].data] = msg.content;
                     Global.Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", objUpdt)
                     return ["end", true]
                 }
