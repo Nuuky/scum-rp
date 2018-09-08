@@ -1,15 +1,16 @@
 'use strict'
 
-const Json = require('../../json/');
-const Global = require("../../global/");
+const Json = require('../json/');
+const Global = require("../global/");
 const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
-const userQuest = require("questions.js")
 
 module.exports = class NewUserCommand {
 
-    static run(msg, mongoColl, mongoAction = "create") {
+    static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let questNumber = 0, objColl = {};
+      
+      console.log(userQuest)
       
         msg.author.send(Global.Fn.waitFor(userQuest.steps[0].question()))
             .then((omsg) => {

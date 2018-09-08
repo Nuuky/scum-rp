@@ -7,6 +7,7 @@ const url = process.env.MONGODB;
 const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 const User = require("./user/");
+const QuestHandler = require("./questHandler.js")
 
 module.exports = class WhoCommand {
 
@@ -73,7 +74,7 @@ module.exports = class WhoCommand {
                     User.UpdateUser.run(msg, user)
                }
                 else {
-                    User.NewUser.run(msg)
+                    QuestHandler.run(msg, User.NewUser, "user_info")
                }
             })
             .catch(err => console.error(err))

@@ -66,20 +66,17 @@ module.exports = class SearchUserCommand {
                     }
                 ]
             }
-            
-            console.log("embed: ", embed)
 
 
 
             // Get Background Story
             if(user.background) {
-                 embed["fields"].push([
+                 embed["fields"].push(
                     {
                         "name": "Background",
-                        "value" : user.background,
-                        "inline": false
+                        "value" : user.background
                     }
-                ])
+                 )
             }
 
             Global.Msg.embed(msg, embed, 180);
