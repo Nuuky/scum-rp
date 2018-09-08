@@ -160,18 +160,23 @@ module.exports = {
             "answer": (msg) => {
                 let crimes = msg.content.replace(" ", "")
                 crimes = crimes.split(",")
+                console.log(crimes)
 
                 if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
 
                 if(crimes.length <= 2) {
-                    Json.scumData.crimes.forEach(crime => {
-                        crimes.forEach((msgCrime) => {
-                            if(msgCrime.toLowerCase() != crime.toLowerCase()) {
-                                return msg.author.send("Erreur: Crime(s) non valide(s).")
-                                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+                    crimes.forEach((msgCrime) => {
+                        let exist = false
+                        Json.scumData.crimes.forEach(crime => {
+                            if(msgCrime.toLowerCase() == crime.toLowerCase()) {
+                                exist = true;
                             }
                         })
-                    });
+                        if(!exist) {
+                            return msg.author.send("Erreur: Crime(s) non valide(s).")
+                            .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+                        }
+                    })
                     return ["save", {"name": "crimes", "content": crimes}]
                 }
                 msg.author.send("Erreur: Vous avez séléctionnez trop de crimes.")
@@ -183,15 +188,21 @@ module.exports = {
 
         {
             "question": () => {
-                let embed = {
-                    "title": "**Quel est votre métier ?**",
-                    "description": "Tappez `skip` si vous n'avez pas encore choisis de métier.",
-                }
                 let jobs = ""
                 Json.scumData.jobs.forEach(job => {
                     jobs += "`" + job + "` "
                 })
 
+                let embed = {
+                    "title": "**Quel est votre métier ?**",
+                    "description": "Tappez `skip` si vous n'avez pas encore choisis de métier.",
+                    "fields": [
+                        {
+                            "name": "Réponses",
+                            "value": jobs
+                        }
+                    ]
+                }
                 return embed
             },
             "answer": (msg) => {
