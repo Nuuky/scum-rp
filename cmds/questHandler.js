@@ -16,7 +16,7 @@ module.exports = class NewUserCommand {
 
         console.log("Author ID: ", msg.author.id)
 
-        const questCollector = new Discord.MessageCollector(msg.author.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
+        const questCollector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
         console.log("Collector created !")
         questCollector.on("collect", message => {
             console.log("Collecting...")
