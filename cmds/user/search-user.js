@@ -8,6 +8,7 @@ module.exports = class SearchUserCommand {
 
     static run(msg, user) {
         let info= {}, groupe;
+      
 
         Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)}))
         .then((groupeInfo) => {
@@ -65,18 +66,20 @@ module.exports = class SearchUserCommand {
                     }
                 ]
             }
+            
+            console.log("embed: ", embed)
 
 
 
             // Get Background Story
             if(user.background) {
-                embed["fields"] = [
+                 embed["fields"].push([
                     {
                         "name": "Background",
                         "value" : user.background,
                         "inline": false
                     }
-                ];
+                ])
             }
 
             Global.Msg.embed(msg, embed, 180);

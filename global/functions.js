@@ -99,10 +99,10 @@ module.exports = {
             const dbo = db.db(process.env.DB_NAME);
 
             if(findType == "find") {
-                return dbo.collection(colName).find(findObj).toArray();
+                return dbo.collection(colName).find(findObj).toArray()
             }
             if(findType == "findOne") {
-                return dbo.collection(colName).findOne(findObj);
+                return dbo.collection(colName).findOne(findObj)
             }
         })
     },
