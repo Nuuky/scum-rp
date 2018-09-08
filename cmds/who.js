@@ -24,6 +24,7 @@ module.exports = class WhoCommand {
 
         // SEARCH USER --------
         if(query) {
+            console.log(query)
           
 
              // GET USER -------
@@ -36,7 +37,7 @@ module.exports = class WhoCommand {
             } else {
                 searchObj = {name: query}
             }
-            // console.log(searchObj)
+            console.log(searchObj)
 
             // Search for User
             const getUser = () => {
