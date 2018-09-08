@@ -13,13 +13,15 @@ module.exports = class NewUserCommand {
         const userQuests = Global.Fn.waitFor(userQuest.steps[0].question())
             .then(embed => {
                 console.log(embed)
-                return msg.author.send(embed)
+                return msg.author.send({embed}) 
             })
             .then((omsg) => {
+                console.log("omsg", omsg)
       
                 const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
                 questCollector.on("collect", message => {
                     console.log("Collecting...")
+                    console.log("Questions: ", userQuests)
 
                     // User canceled
                     if(message == "stop!!") {
@@ -27,7 +29,7 @@ module.exports = class NewUserCommand {
                         return questCollector.stop("canceled");
                     }
 
-                    Global.Fn.waitFor(userQuest.questions[questNumber].answer(message))
+                    Global.Fn.waitFor(userQuests.steps[questNumber].answer(message))
                         .then((obj) => {
                             switch(obj[0]) {
                                 case "save":
@@ -38,11 +40,11 @@ module.exports = class NewUserCommand {
                                         objColl[obj[1].name] = obj[1].content;
                                     }
                                     questNumber++
-                                    omsg.edit(Global.Fn.waitFor(userQuest.questions[questNumber].question()))
+                                    omsg.edit(Global.Fn.waitFor(userQuests.steps[questNumber].question()))
                                     break;
                                 case "skip":
                                     questNumber++
-                                    omsg.edit(Global.Fn.waitFor(userQuest.questions[questNumber].question()))
+                                    omsg.edit(Global.Fn.waitFor(userQuests.steps[questNumber].question()))
                                     break;
 
                                 case "end":
