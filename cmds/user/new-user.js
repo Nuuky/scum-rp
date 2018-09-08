@@ -22,6 +22,7 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
+                console.log("Answer: ", msg)
 
                 if(msg.content.toLowerCase() == "oui") {
                     return ["save", {"name": "_id", "content": msg.author.id}]

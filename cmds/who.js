@@ -13,7 +13,7 @@ module.exports = class WhoCommand {
 
     constructor(bot, msg) {
         this.msg = msg;
-        this.bot = bot;
+        this.bot = bot; 
     }
 
     async run(query) {
