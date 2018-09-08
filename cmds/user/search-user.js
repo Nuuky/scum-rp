@@ -46,14 +46,14 @@ module.exports = class SearchUserCommand {
             let grpPend = "";
             if(user.groupe) {
                 if(user.groupe.pending) {
-                    grpPend = " ⌛"
+                    grpPend = " *(pending)*" // ⌛
                 }
             }
             
             let relPend = "";
             if(user.religion) {
               if(user.religion.pending) {
-                  relPend = " ⌛"
+                  relPend = " *(pending)*" // ⌛
               }
             }
 
@@ -72,7 +72,7 @@ module.exports = class SearchUserCommand {
                     },
                     {
                         "name": "Appartenance",
-                        "value": `**Groupe:** \` ${((groupe) ? (Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun groupe`")}
+                        "value": `**Groupe:** \` ${((groupe) ? (Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun`")}
                         **Religion:** \` ${((religion) ? (Global.Fn.capitalize(religion.name) + ((religion.leader == user._id) ? "` 🌟" : "`" + relPend)) : "Athés`")}`,
                         "inline": true
                     }
