@@ -7,13 +7,17 @@ const ObjectId = require('mongodb').ObjectID;
 module.exports = class SearchUserCommand {
 
     static run(msg, user) {
-        let info= {}, groupe;
+        let info= {}, groupe, srchGrp, srchRel;
       
-
-        Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)}))
+        if(user.groupe) srchGrp = Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)})
+        else srchGrp = null
+      
+        Global.Fn.waitFor(srchGrp)
         .then((groupeInfo) => {
             groupe = groupeInfo;
-            return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)}))
+            if(user.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)})
+            else srchRel = null
+            return Global.Fn.waitFor(srchRel)
         })
         .then((religion) => {
 
@@ -29,20 +33,28 @@ module.exports = class SearchUserCommand {
 
             let defImage = Json.scumData.charStyle[user.style.sex][user.style.head][user.style.tatoo];
             let image = (user.url) ? user.url : defImage;
-
+            
             let crimes = "";
-            user.crimes.forEach(crime => {
-                crimes += `\`${crime}\` `
-            })
-
-            let grpPend = "";
-            if(user.groupe.pending) {
-                grpPend = " ⌛"
+            if(user.crimes) {
+                user.crimes.forEach(crime => {
+                    crimes += `\`${crime}\` `
+                })
+            } else {
+                crimes = "`Innocent`"
             }
-
+            
+            let grpPend = "";
+            if(user.groupe) {
+                if(user.groupe.pending) {
+                    grpPend = " ⌛"
+                }
+            }
+            
             let relPend = "";
-            if(user.religion.pending) {
-                grpPend = " ⌛"
+            if(user.religion) {
+              if(user.religion.pending) {
+                  relPend = " ⌛"
+              }
             }
 
             const embed = {
