@@ -10,13 +10,16 @@ module.exports = class NewUserCommand {
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let questNumber = 0, objColl = {};
       
-      console.log(userQuest.steps[0].question())
-        const Q = Global.Fn.waitFor(userQuest.steps[0].question())
-        msg.author.send(userQuest.steps[0].question())
+        const userQuests = Global.Fn.waitFor(userQuest.steps[0].question())
+            .then(embed => {
+                console.log(embed)
+                return msg.author.send(embed)
+            })
             .then((omsg) => {
       
                 const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
                 questCollector.on("collect", message => {
+                    console.log("Collecting...")
 
                     // User canceled
                     if(message == "stop!!") {
@@ -70,6 +73,7 @@ module.exports = class NewUserCommand {
                     }
                 })
             })
+            .catch(err => console.error(err))
           
             
       
