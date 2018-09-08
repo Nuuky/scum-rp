@@ -31,7 +31,7 @@ module.exports = class NewUserCommand {
                 .then((obj) => {
                     console.log("Treating answer...")
               
-                    if(questNumber >= userQuest.length) return 
+                    if(questNumber == userQuest.length) return questCollector.stop("canceled")
                     
                     switch(obj[0]) {
                         case "save":
