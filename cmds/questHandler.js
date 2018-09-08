@@ -19,7 +19,7 @@ module.exports = class NewUserCommand {
         const questCollector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
         console.log("Collector created !")
         questCollector.on("collect", message => {
-            console.log("Collecting...")
+            console.log("Collecting Quest " + questNumber + 1 + " of " + userQuest.steps.length + "...")
 
             // User canceled
             if(message == "stop!!") {
@@ -31,7 +31,6 @@ module.exports = class NewUserCommand {
                 .then((obj) => {
                     console.log("Treating answer...")
               
-                    if(questNumber == userQuest.length) return questCollector.stop("canceled")
                     
                     switch(obj[0]) {
                         case "save":
@@ -42,6 +41,7 @@ module.exports = class NewUserCommand {
                                 objColl[obj[1].name] = obj[1].content;
                             }
                             questNumber++
+                            if(questNumber + 1 >= userQuest.steps.length)  return questCollector.stop("save");
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
                             .then(emd => {
                                 console.log("EMD: ", emd);
@@ -53,6 +53,7 @@ module.exports = class NewUserCommand {
                         
                         case "skip":
                             questNumber++
+                            if(questNumber + 1 >= userQuest.steps.length)  return questCollector.stop("save");
                             Global.Fn.waitFor(userQuest.steps[questNumber].question())
                             .then(emd => {
                                 console.log("EMD: ", emd);
@@ -81,13 +82,13 @@ module.exports = class NewUserCommand {
             if(reason == "canceled") return false 
             if(reason == "save") {
                 Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
-                msg.author.send({
+                msg.author.send({embed: {
                     "title": "**Succès !**",
                     "description": `Votre profile a été créé avec succès !\n
                         Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
                         \`${Json.cfg.prefix} who pseudoIG\`\n
                         \`${Json.cfg.prefix} who @pseudoDisc\``
-                })
+                }})
             }
           
             console.log("Ended.")
