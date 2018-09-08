@@ -70,7 +70,10 @@ module.exports = class UpdateHandler {
             })
             questCollector.on("end", (collected, reason) => {
               
-                if(reason == "canceled") return false 
+                if(reason == "canceled") {
+                    msg.author.send("Modification annulé.")
+                    return false
+                } 
                 if(reason == "save") {
                     msg.author.send({embed: {
                         "title": "**Succès !**",

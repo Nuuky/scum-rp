@@ -234,7 +234,7 @@ module.exports = {
                 else {
                     if(userDefData[dataIndex].data == "age" && !isNaN(msg.content)) return msg.channel.send("Erreur: Age incorrecte.")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
-                    if(!(userDefData[dataIndex].data == "age" && (msg.content >= 20 && msg.content <= 50))) return msg.channel.send("Erreur: Age incorrecte (20 -> 50).")
+                    if(userDefData[dataIndex].data == "age" && !(msg.content >= 20 && msg.content <= 50)) return msg.channel.send("Erreur: Age incorrecte (20 -> 50).")
                     .then(omsg => setTimeout(() => {omsg.delete()}, 1000*5))
 
                     if(userDefData[dataIndex].data == "description" && msg.content.length > 1024) return msg.channel.send("Erreur: Texte trop long, enlevez `" + msg.content.length - 1024 + "` caractère.")
