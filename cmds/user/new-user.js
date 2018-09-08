@@ -139,7 +139,7 @@ module.exports = {
         {
             "question": () => {
                 let embed = {
-                    "title": "**Quel sont vos crimes ?**",
+                    "title": "**Quel sont vos crimes ?** *(Optionnel)*",
                     "description": "Séparez chaque crimes par une virgules (2 crimes max)\nTappez `skip` si vous êtes innocent.",
                     "fields": [
                         
@@ -161,7 +161,7 @@ module.exports = {
                 let crimes = msg.content.replace(" ", "")
                 crimes = crimes.split(",")
 
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "crimes", "content": ["Innocent"]}]
+                if(msg.content.toLowerCase() == "skip") return ["skip"]
 
                 if(crimes.length <= 2) {
                     crimes.forEach((msgCrime) => {
@@ -193,7 +193,7 @@ module.exports = {
                 })
 
                 let embed = {
-                    "title": "**Quel est votre métier ?**",
+                    "title": "**Quel est votre métier ?** *(Optionnel)*",
                     "description": "Tappez `skip` si vous n'avez pas encore choisis de métier.",
                     "fields": [
                         {
@@ -205,7 +205,7 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "job", "content": "Vagabond"}]
+                if(msg.content.toLowerCase() == "skip") return ["skip"]
 
                 let exist = false;
                 Json.scumData.jobs.forEach(job => {
@@ -260,7 +260,7 @@ module.exports = {
                         groupes += "`" + Global.Fn.capitalize(groupe.name) + "`\n"
                     })
                     let embed = {
-                        "title": "**Avez vous un groupe ?**",
+                        "title": "**Avez vous un groupe ?** *(Optionnel)*",
                         "description": "⚠️ Vous devez choisir un groupe qui existe déjà !\nTappez `skip` pour ne pas choisir de groupe",
                         "fields": [
                             {
@@ -273,7 +273,7 @@ module.exports = {
                 })
             },
             "answer": (msg) => {
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "groupe", "content": "Aucun"}]
+                if(msg.content.toLowerCase() == "skip") return ["skip"]
 
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {"name": msg.content.toLowerCase()}))
                 .then(groupe => {
@@ -299,7 +299,7 @@ module.exports = {
                     })
 
                     let embed = {
-                        "title": "**Avez vous une religion ?**",
+                        "title": "**Avez vous une religion ?** *(Optionnel)*",
                         "description": "⚠️ Vous devez choisir une religion qui existe déjà !\nTappez `skip` pour ne pas choisir de religion",
                         "fields": [
                             {
@@ -312,7 +312,7 @@ module.exports = {
                 })
             },
             "answer": (msg) => {
-                if(msg.content.toLowerCase() == "skip") return ["save", {"name": "religion", "content": "Athés"}]
+                if(msg.content.toLowerCase() == "skip") return ["skip"]
 
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {"name": msg.content.toLowerCase()}))
                 .then(religion => {
@@ -330,7 +330,7 @@ module.exports = {
         {
             "question": () => {
                 let embed = {
-                    "title": "**Background de votre personnage**",
+                    "title": "**Background de votre personnage** *(Optionnel)*",
                     "description": "⚠️ 1024 caractères max\nTappez `skip` si vous ne voulez pas écrire de background"
                 }
                 return embed
