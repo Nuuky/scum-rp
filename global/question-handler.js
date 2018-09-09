@@ -135,13 +135,10 @@ module.exports = class QuestionHandler {
 
                     embed = {
                         "title": "**Succès !**",
-                        "description": `Votre profile a été créé avec succès !\n
-                            Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
-                            \`${Json.cfg.bot.prefix}who pseudoIG\`\n
-                            \`${Json.cfg.bot.prefix}who @pseudoDisc\``
+                        "description": `Les informations ont bien été prises en comptes.`
                     }
 
-                    msg.author.send({embed})
+                    return msg.author.send({embed})
                 }
               
                 msg.author.send("Action annulé.")
