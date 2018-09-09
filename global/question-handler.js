@@ -95,37 +95,37 @@ module.exports = class QuestionHandler {
                     if(!createData) {
                         Fn.waitFor(Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
                         .then(User => {
-                            if(User) {
-                                if(User.groupe && User.groupe != objColl.groupe.id) {
-                                    Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: User.groupe}))
-                                    .then(grp => {
-                                        let members = grp.members
-                                        for( var i = 0; i < members.length-1; i++){ 
-                                            if ( members[i].id == msg.author.id ) {
-                                                members.splice(i, 1); 
-                                            }
+                            if(User.groupe && User.groupe != objColl.groupe.id) {
+                                Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: User.groupe}))
+                                .then(grp => {
+                                    let members = grp.members
+                                    for( var i = 0; i < members.length-1; i++){ 
+                                        if ( members[i].id == msg.author.id ) {
+                                            members.splice(i, 1); 
                                         }
-                                        Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
-                                    })
-                                }
-                                
-                                if(User.religion && User.religion != objColl.religion.id) {
-                                    Fn.waitFor(Fn.findData("findOne", "religion_info", {_id: User.religion}))
-                                    .then(grp => {
-                                        let members = grp.members
-                                        for( var i = 0; i < members.length-1; i++){ 
-                                            if ( members[i] == msg.author.id ) {
-                                                members.splice(i, 1); 
-                                            }
-                                        }
-                                        Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
-                                    })
-                                }
+                                    }
+                                    Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
+                                })
                             }
-                        })
-                    }   
+                            
+                            if(User.religion && User.religion != objColl.religion.id) {
+                                Fn.waitFor(Fn.findData("findOne", "religion_info", {_id: User.religion}))
+                                .then(grp => {
+                                    let members = grp.members
+                                    for( var i = 0; i < members.length-1; i++){ 
+                                        if ( members[i] == msg.author.id ) {
+                                            members.splice(i, 1); 
+                                        }
+                                    }
+                                    Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
+                                })
+                            }
 
-                    Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+                            Fn.mongUpdate({_id: msg.author.id}, "update", mongoColl, {$set: objColl})
+                        })
+                    }
+
+                    if(createData) Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
 
                     const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
                     // Update Groupe DB
