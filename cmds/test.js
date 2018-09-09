@@ -16,19 +16,25 @@ module.exports = class TestCommand {
 
     async run(query) {
         const msg = this.msg
-        const bot = this.bot
-        console.log("Test cmd. query = " + query);
-        
-        Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId("5b8eee97fb6fc013752b76a0")});
 
-//         MongoClient.connect(url, (err, db) => {
-//             if (err) throw err;
-//             const dbo = db.db(process.env.DB_NAME);
-          
-//             dbo.collection("groupe_info").findOne({_id: "5b8eee97fb6fc013752b76a0"})
-//             .then(religion => {
-//               console.log(religion);
-//             })
-//         })
+        const canvas = document.createElement("canvas");
+
+        canvas.id = "MakeUserImg";
+        canvas.width = 1224;
+        canvas.height = 768;
+        canvas.style.zIndex = 8;
+        canvas.style.position = "absolute";
+
+        // below is optional
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+        ctx.fillRect(100, 100, 200, 200);
+        ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
+        ctx.fillRect(150, 150, 200, 200);
+        ctx.fillStyle = "rgba(0, 0, 255, 0.2)";
+        ctx.fillRect(200, 50, 200, 200);
+        
+        msg.author.send(canvas.toDataURL());
+      
     }
 }
