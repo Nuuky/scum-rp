@@ -130,10 +130,10 @@ module.exports = class QuestionHandler {
 
                     const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
                     // Update Groupe DB
-                    if(objColl.groupe) Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
+                    if(objColl.groupe) Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", newPendingMember)
 
                     // Update Religion DB
-                    if(objColl.religion) Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
+                    if(objColl.religion) Fn.mongUpdate({_id: objColl.religion}, "update", "religion_info", newPendingMember)
 
                     embed = {
                         "title": "**Succès !**",
