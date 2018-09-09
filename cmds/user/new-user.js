@@ -31,7 +31,7 @@ module.exports = {
 
             let embed = {
                 "title": "**Modification de votre profile**",
-                "description": "Veuillez choisir l'information à modifier par son numéro.",
+                "description": "Veuillez choisir l'information à modifier par son index.",
                 "fields": [
                     {
                         "name": "Réponses",
@@ -42,14 +42,15 @@ module.exports = {
             return embed
         },
         "answer": (msg) => {
-            let dataToUpdt;
+            // EXEPTIONS -------
             if(msg.content == 0) return ["end"];
-            if(!isNaN(msg.content) && (msg.content >= 0 && msg.content <= userDefData.length - 1)) dataToUpdt = msg.content
-            if(dataToUpdt) return ["next", {data: dataToUpdt}]
-            else {
-                msg.author.send("**Erreur:** Veuillez répondre avec l'un des chiffres proposés.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
-            }
+            // DATA -------
+            // SHIELD -------
+            if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= userDefData.length - 1)) 
+                return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
+                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
+            // ALL GOOD -------
+            return ["next", {dataIndex: msg.content}]
         }
     },
     steps: [
@@ -68,14 +69,15 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
-                if(msg.content.toLowerCase() == "oui") {
-                    return ["save", {"name": "_id", "content": msg.author.id}]
-                } else if(msg.content.toLowerCase() == "non") {
-                    return ["end"]
-                } else {
-                    msg.author.send("**Erreur:** Veuillez répondre avec l'un des thermes proposés.")
-                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
-                }
+                // EXEPTIONS -------
+                // DATA -------
+                // SHIELD -------
+                if(!msg.content.toLowerCase().match("oui|non")) 
+                    return msg.author.send("**Erreur:** Veuillez répondre avec l'un des thermes proposés.")
+                        .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
+                // ALL GOOD -------
+                if(msg.content.toLowerCase() == "non") return ["end"]
+                return ["save", {"name": "_id", "content": msg.author.id}]
             }
         },
 
@@ -89,6 +91,10 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
+                // EXEPTIONS -------
+                // DATA -------
+                // SHIELD -------
+                // ALL GOOD -------
                 return ["save", {"name": "name", "content": msg.content}]
             }
         },
@@ -134,7 +140,7 @@ module.exports = {
                 // EXEPTIONS -------
                 // DATA -------
                 // SHIELD -------
-                if(isNaN(msg.content) && !(msg.content >= 20 && msg.content <= 50)) return msg.author.send("**Erreur:** Réponse invalide.")
+                if(isNaN(msg.content) || !(msg.content >= 20 && msg.content <= 50)) return msg.author.send("**Erreur:** Réponse invalide.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
                 return ["save", {"name": "age", "content": msg.content}]
