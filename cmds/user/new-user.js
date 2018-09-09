@@ -43,14 +43,16 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content == 0) return ["end"];
+                //if(msg.content == 0) return ["end"];
                 // DATA -------
                 // SHIELD -------
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= userDefData.length - 1)) 
                     return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
                         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
                 // ALL GOOD -------
-                return ["next", {dataIndex: Number(msg.content) + 2}]
+
+                const index = 2 + Number(msg.content)
+                return ["next", {dataIndex: index}]
             }
         },
 

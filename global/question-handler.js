@@ -33,6 +33,7 @@ module.exports = class QuestionHandler {
                         console.log("Treating answer...")
                   
                         
+                        console.log("case: ", obj[0])
                         switch(obj[0]) {
                             case "save":
                                 if(obj[1].obj) {
@@ -120,7 +121,7 @@ module.exports = class QuestionHandler {
                                     Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
                                 })
                             }
-
+                            console.log("objColl: ", objColl)
                             Fn.mongUpdate({_id: msg.author.id}, "update", mongoColl, {$set: objColl})
                         })
                     }
