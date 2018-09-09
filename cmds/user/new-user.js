@@ -6,7 +6,6 @@ const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
 
 const userDefData = [
-    {data: "cancel", "name": "annuler", def: "Annuler"},
     {data: "name", "name": "Nom", def: "Votre nom"},
     {data: "sex", "name": "Sexe",  def: "Votre sexe"},
     {data: "age", "name": "Age",  def: "Votre age"},
@@ -51,7 +50,7 @@ module.exports = {
                     return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
                         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
                 // ALL GOOD -------
-                return ["next", {questIndex: msg.content}]
+                return ["next", {dataIndex: msg.content}]
             }
         },
 

@@ -10,7 +10,8 @@ module.exports = class QuestionHandler {
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let objColl = {},
             createData = (mongoAction == "create") ? true : false,
-            questNumber = (createData) ? 1 : 0,
+            questIndex = (createData) ? 1 : 0,
+            questNumber = 0,
             questToDo = (createData) ? userQuest.steps.length : 2;
       
         let embed = userQuest.steps[questNumber].question()
@@ -20,16 +21,15 @@ module.exports = class QuestionHandler {
             const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
             console.log("Collector created !")
             questCollector.on("collect", message => {
-                console.log("Collecting Quest " + (questNumber + 1) + " of " + questToDo + "...")
+                console.log("Collecting Quest " + (questIndex + 1) + " of " + questToDo + "...")
     
                 // User canceled
                 if(message == "stop") {
                     console.log("Canceling...")
                     return questCollector.stop("canceled");
                 }
-                
-                
-                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
+                console.log("questIndex: ", questIndex)
+                Global.Fn.waitFor(userQuest.steps[questIndex].answer(message))
                     .then((obj) => {
                         console.log("Treating answer...")
                   
@@ -43,6 +43,7 @@ module.exports = class QuestionHandler {
                                     objColl[obj[1].name] = obj[1].content;
                                 }
                                 questNumber++
+                                questIndex++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
                                 Global.Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
@@ -53,6 +54,7 @@ module.exports = class QuestionHandler {
                                 break;
                             
                             case "skip":
+                                questIndex++
                                 questNumber++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
                                 Global.Fn.waitFor(userQuest.steps[questNumber].question())
@@ -64,8 +66,9 @@ module.exports = class QuestionHandler {
                                 break;
 
                             case "next":
+                                questIndex = (obj[1].dataIndex + 1)
                                 questNumber++
-                                Global.Fn.waitFor(userQuest.steps[obj[1].questIndex].question())
+                                Global.Fn.waitFor(userQuest.steps[obj[1].dataIndex].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
