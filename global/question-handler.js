@@ -44,7 +44,7 @@ module.exports = class QuestionHandler {
                                 }
                                 questNumber++
                                 questIndex++
-                                if(questNumber >= questToDo)  return questCollector.stop("save");
+                                if(questNumber >= (questToDo - 1))  return questCollector.stop("save");
                                 Fn.waitFor(userQuest.steps[questIndex].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
@@ -114,7 +114,7 @@ module.exports = class QuestionHandler {
                         })
                     }
 
-                    if(createData) Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+                    if(createData) Fn.mongUpdate(objColl, mongoAction, mongoColl)
 
                     const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
                     // Update Groupe DB
