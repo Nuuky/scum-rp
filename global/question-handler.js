@@ -96,7 +96,7 @@ module.exports = class QuestionHandler {
                     if(!createData) {
                         Fn.waitFor(Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
                         .then(User => {
-                            if(User.groupe && User.groupe != objColl.groupe.id) {
+                            if((User.groupe && objColl.groupe) && User.groupe != objColl.groupe) {
                                 Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: User.groupe}))
                                 .then(grp => {
                                     let members = grp.members
@@ -105,11 +105,11 @@ module.exports = class QuestionHandler {
                                             members.splice(i, 1); 
                                         }
                                     }
-                                    Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
+                                    Fn.mongUpdate({_id: User.groupe}, "update", "groupe_info", { $set:{"members":members} })
                                 })
                             }
                             
-                            if(User.religion && User.religion != objColl.religion.id) {
+                            if((User.religion && objColl.religion) && User.religion != objColl.religion) {
                                 Fn.waitFor(Fn.findData("findOne", "religion_info", {_id: User.religion}))
                                 .then(grp => {
                                     let members = grp.members
@@ -118,7 +118,7 @@ module.exports = class QuestionHandler {
                                             members.splice(i, 1); 
                                         }
                                     }
-                                    Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
+                                    Fn.mongUpdate({_id: User.religion}, "update", "religion_info", { $set:{"members":members} })
                                 })
                             }
                             console.log("objColl: ", objColl)
