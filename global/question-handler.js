@@ -10,8 +10,8 @@ module.exports = class QuestionHandler {
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let questNumber = 0, 
             objColl = {},
-            createData = (mongoAction == "create") ? true : false;
-            questToDo = (createData) ? userQuest.steps.length : 1
+            createData = (mongoAction == "create") ? true : false,
+            questToDo = (createData) ? userQuest.steps.length : 2;
       
         let embed = (createData) ? userQuest.steps[0].question() : userQuest.update.question()
         console.log(embed)
@@ -28,7 +28,7 @@ module.exports = class QuestionHandler {
                     return questCollector.stop("canceled");
                 }
                 
-                firstAnswer = (createData) ? userQuest.steps[questNumber].answer(message) : userQuest.update.answer(message)
+                const firstAnswer = (createData) ? userQuest.steps[questNumber].answer(message) : userQuest.update.answer(message)
                 Global.Fn.waitFor(firstAnswer)
                     .then((obj) => {
                         console.log("Treating answer...")
@@ -89,60 +89,57 @@ module.exports = class QuestionHandler {
             })
             questCollector.on("end", (collected, reason) => {
                 if(reason == "save") {
-                    let user = false;
-                    if(!create) {
-                        user = Global.Fn.findData("findOne", mongoColl, {_id: msg.author.id})
+                    if(!createData) {
+                        Global.waitFor(Global.Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
+                        .then(User => {
+                            if(User) {
+                                if(User.groupe && User.groupe != objColl.groupe.id) {
+                                    Global.waitFor(Global.findData("findOne", "groupe_info", {_id: User.groupe}))
+                                    .then(grp => {
+                                        let members = grp.members
+                                        for( var i = 0; i < members.length-1; i++){ 
+                                            if ( members[i].id == msg.author.id ) {
+                                                members.splice(i, 1); 
+                                            }
+                                        }
+                                        Global.Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
+                                    })
+                                }
+                                
+                                if(User.religion && User.religion != objColl.religion.id) {
+                                    Global.waitFor(Global.findData("findOne", "religion_info", {_id: User.religion}))
+                                    .then(grp => {
+                                        let members = grp.members
+                                        for( var i = 0; i < members.length-1; i++){ 
+                                            if ( members[i] == msg.author.id ) {
+                                                members.splice(i, 1); 
+                                            }
+                                        }
+                                        Global.Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
+                                    })
+                                }
+                            }
+                        })
+                    }   
+
+                    Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+
+                    const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
+                    // Update Groupe DB
+                    if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
+
+                    // Update Religion DB
+                    if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
+
+                    embed = {
+                        "title": "**Succès !**",
+                        "description": `Votre profile a été créé avec succès !\n
+                            Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
+                            \`${Json.cfg.bot.prefix}who pseudoIG\`\n
+                            \`${Json.cfg.bot.prefix}who @pseudoDisc\``
                     }
-                    Global.waitFor(user)
-                    .then(User => {
-                        if(User) {
-                            if(User.groupe && User.groupe != objColl.groupe.id) {
-                                Global.waitFor(Global.findData("findOne", "groupe_info", {_id: User.groupe}))
-                                .then(grp => {
-                                    members = grp.members
-                                    for( var i = 0; i < members.length-1; i++){ 
-                                        if ( members[i].id == msg.author.id ) {
-                                            members.splice(i, 1); 
-                                        }
-                                     }
-                                    Global.Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
-                                })
-                            }
 
-                            
-                            if(User.religion && User.religion != objColl.religion.id) {
-                                Global.waitFor(Global.findData("findOne", "religion_info", {_id: User.religion}))
-                                .then(grp => {
-                                    members = grp.members
-                                    for( var i = 0; i < members.length-1; i++){ 
-                                        if ( members[i].id == msg.author.id ) {
-                                            members.splice(i, 1); 
-                                        }
-                                     }
-                                    Global.Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
-                                })
-                            }
-                        }
-
-                        Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
-    
-                        const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
-                        // Update Groupe DB
-                        if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
-    
-                        // Update Religion DB
-                        if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
-    
-                        embed = {
-                            "title": "**Succès !**",
-                            "description": `Votre profile a été créé avec succès !\n
-                                Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
-                                \`${Json.cfg.bot.prefix}who pseudoIG\`\n
-                                \`${Json.cfg.bot.prefix}who @pseudoDisc\``
-                        }
-    
-                        msg.author.send({embed})
-                    })
+                    msg.author.send({embed})
                 }
               
                 msg.author.send("Action annulé.")

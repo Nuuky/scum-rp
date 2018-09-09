@@ -236,7 +236,7 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content.toLowerCase() == "skip") return ["skip"]
+                if(msg.content.toLowerCase() == "skip") return ["skip", {"name": "crimes", "content": false}]
                 // DATA -------
                 let answArr = msg.content.replace(" ", "")
                 answArr = answArr.split(",")
@@ -280,7 +280,7 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content.toLowerCase() == "skip") return ["skip"]
+                if(msg.content.toLowerCase() == "skip") return ["skip", {"name": "jobs", "content": false}]
                 // DATA -------
                 const jobs = Json.scumData.jobs 
                 // SHIELD -------
@@ -351,16 +351,15 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content.toLowerCase() == "skip") return ["skip"]
+                if(msg.content.toLowerCase() == "skip") return ["skip", {"name": "groupe", "content": false}]
                 // DATA -------
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {"name": msg.content.toLowerCase()}))
                 .then(groupe => {
                     // SHIELD -------
-                    if(typeof groupe == 'undefined') msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
+                    if(!groupe) msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    const makeCtt = (groupe) ? "pending" : false
-                    return ["save", {"name": "groupe", "content": makeCtt}]
+                    return ["save", {"name": "groupe", "content": groupe.id}]
 
                     
                 })
@@ -393,16 +392,15 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content.toLowerCase() == "skip") return ["skip"]
+                if(msg.content.toLowerCase() == "skip") return ["skip", {"name": "religion", "content": false}]
                 // DATA -------
                 return Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {"name": msg.content.toLowerCase()}))
                 .then(religion => {
                     // SHIELD -------
-                    if(typeof religion == 'undefined') return msg.author.send("**Erreur:** La religion indiqué n'éxiste pas.")
+                    if(!religion) return msg.author.send("**Erreur:** La religion indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    const makeCtt = (religion) ? "pending" : false
-                    return ["save", {"name": "religion", "content": makeCtt}]
+                    return ["save", {"name": "religion", "content": religion.id}]
                 })
             }
         },
