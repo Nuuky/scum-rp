@@ -1,7 +1,7 @@
 'use strict'
 
 const Json = require('../json/');
-const Global = require("../global/");
+const Fn = require("./functions.js");
 const ObjectId = require('mongodb').ObjectID;
 const Discord = require("discord.js")
 
@@ -15,7 +15,6 @@ module.exports = class QuestionHandler {
             questToDo = (createData) ? userQuest.steps.length : 2;
       
         let embed = userQuest.steps[questNumber].question()
-        console.log(embed)
         msg.author.send({embed})
         .then(omsg => {    
             const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
@@ -28,8 +27,8 @@ module.exports = class QuestionHandler {
                     console.log("Canceling...")
                     return questCollector.stop("canceled");
                 }
-                console.log("questIndex: ", questIndex)
-                Global.Fn.waitFor(userQuest.steps[questIndex].answer(message))
+                console.log(questIndex);
+                Fn.waitFor(userQuest.steps[questIndex].answer(message))
                     .then((obj) => {
                         console.log("Treating answer...")
                   
@@ -45,7 +44,7 @@ module.exports = class QuestionHandler {
                                 questNumber++
                                 questIndex++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                                Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
@@ -57,7 +56,7 @@ module.exports = class QuestionHandler {
                                 questIndex++
                                 questNumber++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
-                                Global.Fn.waitFor(userQuest.steps[questNumber].question())
+                                Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
@@ -66,9 +65,9 @@ module.exports = class QuestionHandler {
                                 break;
 
                             case "next":
-                                questIndex = (obj[1].dataIndex + 1)
+                                questIndex = Number(obj[1].dataIndex) + 2
                                 questNumber++
-                                Global.Fn.waitFor(userQuest.steps[obj[1].dataIndex].question())
+                                Fn.waitFor(userQuest.steps[questIndex].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
@@ -93,11 +92,11 @@ module.exports = class QuestionHandler {
             questCollector.on("end", (collected, reason) => {
                 if(reason == "save") {
                     if(!createData) {
-                        Global.waitFor(Global.Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
+                        Fn.waitFor(Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
                         .then(User => {
                             if(User) {
                                 if(User.groupe && User.groupe != objColl.groupe.id) {
-                                    Global.waitFor(Global.findData("findOne", "groupe_info", {_id: User.groupe}))
+                                    Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: User.groupe}))
                                     .then(grp => {
                                         let members = grp.members
                                         for( var i = 0; i < members.length-1; i++){ 
@@ -105,12 +104,12 @@ module.exports = class QuestionHandler {
                                                 members.splice(i, 1); 
                                             }
                                         }
-                                        Global.Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
+                                        Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
                                     })
                                 }
                                 
                                 if(User.religion && User.religion != objColl.religion.id) {
-                                    Global.waitFor(Global.findData("findOne", "religion_info", {_id: User.religion}))
+                                    Fn.waitFor(Fn.findData("findOne", "religion_info", {_id: User.religion}))
                                     .then(grp => {
                                         let members = grp.members
                                         for( var i = 0; i < members.length-1; i++){ 
@@ -118,21 +117,21 @@ module.exports = class QuestionHandler {
                                                 members.splice(i, 1); 
                                             }
                                         }
-                                        Global.Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
+                                        Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
                                     })
                                 }
                             }
                         })
                     }   
 
-                    Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+                    Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
 
                     const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
                     // Update Groupe DB
-                    if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
+                    if(objColl.groupe) Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
 
                     // Update Religion DB
-                    if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
+                    if(objColl.religion) Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
 
                     embed = {
                         "title": "**Succès !**",
