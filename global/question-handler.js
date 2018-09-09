@@ -65,7 +65,8 @@ module.exports = class QuestionHandler {
                                 break;
 
                             case "next":
-                                questIndex = Number(obj[1].dataIndex) + 2
+                                console.log("obj[1]: ", obj[1])
+                                questIndex = obj[1].dataIndex
                                 questNumber++
                                 Fn.waitFor(userQuest.steps[questIndex].question())
                                 .then(emd => {
