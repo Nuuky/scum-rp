@@ -26,7 +26,7 @@ module.exports = {
                 let dataQuest = "";
 
                 userDefData.forEach((entry, index) => {
-                    dataQuest += "`" + index + "`:" + entry.def + "\n"
+                    dataQuest += "`" + index + "`:" + entry.name + "\n"
                 })
 
                 let embed = {
@@ -79,7 +79,7 @@ module.exports = {
                         .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
                 // ALL GOOD -------
                 if(msg.content.toLowerCase() == "non") return ["end"]
-                return ["save", {"name": "_id", "content": msg.author.id}]
+                return ["skip", {"name": "_id", "content": msg.author.id}]
             }
         },
 
@@ -97,7 +97,7 @@ module.exports = {
                 // DATA -------
                 // SHIELD -------
                 // ALL GOOD -------
-                return ["save", {"name": "name", "content": msg.content}]
+                return ["skip", {"name": "name", "content": msg.content}]
             }
         },
 
@@ -121,8 +121,8 @@ module.exports = {
                 // DATA -------
                 // SHIELD -------
                 // ALL GOOD -------
-                if(msg.content.toLowerCase() == "homme") return ["save", {"name": "style", "inner": "sex", "content": 0, "obj": true}]
-                if(msg.content.toLowerCase() == "femme") return ["save", {"name": "style", "inner": "sex", "content": 1, "obj": true}]
+                if(msg.content.toLowerCase() == "homme") return ["skip", {"name": "style", "inner": "sex", "content": 0, "obj": true}]
+                if(msg.content.toLowerCase() == "femme") return ["skip", {"name": "style", "inner": "sex", "content": 1, "obj": true}]
                 msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
             }
@@ -145,7 +145,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 20 && msg.content <= 50)) return msg.author.send("**Erreur:** Réponse invalide.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                return ["save", {"name": "age", "content": msg.content}]
+                return ["skip", {"name": "age", "content": msg.content}]
                 
             }
         },
@@ -178,7 +178,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (heads.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["save", {"name": "style", "inner": "head", "content": heads[msg.content] - 1, "obj": true}]
+                return ["skip", {"name": "style", "inner": "head", "content": heads[msg.content] - 1, "obj": true}]
             }
         },
 
@@ -211,7 +211,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (tatoos.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["save", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
+                return ["skip", {"name": "style", "inner": "tatoo", "content": msg.content, "obj": true}]
                 
             }
         },
@@ -258,7 +258,7 @@ module.exports = {
                 answArr.forEach(crime => {
                     finalAnsw.push(crimes[crime])
                 })
-                return ["save", {"name": "crimes", "content": finalAnsw}]
+                return ["skip", {"name": "crimes", "content": finalAnsw}]
             }
         },
 
@@ -292,7 +292,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (jobs.length + 1)) ) return msg.author.send("**Erreur:** Métier invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["save", {"name": "job", "content": jobs[msg.content]}]
+                return ["skip", {"name": "job", "content": jobs[msg.content]}]
             }
         },
 
@@ -326,7 +326,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (hostilities.length + 1))) return msg.author.send("**Erreur:** Hostilité invalide.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["save", {"name": "hostility", "content": hostilities[msg.content]}]
+                return ["skip", {"name": "hostility", "content": hostilities[msg.content]}]
 
             }
         },
@@ -364,7 +364,7 @@ module.exports = {
                     if(!groupe) msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["save", {"name": "groupe", "content": groupe._id}]
+                    return ["skip", {"name": "groupe", "content": groupe._id}]
 
                     
                 })
@@ -405,7 +405,7 @@ module.exports = {
                     if(!religion) return msg.author.send("**Erreur:** La religion indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["save", {"name": "religion", "content": religion._id}]
+                    return ["skip", {"name": "religion", "content": religion._id}]
                 })
             }
         },
@@ -428,7 +428,7 @@ module.exports = {
                 if(msg.content.length > 1024) return msg.author.send("**Erreur:** Votre texte est trop long.\nVous devez enlever `" + msg.content.length - 1024 + "` caractères.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["save", {"name": "description", "content": msg.content}]
+                return ["skip", {"name": "description", "content": msg.content}]
             }
         }
     ]

@@ -35,7 +35,7 @@ module.exports = class QuestionHandler {
                         
                         console.log("case: ", obj[0])
                         switch(obj[0]) {
-                            case "save":
+                            case "skip":
                                 if(obj[1].obj) {
                                     if(!objColl[obj[1].name]) objColl[obj[1].name] = {}
                                     objColl[obj[1].name][obj[1].inner] = obj[1].content;
@@ -44,18 +44,6 @@ module.exports = class QuestionHandler {
                                 }
                                 questNumber++
                                 questIndex++
-                                if(questNumber >= questToDo)  return questCollector.stop("save");
-                                Fn.waitFor(userQuest.steps[questNumber].question())
-                                .then(emd => {
-                                    msg.author.send({embed: emd})
-                                    .catch(err => console.error(err))
-                                })
-                                .catch(err => console.error(err))
-                                break;
-                            
-                            case "skip":
-                                questIndex++
-                                questNumber++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
                                 Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
