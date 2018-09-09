@@ -43,19 +43,21 @@ module.exports = class SearchUserCommand {
                 crimes = "`Innocent`"
             }
             
-            let grpPend = "";
-            if(user.groupe) {
-                if(user.groupe.pending) {
-                    grpPend = " *(pending)*" // ⌛
-                }
+            let dispGrp;
+            if(groupe) {
+                groupe.members.forEach(member => {
+                    if((member.id == user.id) && (member.pending)) {
+                        dispGrp = "`En attente`"
+                        return 
+                    } else {
+                        dispGrp = "`" + Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`")
+                        return 
+                    }
+                })
+            } else {
+                dispGrp = "`Aucun`"
             }
-            
-            let relPend = "";
-            if(user.religion) {
-              if(user.religion.pending) {
-                  relPend = " *(pending)*" // ⌛
-              }
-            }
+
 
             const embed = {
                 "title":  "**" + user.name + "**",
@@ -72,8 +74,8 @@ module.exports = class SearchUserCommand {
                     },
                     {
                         "name": "Appartenance",
-                        "value": `**Groupe:** \` ${((groupe) ? (Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`" + grpPend)) : "Aucun`")}
-                        **Religion:** \` ${((religion) ? (Global.Fn.capitalize(religion.name) + ((religion.leader == user._id) ? "` 🌟" : "`" + relPend)) : "Athés`")}`,
+                        "value": `**Groupe:** ${dispGrp}
+                        **Religion:** \` ${((religion) ? (Global.Fn.capitalize(religion.name) + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`")}`,
                         "inline": true
                     }
                 ]

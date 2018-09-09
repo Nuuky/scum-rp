@@ -71,7 +71,7 @@ module.exports = class WhoCommand {
             getUser()
             .then(user => {
                 if(user) {
-                    Global.updateHandler.run(msg, User.UpdateUser, "user_info")
+                    Global.questHandler.run(msg, User.NewUser, "user_info", "update")
                }
                 else {
                     Global.questHandler.run(msg, User.NewUser, "user_info")
