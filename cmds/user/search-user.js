@@ -9,13 +9,13 @@ module.exports = class SearchUserCommand {
     static run(msg, user) {
         let info= {}, groupe, srchGrp, srchRel;
       
-        if(user.groupe) srchGrp = Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe.id)})
+        if(user.groupe) srchGrp = Global.Fn.findData("findOne", "groupe_info", {_id: ObjectId(user.groupe)})
         else srchGrp = null
       
         Global.Fn.waitFor(srchGrp)
         .then((groupeInfo) => {
             groupe = groupeInfo;
-            if(user.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion.id)})
+            if(user.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)})
             else srchRel = null
             return Global.Fn.waitFor(srchRel)
         })
