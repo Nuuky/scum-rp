@@ -361,7 +361,7 @@ module.exports = {
                     if(!groupe) msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["save", {"name": "groupe", "content": groupe.id}]
+                    return ["save", {"name": "groupe", "content": groupe._id}]
 
                     
                 })
@@ -402,7 +402,7 @@ module.exports = {
                     if(!religion) return msg.author.send("**Erreur:** La religion indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["save", {"name": "religion", "content": religion.id}]
+                    return ["save", {"name": "religion", "content": religion._id}]
                 })
             }
         },

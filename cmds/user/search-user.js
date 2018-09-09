@@ -43,15 +43,15 @@ module.exports = class SearchUserCommand {
                 crimes = "`Innocent`"
             }
             
-            let dispGrp;
+            let dispGrp = "";
             if(groupe) {
                 groupe.members.forEach(member => {
                     if((member.id == user.id) && (member.pending)) {
                         dispGrp = "`En attente`"
-                        return 
+                        //return 
                     } else {
                         dispGrp = "`" + Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`")
-                        return 
+                        //return 
                     }
                 })
             } else {
