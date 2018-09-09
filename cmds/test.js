@@ -34,5 +34,10 @@ module.exports = class TestCommand {
         console.log(canvas.toDataURL('image/jpeg', 1.0))
         msg.author.send({embed});
       
+      
+      let Image = Canvas.Image;
+
+      
+      
     }
 }
