@@ -50,7 +50,7 @@ module.exports = {
                 return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
             // ALL GOOD -------
-            return ["next", {dataIndex: msg.content}]
+            return ["next", {questIndex: msg.content}]
         }
     },
     steps: [
