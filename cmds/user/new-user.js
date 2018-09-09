@@ -246,10 +246,13 @@ module.exports = {
                 // SHIELD -------
                 if(answArr.length > 2) return msg.author.send("**Erreur:** Vous avez selectionné trop de crimes.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+                let nextBool = true;
                 answArr.forEach(crime => {
-                    if(isNaN(crime) || !(crime >= 0 && crime <= (crimes.length + 1)) ) return msg.author.send("**Erreur:** Crime invalide.")
-                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+                    console.log("crime: " + crime + " - \"\" ? " + (crime == "") )
+                    if(crime == "" || isNaN(crime) || !(crime >= 0 && crime <= (crimes.length + 1)) ) nextBool = false;
                 })
+                if(!nextBool) return msg.author.send("**Erreur:** Crime invalide.")
+                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
                 let finalAnsw = [];
                 answArr.forEach(crime => {
