@@ -178,7 +178,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (heads.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["skip", {"name": "style", "inner": "head", "content": heads[msg.content] - 1, "obj": true}]
+                return ["skip", {"name": "style", "inner": "head", "content": msg.content - 1, "obj": true}]
             }
         },
 
