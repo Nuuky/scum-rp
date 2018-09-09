@@ -8,27 +8,28 @@ const Discord = require("discord.js")
 module.exports = class QuestionHandler {
 
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
-        let questNumber = 0, objColl = {}
+        let questNumber = 0, 
+            objColl = {},
+            createData = (mongoAction == "create") ? true : false;
+            questToDo = (createData) ? userQuest.steps.length : 1
       
-        let embed = userQuest.steps[0].question()
+        let embed = (createData) ? userQuest.steps[0].question() : userQuest.update.question()
         console.log(embed)
         msg.author.send({embed})
-        .then(omsg => {
-
-            console.log("Author ID: ", msg.author.id)
-    
+        .then(omsg => {    
             const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
             console.log("Collector created !")
             questCollector.on("collect", message => {
-                console.log("Collecting Quest " + (questNumber + 1) + " of " + userQuest.steps.length + "...")
+                console.log("Collecting Quest " + (questNumber + 1) + " of " + questToDo + "...")
     
                 // User canceled
-                if(message == "stop!!") {
+                if(message == "stop") {
                     console.log("Canceling...")
                     return questCollector.stop("canceled");
                 }
-    
-                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
+                
+                firstAnswer = (createData) ? userQuest.steps[questNumber].answer(message) : userQuest.update.answer(message)
+                Global.Fn.waitFor(firstAnswer)
                     .then((obj) => {
                         console.log("Treating answer...")
                   
@@ -42,10 +43,9 @@ module.exports = class QuestionHandler {
                                     objColl[obj[1].name] = obj[1].content;
                                 }
                                 questNumber++
-                                if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
+                                if(questNumber >= questToDo)  return questCollector.stop("save");
                                 Global.Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
-                                    console.log("EMD: ", emd);
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
                                 })
@@ -54,10 +54,19 @@ module.exports = class QuestionHandler {
                             
                             case "skip":
                                 questNumber++
-                                if(questNumber >= userQuest.steps.length)  return questCollector.stop("save");
+                                if(questNumber >= questToDo)  return questCollector.stop("save");
                                 Global.Fn.waitFor(userQuest.steps[questNumber].question())
                                 .then(emd => {
-                                    console.log("EMD: ", emd);
+                                    msg.author.send({embed: emd})
+                                    .catch(err => console.error(err))
+                                })
+                                .catch(err => console.error(err))
+                                break;
+
+                            case "next":
+                                questNumber++
+                                Global.Fn.waitFor(userQuest.steps[obj[1].questIndex].question())
+                                .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
                                 })
@@ -79,44 +88,14 @@ module.exports = class QuestionHandler {
     
             })
             questCollector.on("end", (collected, reason) => {
-              
-                if(reason == "canceled") return false 
                 if(reason == "save") {
-                    let authID = msg.author.id.replace("<", "")
-                    authID = msg.author.id.replace(">", "")
-                    Global.Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                    Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
 
                     // Update Groupe DB
-                    if(objColl.groupe) {
-                        let grpUpdt = {
-                            $inc: {
-                                pending: 1
-                            },
-                            $addToSet: { 
-                                members: {
-                                    id: authID, 
-                                    pending: objColl.groupe.pending
-                                }
-                            }
-                        }
-                        Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", grpUpdt)
-                    }
+                    if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", { $addToSet: {pending: msg.author.id} })
 
                     // Update Religion DB
-                    if(objColl.religion) {
-                        let relUpdt = {
-                            $inc: {
-                                pending: 1
-                            },
-                            $addToSet: { 
-                                members: {
-                                    id: authID, 
-                                    pending: objColl.religion.pending
-                                }
-                            }
-                        }
-                        Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", relUpdt)
-                    }
+                    if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", { $addToSet: {pending: msg.author.id} })
 
                     msg.author.send({embed: {
                         "title": "**Succès !**",
@@ -126,6 +105,8 @@ module.exports = class QuestionHandler {
                             \`${Json.cfg.bot.prefix}who @pseudoDisc\``
                     }})
                 }
+              
+                msg.author.send("Action annulé.")
               
                 console.log("Ended.")
             })
