@@ -89,21 +89,60 @@ module.exports = class QuestionHandler {
             })
             questCollector.on("end", (collected, reason) => {
                 if(reason == "save") {
-                    Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+                    let user = false;
+                    if(!create) {
+                        user = Global.Fn.findData("findOne", mongoColl, {_id: msg.author.id})
+                    }
+                    Global.waitFor(user)
+                    .then(User => {
+                        if(User) {
+                            if(User.groupe && User.groupe != objColl.groupe.id) {
+                                Global.waitFor(Global.findData("findOne", "groupe_info", {_id: User.groupe}))
+                                .then(grp => {
+                                    members = grp.members
+                                    for( var i = 0; i < members.length-1; i++){ 
+                                        if ( members[i].id == msg.author.id ) {
+                                            members.splice(i, 1); 
+                                        }
+                                     }
+                                    Global.Fn.mongUpdate({_id: User.groupe.id}, "update", "groupe_info", { $set:{"members":members} })
+                                })
+                            }
 
-                    // Update Groupe DB
-                    if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", { $addToSet: {pending: msg.author.id} })
+                            
+                            if(User.religion && User.religion != objColl.religion.id) {
+                                Global.waitFor(Global.findData("findOne", "religion_info", {_id: User.religion}))
+                                .then(grp => {
+                                    members = grp.members
+                                    for( var i = 0; i < members.length-1; i++){ 
+                                        if ( members[i].id == msg.author.id ) {
+                                            members.splice(i, 1); 
+                                        }
+                                     }
+                                    Global.Fn.mongUpdate({_id: User.religion.id}, "update", "religion_info", { $set:{"members":members} })
+                                })
+                            }
+                        }
 
-                    // Update Religion DB
-                    if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", { $addToSet: {pending: msg.author.id} })
-
-                    msg.author.send({embed: {
-                        "title": "**Succès !**",
-                        "description": `Votre profile a été créé avec succès !\n
-                            Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
-                            \`${Json.cfg.bot.prefix}who pseudoIG\`\n
-                            \`${Json.cfg.bot.prefix}who @pseudoDisc\``
-                    }})
+                        Global.Fn.mongUpdate({$set: objColl}, mongoAction, mongoColl)
+    
+                        const newPendingMember = { $addToSet: {members: {id: msg.author.id, pending: true}}}
+                        // Update Groupe DB
+                        if(objColl.groupe) Global.Fn.mongUpdate({_id: objColl.groupe.id}, "update", "groupe_info", newPendingMember)
+    
+                        // Update Religion DB
+                        if(objColl.religion) Global.Fn.mongUpdate({_id: objColl.religion.id}, "update", "religion_info", newPendingMember)
+    
+                        embed = {
+                            "title": "**Succès !**",
+                            "description": `Votre profile a été créé avec succès !\n
+                                Vous pouvez dés à présent consulter votre carte d'identité en tappant:\n
+                                \`${Json.cfg.bot.prefix}who pseudoIG\`\n
+                                \`${Json.cfg.bot.prefix}who @pseudoDisc\``
+                        }
+    
+                        msg.author.send({embed})
+                    })
                 }
               
                 msg.author.send("Action annulé.")
