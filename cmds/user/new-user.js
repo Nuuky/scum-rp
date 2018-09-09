@@ -422,7 +422,7 @@ module.exports = {
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
-                if(msg.content.toLowerCase() == "skip") return ["end", true]
+                if(msg.content.toLowerCase() == "skip") return ["skip", {"name": "description", "content": false}]
                 // DATA -------
                 // SHIELD -------
                 if(msg.content.length > 1024) return msg.author.send("**Erreur:** Votre texte est trop long.\nVous devez enlever `" + msg.content.length - 1024 + "` caractères.")

@@ -14,7 +14,7 @@ module.exports = class QuestionHandler {
             questNumber = 0,
             questToDo = (createData) ? userQuest.steps.length : 2;
       
-        let embed = userQuest.steps[questNumber].question()
+        let embed = userQuest.steps[questIndex].question()
         msg.author.send({embed})
         .then(omsg => {    
             const questCollector = new Discord.MessageCollector(omsg.channel, m => m.author.id === msg.author.id, { time: 10000*60*60 });
@@ -45,7 +45,7 @@ module.exports = class QuestionHandler {
                                 questNumber++
                                 questIndex++
                                 if(questNumber >= questToDo)  return questCollector.stop("save");
-                                Fn.waitFor(userQuest.steps[questNumber].question())
+                                Fn.waitFor(userQuest.steps[questIndex].question())
                                 .then(emd => {
                                     msg.author.send({embed: emd})
                                     .catch(err => console.error(err))
