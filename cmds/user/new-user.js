@@ -21,39 +21,40 @@ const userDefData = [
 ]
 
 module.exports = {
-    update: {
-        "question": () => {
-            let dataQuest = "";
-
-            userDefData.forEach((entry, index) => {
-                dataQuest += "`" + index + "`:" + entry.def + "\n"
-            })
-
-            let embed = {
-                "title": "**Modification de votre profile**",
-                "description": "Veuillez choisir l'information à modifier par son index.",
-                "fields": [
-                    {
-                        "name": "Réponses",
-                        "value": dataQuest
-                    }
-                ]
-            }
-            return embed
-        },
-        "answer": (msg) => {
-            // EXEPTIONS -------
-            if(msg.content == 0) return ["end"];
-            // DATA -------
-            // SHIELD -------
-            if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= userDefData.length - 1)) 
-                return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
-                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
-            // ALL GOOD -------
-            return ["next", {questIndex: msg.content}]
-        }
-    },
     steps: [
+        {
+            "question": () => {
+                let dataQuest = "";
+
+                userDefData.forEach((entry, index) => {
+                    dataQuest += "`" + index + "`:" + entry.def + "\n"
+                })
+
+                let embed = {
+                    "title": "**Modification de votre profile**",
+                    "description": "Veuillez choisir l'information à modifier par son index.",
+                    "fields": [
+                        {
+                            "name": "Réponses",
+                            "value": dataQuest
+                        }
+                    ]
+                }
+                return embed
+            },
+            "answer": (msg) => {
+                // EXEPTIONS -------
+                if(msg.content == 0) return ["end"];
+                // DATA -------
+                // SHIELD -------
+                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= userDefData.length - 1)) 
+                    return msg.author.send("**Erreur:** Veuillez répondre avec l'un des index proposés.")
+                        .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*60)})
+                // ALL GOOD -------
+                return ["next", {questIndex: msg.content}]
+            }
+        },
+
         {
             "question": () => {
                 let embed = {

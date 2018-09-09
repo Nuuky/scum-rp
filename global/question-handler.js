@@ -8,12 +8,12 @@ const Discord = require("discord.js")
 module.exports = class QuestionHandler {
 
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
-        let questNumber = 0, 
-            objColl = {},
+        let objColl = {},
             createData = (mongoAction == "create") ? true : false,
+            questNumber = (createData) ? 1 : 0,
             questToDo = (createData) ? userQuest.steps.length : 2;
       
-        let embed = (createData) ? userQuest.steps[0].question() : userQuest.update.question()
+        let embed = userQuest.steps[questNumber].question()
         console.log(embed)
         msg.author.send({embed})
         .then(omsg => {    
@@ -28,8 +28,8 @@ module.exports = class QuestionHandler {
                     return questCollector.stop("canceled");
                 }
                 
-                const firstAnswer = (createData) ? userQuest.steps[questNumber].answer(message) : userQuest.update.answer(message)
-                Global.Fn.waitFor(firstAnswer)
+                
+                Global.Fn.waitFor(userQuest.steps[questNumber].answer(message))
                     .then((obj) => {
                         console.log("Treating answer...")
                   
