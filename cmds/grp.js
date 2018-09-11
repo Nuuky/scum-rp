@@ -6,7 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
-const User = require("./groupe/");
+const Groupe = require("./groupe/");
 
 module.exports = class GrpCommand {
 
@@ -25,31 +25,19 @@ module.exports = class GrpCommand {
             //console.log(query)
           
 
-             // GET USER -------
-            // Research ID
-            let searchObj;
-            if(query.startsWith("<@")) {
-                let req = args[0].replace("<@", "");
-                req = req.replace(">", "");
-                searchObj = {_id: req}
-            } else {
-                searchObj = {name: query}
-            }
-            //console.log(searchObj)
-
-            // Search for User
-            const getUser = () => {
+            // Search for Groupe -------
+            const getGroupe = () => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", searchObj))
+                    resolve(Global.Fn.findData("findOne", "user_info", {name: query.toLowerCase()}))
                 })
                 return promise
             }
-            getUser()
-            .then(user => {
-                if(user) {
-                    return User.Search.run(msg, user);
+            getGroupe()
+            .then(groupe => {
+                if(groupe) {
+                    return Groupe.Search.run(msg, groupe);
                 }
-                return Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
+                return Global.Msg.send(msg, "Aucun groupe trouvé.", 60);
             })
           .catch(err => console.error(err))
           
