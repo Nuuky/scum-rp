@@ -97,6 +97,7 @@ bot.on("message", message => {
         'ping': () => { return new Command.PingCommand(bot, message) },
         'random': () => { return new Command.RandomCommand(bot, message) },
         'who': () => { return new Command.WhoCommand(bot, message) },
+        'grp': () => { return new Command.GrpCommand(bot, message) },
       
       
         // ADMIN ---------------------------

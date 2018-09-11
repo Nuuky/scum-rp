@@ -43,25 +43,19 @@ module.exports = class GrpCommand {
           
           
         } else {
-          
-          
-            let authorID = msg.author.id;
-            authorID = authorID.replace("<", "");
-            authorID = authorID.replace(">", "");
-          
-            const getUser = () => {
+            const getUserGroupe = () => {
                 const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", {_id: authorID}))
+                    resolve(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
                 })
                 return promise
             }
-            getUser()
-            .then(user => {
-                if(user) {
-                    Global.questHandler.run(msg, User.Questions, "user_info", "update")
+            getUserGroupe()
+            .then(groupe => {
+                if(groupe) {
+                    Global.questHandler.run(msg, Groupe.Questions, "groupe_info", "update")
                }
                 else {
-                    Global.questHandler.run(msg, User.Questions, "user_info")
+                    Global.questHandler.run(msg, Groupe.Questions, "groupe_info")
                }
             })
             .catch(err => console.error(err))
