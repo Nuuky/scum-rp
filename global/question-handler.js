@@ -7,7 +7,7 @@ const Discord = require("discord.js")
 
 module.exports = class QuestionHandler {
 
-    static run(msg, userQuest, mongoColl, mongoAction = "create") {
+    async run(msg, userQuest, mongoColl, mongoAction = "create") {
         let objColl = {},
             createData = (mongoAction == "create") ? true : false,
             questIndex = (createData) ? 1 : 0,
