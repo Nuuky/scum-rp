@@ -13,10 +13,11 @@ module.exports = class SearchGroupe {
         .then((members) => {
           
             // Members field
-            let membersList = "", leader;
+            let membersList = "", pending = 0, leader;
             members.forEach(member => {
-                if(member.id != groupe.leader) membersList += `- ${member.name}\n`
                 if(member.id == groupe.leader) leader = member.name;
+                else if(member.pending) pending++
+                else membersList += `- ${member.name}\n`
             })
             const membersField = {
                 "name": "Membres",
@@ -24,54 +25,26 @@ module.exports = class SearchGroupe {
             }
             
 
-            info.desc = "**Sexe:** `" + ((user.style.sex == 0) ? "Homme" : "Femme") + "`\n"
-            info.desc += "**Age:** `" + user.age + "`\n"
-            info.desc += "**Métier:** `" + ((user.job) ? user.job : "Vagabond") + "`\n"
+            info.desc = "**Activité:** `" + groupe.activity+ "`\n"
+            if(groupe.goal) info.desc += "**But:** `" + groupe.goal + "`\n"
+            if(groupe.city) info.desc += "**Ville:** `" + groupe.city + "`\n"
 
             // Common Infos
-            info.title = "'" + user.name + "'";
-            info.color = Global.Fn.hostilityColor(user.hostility);
-            info.image = (user.image) ? user.image : "null";
-
-            let defImage = Json.scumData.charStyle[user.style.sex][user.style.head][user.style.tatoo];
-            let image = (user.url) ? user.url : defImage;
-            
-            let crimes = "";
-            if(user.crimes) {
-                user.crimes.forEach(crime => {
-                    crimes += `\`${crime}\` `
-                })
-            } else {
-                crimes = "`Innocent`"
-            }
-            
-            let dispGrp = "";
-            if(groupe) {
-                groupe.members.forEach(member => {
-                    if((member.id == user.id) && (member.pending)) {
-                        dispGrp = "`En attente`"
-                        //return 
-                    } else {
-                        dispGrp = "`" + Global.Fn.capitalize(groupe.name) + ((groupe.leader == user._id) ? "` 👑" : "`")
-                        //return 
-                    }
-                })
-            } else {
-                dispGrp = "`Aucun`"
-            }
+            info.color = Global.Fn.hostilityColor(groupe.hostility);
+            info.image = (groupe.logo) ? groupe.logo : null;
 
 
             const embed = {
-                "title":  "**" + user.name + "**",
+                "title":  "**" + Global.Fn.capitalize(groupe.name) + "**",
                 "description": info.desc,
                 "color": info.color,
                 "thumbnail": {
-                    "url": image
+                    "url": info.logo
                 },
                 "fields": [
                     {
-                        "name": "Crimes",
-                        "value": crimes,
+                        "name": "Membres",
+                        "value": leader + "\n",
                         "inline": true
                     },
                     {
