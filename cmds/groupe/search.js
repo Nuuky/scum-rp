@@ -12,7 +12,7 @@ module.exports = class SearchGroupe {
         const leader = Global.Fn.findData("findOne", "user_info", {_id: groupe.leader})
       
         Global.Fn.waitFor(leader)
-        .then((groupeInfo) => {
+        .then((leader) => {
             groupe = groupeInfo;
             if(groupe.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)})
             else srchRel = null
