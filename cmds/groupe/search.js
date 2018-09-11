@@ -13,10 +13,10 @@ module.exports = class SearchGroupe {
         .then((members) => {
           
             // Members field
-            let membersList = "", pending = 0, leader;
+            let membersList = "", pending = "", leader;
             members.forEach(member => {
                 if(member.id == groupe.leader) leader = member.name;
-                else if(member.pending) pending++
+                else if(member.pending) pending = "*" + member.name + "* (En attente)\n"
                 else membersList += `- ${member.name}\n`
             })
             const membersField = {
@@ -43,29 +43,15 @@ module.exports = class SearchGroupe {
                 },
                 "fields": [
                     {
-                        "name": "Membres",
-                        "value": leader + "\n",
+                        "name": "Membres (" + groupe.members.length + ")",
+                        "value": "**" + leader + "** 👑\n" + members + pending,
                         "inline": true
                     },
                     {
-                        "name": "Appartenance",
-                        "value": `**Groupe:** ${dispGrp}
-                        **Religion:** \` ${((religion) ? (Global.Fn.capitalize(religion.name) + ((religion.leader == user._id) ? "` 🌟" : "`")) : "Athés`")}`,
-                        "inline": true
+                        "name": "Description",
+                        "value" : groupe.description
                     }
                 ]
-            }
-
-
-
-            // Get Background Story
-            if(user.description) {
-                 embed["fields"].push(
-                    {
-                        "name": "Background",
-                        "value" : user.description
-                    }
-                 )
             }
 
             Global.Msg.embed(msg, embed, 180);
