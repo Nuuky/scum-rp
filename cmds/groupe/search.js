@@ -9,17 +9,11 @@ module.exports = class SearchGroupe {
     static run(msg, groupe) {
         let info= {}, srchGrp, srchRel;
       
-        const leader = Global.Fn.findData("findOne", "user_info", {_id: groupe.leader})
-      
-        Global.Fn.waitFor(leader)
-        .then((leader) => {
-            groupe = groupeInfo;
-            if(groupe.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)})
-            else srchRel = null
-            return Global.Fn.waitFor(srchRel)
-        })
-        .then((religion) => {
-
+        Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {groupe: ObjectId(groupe._id)}))
+        .then((members) => {
+            let memberField = {
+                "name"
+            }
 
             info.desc = "**Sexe:** `" + ((user.style.sex == 0) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
