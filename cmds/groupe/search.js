@@ -11,9 +11,18 @@ module.exports = class SearchGroupe {
       
         Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {groupe: ObjectId(groupe._id)}))
         .then((members) => {
-            let memberField = {
-                "name"
+          
+            // Members field
+            let membersList = "", leader;
+            members.forEach(member => {
+                if(member.id != groupe.leader) membersList += `- ${member.name}\n`
+                if(member.id == groupe.leader) leader = member.name;
+            })
+            const membersField = {
+                "name": "Membres",
+                "value": membersList
             }
+            
 
             info.desc = "**Sexe:** `" + ((user.style.sex == 0) ? "Homme" : "Femme") + "`\n"
             info.desc += "**Age:** `" + user.age + "`\n"
