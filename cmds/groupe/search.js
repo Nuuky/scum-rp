@@ -4,7 +4,7 @@ const Json = require('../../json/');
 const Global = require("../../global/");
 const ObjectId = require('mongodb').ObjectID;
 
-module.exports = class SearchGroupeCommand {
+module.exports = class SearchGroupe {
 
     static run(msg, groupe) {
         let info= {}, srchGrp, srchRel;
@@ -14,7 +14,7 @@ module.exports = class SearchGroupeCommand {
         Global.Fn.waitFor(leader)
         .then((groupeInfo) => {
             groupe = groupeInfo;
-            if(user.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)})
+            if(groupe.religion) srchRel = Global.Fn.findData("findOne", "religion_info", {_id: ObjectId(user.religion)})
             else srchRel = null
             return Global.Fn.waitFor(srchRel)
         })
