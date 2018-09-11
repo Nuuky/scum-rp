@@ -6,9 +6,9 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
-const User = require("./user/");
+const User = require("./groupe/");
 
-module.exports = class WhoCommand {
+module.exports = class GrpCommand {
 
     constructor(bot, msg) {
         this.msg = msg;
@@ -18,7 +18,6 @@ module.exports = class WhoCommand {
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
-        const rpData = this.bot.tempScum;
 
 
         // SEARCH USER --------

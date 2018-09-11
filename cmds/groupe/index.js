@@ -2,5 +2,5 @@
 
 module.exports = {
     Search: require('./search'),
-    Questions: require('./questions'),
+    SearchUser: require('./groupe'),
 };
