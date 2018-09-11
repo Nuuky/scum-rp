@@ -35,7 +35,7 @@ module.exports = class GrpCommand {
             getGroupe()
             .then(groupe => {
                 if(groupe) {
-                    return Groupe.Search.run(msg, groupe);
+                    return Groupe.Search(msg, groupe);
                 }
                 return Global.Msg.send(msg, "Aucun groupe trouvé.", 60);
             })
