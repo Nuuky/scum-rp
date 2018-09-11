@@ -2,6 +2,6 @@
 
 module.exports = {
     SearchUser: require('./search-user'),
-    NewUser: require('./new-user'),
+    User: require('./user'),
     UpdateUser: require('./update-user'),
 };

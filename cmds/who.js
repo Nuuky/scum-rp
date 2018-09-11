@@ -71,10 +71,10 @@ module.exports = class WhoCommand {
             getUser()
             .then(user => {
                 if(user) {
-                    Global.questHandler.run(msg, User.NewUser, "user_info", "update")
+                    Global.questHandler.run(msg, User.Questions, "user_info", "update")
                }
                 else {
-                    Global.questHandler.run(msg, User.NewUser, "user_info")
+                    Global.questHandler.run(msg, User.Questions, "user_info")
                }
             })
             .catch(err => console.error(err))
