@@ -24,7 +24,7 @@ module.exports = {
                 })
 
                 let embed = {
-                    "title": "**Modification du profile de votre groupe**",
+                    "title": "**Modification du profile de votre religion**",
                     "description": "Veuillez choisir l'information à modifier par son index.\nVous pouvez annuler à tout moment en tappant `stop` !",
                     "fields": [
                         {
@@ -52,8 +52,8 @@ module.exports = {
         {
             "question": () => {
                 let embed = {
-                    "title": "**Création d'un groupe**",
-                    "description": "⚠️ Vous vous apprêtez à créer un profile de groupe, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop`\n- Vous pourrez modifier les informations par la suite en tappant `!grp`",
+                    "title": "**Création d'une religion**",
+                    "description": "⚠️ Vous vous apprêtez à créer un profile de religion, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop`\n- Vous pourrez modifier les informations par la suite en tappant `!rel`",
                     "fields": [
                         {
                             "name": "Réponses",
@@ -79,7 +79,7 @@ module.exports = {
         {
             "question": () => {
                 let embed = {
-                    "title": "**Quel est le nom de votre groupe ?**"
+                    "title": "**Quel est le nom de votre religion ?**"
                 }
                 return embed
             },
@@ -95,7 +95,7 @@ module.exports = {
         {
             "question": () => {
                 let embed = {
-                    "title": "Avez vous un logo de groupe ?",
+                    "title": "Avez vous un logo pour votre religion ?",
                     "description": "Si vous n'avez pas de logo, tappez `skip`\n- URL uniquement\n- Au format .jpg\n- 128px/128px"
                 }
                 return embed;
