@@ -77,7 +77,6 @@ module.exports = {
                 return ["skip", {"name": "leader", "content": msg.author.id}]
             }
         },
-        
 
         {
             "question": () => {

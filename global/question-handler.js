@@ -7,9 +7,9 @@ const Discord = require("discord.js")
 
 module.exports = class QuestionHandler {
 
-    static run(dataType, msg, userQuest, mongoColl, mongoAction = "create") {
-        let objColl = (dataType == "GRP") ? {members:[]} : {},
-            createData = (mongoAction == "create") ? true : false,
+    static run(msg, userQuest, mongoColl, mongoAction = "create") {
+        let createData = (mongoAction == "create") ? true : false,
+            objColl = (mongoColl.match("groupe|religion") && createData) ? {members:[{id: msg.author.id}]} : {},
             questIndex = (createData) ? 1 : 0,
             questNumber = 0,
             questToDo = (createData) ? userQuest.steps.length : 2,
