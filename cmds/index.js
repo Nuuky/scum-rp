@@ -7,7 +7,8 @@ module.exports = {
     SlapCommand: require('./slap'),
     RandomCommand: require('./random'),
     WhoCommand: require('./who'),
-    TestCommand: require('./test'),
+    GrpCommand: require('./grp'),
+    RelCommand: require('./rel'),
     StatsCommand: require('./stats'),
-    GrpCommand: require('./grp')
+    TestCommand: require('./test')
 };

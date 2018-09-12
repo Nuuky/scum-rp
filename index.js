@@ -98,6 +98,7 @@ bot.on("message", message => {
         'random': () => { return new Command.RandomCommand(bot, message) },
         'who': () => { return new Command.WhoCommand(bot, message) },
         'grp': () => { return new Command.GrpCommand(bot, message) },
+        'rel': () => { return new Command.RelCommand(bot, message) },
         'stats': () => { return new Command.StatsCommand(bot, message) },
       
       
