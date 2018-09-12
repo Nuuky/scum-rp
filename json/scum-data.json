@@ -37,7 +37,6 @@
   "tatoos": ["Aucun", "Premium", "Croix sur le front", "Flóki style !", "Tribale"],
   "heads": ["Blanc n°1", "Blanc n°2", "Blanc n°3", "Noir (Jke ne suis pas raciste !)"],
   "hostilities": ["Amicale", "Méfiant", "Hostile"],
-  "groupe": {
-    activities": ["PvP", "PvE", "Loot", "Crafting", ""]
-  }
+  "activities": ["PvP", "PvE", "Loot", "Crafting", "Event"],
+  "goals": []
 }

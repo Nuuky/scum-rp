@@ -120,7 +120,7 @@ module.exports = {
         {
             "question": () => {
                 let activities = ""
-                Json.scumData.groupeActivities.forEach((activity, index) => {
+                Json.scumData.activities.forEach((activity, index) => {
                     activities += `\`${index}\`: ${activity}\n`
                 })
                 let embed = {
@@ -138,7 +138,7 @@ module.exports = {
             "answer": (msg) => {
                 // EXEPTIONS -------
                 // DATA -------
-                const activities = Json.scumData.groupeActivities
+                const activities = Json.scumData.activities
                 // SHIELD -------
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (activities.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
@@ -151,6 +151,11 @@ module.exports = {
         
         {
             "question": () => {
+                let goals = ""
+                Json.scumData.goals.forEach((goal, index) => {
+                    goals += `\`${index}\`: ${goal}\n`
+                })
+              
                 let embed = {
                     "title": "**Quel est le but de votre groupe ? (Précisez si différent de l'activité principale)**",
                     "description": "Si votre but est semblable à votre activité principale, tappez `skip` pour passer à la question suivante.\nsi vous avez un but, éssayez de faire aussi cours et précis que possible."
@@ -158,6 +163,14 @@ module.exports = {
                 return embed
             },
             "answer": (msg) => {
+                // EXEPTIONS -------
+                // DATA -------
+                const goals = Json.scumData.goals
+                // SHIELD -------
+                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (activities.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
+                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+                // ALL GOOD -------
+                return ["skip", {"name": "activity", "content": activities[msg.content]}]
                 // EXEPTIONS -------
                 // DATA -------
                 // SHIELD -------
