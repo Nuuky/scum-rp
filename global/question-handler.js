@@ -112,8 +112,23 @@ module.exports = class QuestionHandler {
                         // Update User profile
                         Fn.mongUpdate({_id: msg.author.id}, "update", mongoColl, {$set: objColl})
                     }
-                    // Create User profile
-                    if(createData) Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                  
+                  
+                    if(createData) {
+                        // Create User profile
+                        Fn.mongUpdate(objColl, mongoAction, mongoColl)
+                      
+                        // Adding groupe to User
+                        if(mongoColl.match("groupe")) {
+                            Fn.waitFor(Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", {groupe: group}))
+                        }
+                      
+                        // Adding religion to User
+                        if(mongoColl.match("religion")) {
+                        }
+                      
+                    }
+                  
 
                     // Push user into ether groupe or religion DB with pending true for groupe (Groupe leader need to approuve user)
                     if(objColl.groupe) Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", { $addToSet: {members: {id: msg.author.id, pending: true}}}) // Update Groupe DB
