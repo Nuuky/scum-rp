@@ -9,20 +9,20 @@ const fetch = require('node-fetch');
 
 module.exports = class StatsCommand {
     constructor(msg, bot) {
-        this.msg, this.bot, this.user, this.groupes, this.religions;
-        return Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
+        const that = this;
+        Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
         .then(users => {
             console.log(users)
-            this.msg = msg;
-            this.bot = bot;
+            that.msg = msg;
+            that.bot = bot;
             Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
             .then(groupes => {
             console.log(groupes)
-                this.groupes = groupes
+                that.groupes = groupes
                 Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
                 .then(religions => {
             console.log(religions)
-                    this.religions = religions
+                    that.religions = religions
                 })
             })
         })
