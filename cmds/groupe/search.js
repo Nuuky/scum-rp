@@ -37,7 +37,7 @@ module.exports = class SearchGroupe {
 
 
             const embed = {
-                "title":  "**" + Global.Fn.capitalize(groupe.name) + "** *(" + groupe.members.length + " membre(s))*",
+                "title":  "**" + Global.Fn.capitalize(groupe.name) + "** *(" + groupe.members.length + " membre" + ((groupe.members.length > 1) ? "s" : "") + ")*",
                 "color": info.color,
                 "thumbnail": {
                     "url": info.logo
