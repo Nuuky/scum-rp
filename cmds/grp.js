@@ -40,10 +40,10 @@ module.exports = class GrpCommand {
             Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
             .then(groupe => {
                 if(groupe) {
-                    Global.questHandler.run(msg, Groupe.Questions, "groupe_info", "update")
+                    Global.qHand.run(msg, Groupe.Questions, "groupe_info", "update")
                }
                 else {
-                    Global.questHandler.run(msg, Groupe.Questions, "groupe_info")
+                    Global.qHand.run(msg, Groupe.Questions, "groupe_info")
                }
             })
             .catch(err => console.error(err))

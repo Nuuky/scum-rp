@@ -6,6 +6,5 @@ module.exports = {
     Mch: require('./match'),
     Ebd: require('./embed'),
     strTo: require('./strTo.js'),
-    questHandler: require('./question-handler'),
-    updateHandler: require('./update-handler')
+    qHand: require('./question-handler')
 };

@@ -70,12 +70,8 @@ module.exports = class WhoCommand {
             }
             getUser()
             .then(user => {
-                if(user) {
-                    Global.questHandler.run(msg, User.Questions, "user_info", "update")
-               }
-                else {
-                    Global.questHandler.run(msg, User.Questions, "user_info")
-               }
+                if(user) Global.qHand.run(msg, User.Questions, "user_info", "update")
+                else Global.qHand.run(msg, User.Questions, "user_info")
             })
             .catch(err => console.error(err))
           
