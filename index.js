@@ -3,9 +3,9 @@
 const Discord = require("discord.js")
 const bot = new Discord.Client({autorun: true})
 
-const Json = require("./json/")
-const Command = require("./cmds/")
-const Global = require("./global/")
+const Json = require("./json/");
+const Command = require("./cmds/");
+const Global = require("./global/");
 const http = require('http');
 const express = require('express');
 const app = express();
