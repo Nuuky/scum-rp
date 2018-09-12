@@ -22,20 +22,14 @@ module.exports = class GrpCommand {
 
         // SEARCH USER --------
         if(query) {
-            //console.log(query)
+            console.log(query)
           
 
             // Search for Groupe -------
-            const getGroupe = () => {
-                const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", {name: query.toLowerCase()}))
-                })
-                return promise
-            }
-            getGroupe()
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {name: query.toLowerCase()}))
             .then(groupe => {
                 if(groupe) {
-                    return Groupe.Search(msg, groupe);
+                    return Groupe.Search.run(msg, groupe);
                 }
                 return Global.Msg.send(msg, "Aucun groupe trouvé.", 60);
             })

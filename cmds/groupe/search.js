@@ -9,6 +9,8 @@ module.exports = class SearchGroupe {
     static run(msg, groupe) {
         let info= {}, srchGrp, srchRel;
       
+        console.log("Searching groupe info")
+      
         Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {groupe: ObjectId(groupe._id)}))
         .then((members) => {
           
