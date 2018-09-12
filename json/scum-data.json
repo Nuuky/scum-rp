@@ -35,7 +35,9 @@
   "crimes": ["Vol", "Meurtre", "Viole", "Canibalisme", "Terrorisme", "Drogue", "Accident"],
   "jobs": ["Cuisinier", "Chasseur", "Milicien", "Musicien", "Paysan", "Eleveur", "Artisant", "Armurier", "Boxeur", "Pêcheur"],
   "tatoos": ["Aucun", "Premium", "Croix sur le front", "Flóki style !", "Tribale"],
-  "heads": ["Blanc n°1", "Blanc n°2", "Blanc n°3", "Noir"],
+  "heads": ["Blanc n°1", "Blanc n°2", "Blanc n°3", "Noir (Jke ne suis pas raciste !)"],
   "hostilities": ["Amicale", "Méfiant", "Hostile"],
-  "groupeActivities": ["", ""]
+  "groupe": {
+    activities": ["PvP", "PvE", "Loot", "Crafting", ""]
+  }
 }
