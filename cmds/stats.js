@@ -21,14 +21,17 @@ module.exports = class StatsCommand {
       
       Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
       .then(usersArr => {
+          console.log(usersArr + "\n\n\n")
           users = usersArr
           
           Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
           .then(groupesArr => {
+              console.log(groupesArr + "\n\n\n")
               groupes = groupesArr;
             
               Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
               .then(religions => {
+                console.log(religions + "\n\n\n")
       
                   const embed = {
                     "title": "Stats Bot",
@@ -51,10 +54,13 @@ module.exports = class StatsCommand {
                     ]
                   }
 
-                  Global.Msg.embed(embed)
+                  Global.Msg.embed(msg, embed, 10)
                   .catch(e => console.error(e))
               })
+              .catch(e => console.error(e))
           })
+          .catch(e => console.error(e))
       })
+      .catch(e => console.error(e))
     }
 }
