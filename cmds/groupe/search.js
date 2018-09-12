@@ -18,7 +18,7 @@ module.exports = class SearchGroupe {
             let membersList = "", pending = "", leader;
             members.forEach(member => {
                 if(member.id == groupe.leader) leader = member.name;
-                else if(member.pending) pending = "*" + member.name + "* (En attente)\n"
+                else if(member.pending) pending += "*" + member.name + "* (En attente)\n"
                 else membersList += `- ${member.name}\n`
             })
             const membersField = {
@@ -27,26 +27,30 @@ module.exports = class SearchGroupe {
             }
             
 
-            info.desc = "**Activité:** `" + groupe.activity+ "`\n"
-            if(groupe.goal) info.desc += "**But:** `" + groupe.goal + "`\n"
-            if(groupe.city) info.desc += "**Ville:** `" + groupe.city + "`\n"
+            info.desc = "Activité: `" + groupe.activity+ "`\n"
+            if(groupe.goal) info.desc += "But: `" + groupe.goal + "`\n"
+            if(groupe.city) info.desc += "Ville: `" + groupe.city + "`\n"
 
             // Common Infos
             info.color = Global.Fn.hostilityColor(groupe.hostility);
-            info.image = (groupe.logo) ? groupe.logo : null;
+            info.logo = (groupe.logo) ? groupe.logo : null;
 
 
             const embed = {
-                "title":  "**" + Global.Fn.capitalize(groupe.name) + "**",
-                "description": info.desc,
+                "title":  "**" + Global.Fn.capitalize(groupe.name) + "** *(" + groupe.members.length + " membre(s))*",
                 "color": info.color,
                 "thumbnail": {
                     "url": info.logo
                 },
                 "fields": [
                     {
-                        "name": "Membres (" + groupe.members.length + ")",
-                        "value": "**" + leader + "** 👑\n" + members + pending,
+                        "name": "Informations",
+                        "value": info.desc,
+                        "inline": true
+                    },
+                    {
+                        "name": "Membres",
+                        "value": "**" + leader + "** 👑\n" + membersList + pending,
                         "inline": true
                     },
                     {
