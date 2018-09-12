@@ -37,13 +37,7 @@ module.exports = class GrpCommand {
           
           
         } else {
-            const getUserGroupe = () => {
-                const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
-                })
-                return promise
-            }
-            getUserGroupe()
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
             .then(groupe => {
                 if(groupe) {
                     Global.questHandler.run(msg, Groupe.Questions, "groupe_info", "update")

@@ -130,5 +130,5 @@ module.exports = class QuestionHandler {
         })
         .catch(e => console.error(e))
       
-    };
+    }
 }
