@@ -38,5 +38,6 @@
   "heads": ["Blanc n°1", "Blanc n°2", "Blanc n°3", "Noir (Jke ne suis pas raciste !)"],
   "hostilities": ["Amicale", "Méfiant", "Hostile"],
   "activities": ["PvP", "PvE", "Loot", "Crafting", "Event"],
-  "goals": []
+  "grpGoals": ["Fin du monde", "Economie", "Conquête"],
+  "relGoals": ["Charitée", "Propagation", "Sacrifice"]
 }

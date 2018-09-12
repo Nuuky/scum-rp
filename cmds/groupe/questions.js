@@ -152,30 +152,32 @@ module.exports = {
         {
             "question": () => {
                 let goals = ""
-                Json.scumData.goals.forEach((goal, index) => {
+                Json.scumData.grpGoals.forEach((goal, index) => {
                     goals += `\`${index}\`: ${goal}\n`
                 })
               
                 let embed = {
                     "title": "**Quel est le but de votre groupe ? (Précisez si différent de l'activité principale)**",
-                    "description": "Si votre but est semblable à votre activité principale, tappez `skip` pour passer à la question suivante.\nsi vous avez un but, éssayez de faire aussi cours et précis que possible."
+                    // "description": "Si votre but est semblable à votre activité principale, tappez `skip` pour passer à la question suivante.\nsi vous avez un but, éssayez de faire aussi cours et précis que possible."
+                    "description": "Répondez avec l'index de la tête.",
+                    "fields": [
+                      {
+                        name: "Réponses",
+                        value: goals
+                      }
+                    ]
                 }
                 return embed
             },
             "answer": (msg) => {
                 // EXEPTIONS -------
                 // DATA -------
-                const goals = Json.scumData.goals
+                const goals = Json.scumData.grpGoals
                 // SHIELD -------
-                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (activities.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
+                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (goals.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["skip", {"name": "activity", "content": activities[msg.content]}]
-                // EXEPTIONS -------
-                // DATA -------
-                // SHIELD -------
-                // ALL GOOD -------
-                return ["skip", {"name": "goal", "content": msg.content}]
+                return ["skip", {"name": "activity", "content": goals[msg.content]}]
             }
         },
 
@@ -219,6 +221,8 @@ module.exports = {
         {
             "question": () => {
                 let cities = "";
+              
+                console.log(Json.cities)
 
                 Json.cities.forEach((city, index) => {
                     if(city.isFree) cities += `\`${index}\`: ${city.name}\n`
