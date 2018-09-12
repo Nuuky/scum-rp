@@ -9,54 +9,52 @@ const fetch = require('node-fetch');
 
 module.exports = class StatsCommand {
     constructor(msg, bot) {
-        const that = this;
-        Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
-        .then(users => {
-            console.log(users)
-            that.msg = msg;
-            that.bot = bot;
-            Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
-            .then(groupes => {
-            console.log(groupes)
-                that.groupes = groupes
-                Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
-                .then(religions => {
-            console.log(religions)
-                    that.religions = religions
-                })
-            })
-        })
+      this.msg = msg;
+      this.bot = bot;
     }
   
     async run(query) {
       const msg = this.msg;
       const bot = this.bot;
-      const users = this.users;
-      const groupes = this.groupes;
-      const religions = this.religions;
       
-      const embed = {
-        "title": "Stats Bot",
-        "fields": [
-          {
-            "name": "Joueurs",
-            "value": users.length,
-            "inline": true
-          },
-          {
-            "name": "Groupes",
-            "value": groupes.length,
-            "inline": true
-          },
-          {
-            "name": "Religions",
-            "value": religions.length,
-            "inline": true
-          },
-        ]
-      }
+      let users, groupes, religions;
       
-      Global.Msg.embed(embed)
-      .catch(e => console.error(e))
+      Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
+      .then(usersArr => {
+          users = usersArr
+          
+          Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
+          .then(groupesArr => {
+              groupes = groupesArr;
+            
+              Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
+              .then(religions => {
+      
+                  const embed = {
+                    "title": "Stats Bot",
+                    "fields": [
+                      {
+                        "name": "Joueurs",
+                        "value": users.length,
+                        "inline": true
+                      },
+                      {
+                        "name": "Groupes",
+                        "value": groupes.length,
+                        "inline": true
+                      },
+                      {
+                        "name": "Religions",
+                        "value": religions.length,
+                        "inline": true
+                      },
+                    ]
+                  }
+
+                  Global.Msg.embed(embed)
+                  .catch(e => console.error(e))
+              })
+          })
+      })
     }
 }
