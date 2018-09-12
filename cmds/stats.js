@@ -17,48 +17,44 @@ module.exports = class StatsCommand {
       const msg = this.msg;
       const bot = this.bot;
       
-      let users, groupes, religions;
+      let users, groupes;
       
       Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
       .then(usersArr => {
-          console.log(usersArr + "\n\n\n")
+          console.log(usersArr + "\n")
           users = usersArr
-          
-          Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
-          .then(groupesArr => {
-              console.log(groupesArr + "\n\n\n")
-              groupes = groupesArr;
-            
-              Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
-              .then(religions => {
-                console.log(religions + "\n\n\n")
-      
-                  const embed = {
-                    "title": "Stats Bot",
-                    "fields": [
-                      {
-                        "name": "Joueurs",
-                        "value": users.length,
-                        "inline": true
-                      },
-                      {
-                        "name": "Groupes",
-                        "value": groupes.length,
-                        "inline": true
-                      },
-                      {
-                        "name": "Religions",
-                        "value": religions.length,
-                        "inline": true
-                      },
-                    ]
-                  }
+          return Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
+      }) 
+      .then(groupesArr => {
+          console.log(groupesArr + "\n")
+          groupes = groupesArr;
+          return Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
+      })
+      .then(religions => {
+          console.log(religions + "\n")
 
-                  Global.Msg.embed(msg, embed, 10)
-                  .catch(e => console.error(e))
-              })
-              .catch(e => console.error(e))
-          })
+          const embed = {
+            "title": "Stats Bot",
+            "fields": [
+              {
+                "name": "Joueurs",
+                "value": users.length,
+                "inline": true
+              },
+              {
+                "name": "Groupes",
+                "value": groupes.length,
+                "inline": true
+              },
+              {
+                "name": "Religions",
+                "value": religions.length,
+                "inline": true
+              },
+            ]
+          }
+
+          Global.Msg.send(msg, "test")
           .catch(e => console.error(e))
       })
       .catch(e => console.error(e))
