@@ -19,14 +19,14 @@ module.exports = class StatsCommand {
       
       let users, groupes;
       
-      Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
+      Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {}))
       .then(usersArr => {
           users = usersArr
           return Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
       }) 
       .then(groupesArr => {
           groupes = groupesArr;
-          return Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
+          return Global.Fn.waitFor(Global.Fn.findData("find", "religion_info", {}))
       })
       .then(religions => {
           console.log("Users = " + users + "\n")
@@ -55,7 +55,6 @@ module.exports = class StatsCommand {
           }
 
           Global.Msg.embed(msg, embed, 20)
-          .catch(e => console.error(e))
       })
       .catch(e => console.error(e))
     }

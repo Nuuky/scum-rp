@@ -9,4 +9,5 @@ module.exports = {
     WhoCommand: require('./who'),
     TestCommand: require('./test'),
     StatsCommand: require('./stats'),
+    GrpCommand: require('./grp')
 };
