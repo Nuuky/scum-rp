@@ -116,45 +116,13 @@ module.exports = {
         
         {
             "question": () => {
-                let activities = ""
-                Json.scumData.activities.forEach((activity, index) => {
-                    activities += `\`${index}\`: ${activity}\n`
-                })
-                let embed = {
-                    "title": "**Quel en sera l'activité principale ?**",
-                    "description": "Répondez avec l'index de la tête.",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": activities
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                // EXEPTIONS -------
-                // DATA -------
-                const activities = Json.scumData.activities
-                // SHIELD -------
-                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (activities.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
-                .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-                // ALL GOOD -------
-                return ["skip", {"name": "activity", "content": activities[msg.content]}]
-            }
-        },
-
-
-        
-        {
-            "question": () => {
                 let goals = ""
-                Json.scumData.grpGoals.forEach((goal, index) => {
+                Json.scumData.relGoals.forEach((goal, index) => {
                     goals += `\`${index}\`: ${goal}\n`
                 })
               
                 let embed = {
-                    "title": "**Quel est le but de votre groupe ? (Précisez si différent de l'activité principale)**",
+                    "title": "**Quel est le but de votre religion ?**",
                     // "description": "Si votre but est semblable à votre activité principale, tappez `skip` pour passer à la question suivante.\nsi vous avez un but, éssayez de faire aussi cours et précis que possible."
                     "description": "Répondez avec l'index de la tête.",
                     "fields": [
@@ -169,12 +137,12 @@ module.exports = {
             "answer": (msg) => {
                 // EXEPTIONS -------
                 // DATA -------
-                const goals = Json.scumData.grpGoals
+                const goals = Json.scumData.relGoals
                 // SHIELD -------
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (goals.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["skip", {"name": "activity", "content": goals[msg.content]}]
+                return ["skip", {"name": "goal", "content": goals[msg.content]}]
             }
         },
 
@@ -189,7 +157,7 @@ module.exports = {
                 })
 
                 let embed = {
-                    "title": "**Votre groupe sera t-il hostile envers les autres joueurs ?**",
+                    "title": "**Votre religion sera t-elle hostile envers les autres religions ?**",
                     "description": "Répondez avec l'index de la réponse.",
                     "fields": [
                         {
@@ -213,49 +181,12 @@ module.exports = {
             }
         },
 
-
-        
-        {
-            "question": () => {
-                let cities = "";
-              
-                console.log(Json.cities)
-
-                Json.cities.forEach((city, index) => {
-                    if(city.isFree) cities += `\`${index}\`: ${city.name}\n`
-                })
-
-                let embed = {
-                    "title": "**Votre groupe dispose t-il d'une ville ?**",
-                    "description": "Répondez avec l'index de la réponse.",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "test"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                // EXEPTIONS -------
-                // DATA -------
-                const cities = Json.cities
-                // SHIELD -------
-                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (cities.length + 1))) return msg.author.send("**Erreur:** Ville invalide.")
-                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-                // ALL GOOD -------
-                return ["skip", {"name": "city", "content": cities[msg.content]}]
-
-            }
-        },
-
         
         {
             "question": () => {
                 let embed = {
-                    "title": "**Description de votre groupe**",
-                    "description": "⚠️ 1024 caractères max\nLa description est obligatoire, elle permettra aux admins d'accepter ou non la création du groupe !"
+                    "title": "**Description de votre religion**",
+                    "description": "⚠️ 1024 caractères max\nLa description est obligatoire, elle permettra aux admins d'accepter ou non la création d'une religion !"
                 }
                 return embed
             },

@@ -156,7 +156,7 @@ module.exports = {
                 })
               
                 let embed = {
-                    "title": "**Quel est le but de votre groupe ? (Précisez si différent de l'activité principale)**",
+                    "title": "**Quel est le but de votre groupe ?**",
                     // "description": "Si votre but est semblable à votre activité principale, tappez `skip` pour passer à la question suivante.\nsi vous avez un but, éssayez de faire aussi cours et précis que possible."
                     "description": "Répondez avec l'index de la tête.",
                     "fields": [
@@ -176,7 +176,7 @@ module.exports = {
                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (goals.length + 1))) return msg.author.send("**Erreur:** Réponse invalide.")
                 .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                 // ALL GOOD -------
-                return ["skip", {"name": "activity", "content": goals[msg.content]}]
+                return ["skip", {"name": "goal", "content": goals[msg.content]}]
             }
         },
 
@@ -191,7 +191,7 @@ module.exports = {
                 })
 
                 let embed = {
-                    "title": "**Votre groupe sera t-il hostile envers les autres joueurs ?**",
+                    "title": "**Votre groupe sera t-il hostile envers les autres groupes ?**",
                     "description": "Répondez avec l'index de la réponse.",
                     "fields": [
                         {
