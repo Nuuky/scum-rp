@@ -91,7 +91,7 @@ module.exports = {
                 // DATA -------
                 // SHIELD -------
                 // ALL GOOD -------
-                return ["skip", {"name": "name", "content": msg.content}]
+                return ["skip", {"name": "name", "content": msg.content.toLowerCase()}]
             }
         },
 
@@ -234,7 +234,7 @@ module.exports = {
                     "fields": [
                         {
                             "name": "Réponses",
-                            "value": cities
+                            "value": "test"
                         }
                     ]
                 }
