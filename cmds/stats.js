@@ -8,7 +8,7 @@ const fetch = require('node-fetch');
 
 
 module.exports = class StatsCommand {
-    constructor(msg, bot) {
+    constructor(bot, msg) {
       this.msg = msg;
       this.bot = bot;
     }
@@ -31,7 +31,7 @@ module.exports = class StatsCommand {
           return Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
       })
       .then(religions => {
-          console.log(religions + "\n")
+          console.log(religions)
 
           const embed = {
             "title": "Stats Bot",
@@ -54,7 +54,7 @@ module.exports = class StatsCommand {
             ]
           }
 
-          Global.Msg.send(msg, "test")
+          Global.Msg.send(msg, embed)
           .catch(e => console.error(e))
       })
       .catch(e => console.error(e))
