@@ -7,13 +7,25 @@ const url = process.env.MONGODB;
 const fetch = require('node-fetch');
 
 
-module.export = class StatsCommand {
+module.exports = class StatsCommand {
     constructor(msg, bot) {
-        this.msg = msg;
-        this.bot = bot;
-        this.users = Global.Fn.findData("find", "users_info", {})
-        this.groupes = Global.Fn.findData("find", "groupe_info", {})
-        this.religions = Global.Fn.findData("find", "religions_info", {})
+        this.msg, this.bot, this.user, this.groupes, this.religions;
+        return Global.Fn.waitFor(Global.Fn.findData("find", "users_info", {}))
+        .then(users => {
+            console.log(users)
+            this.msg = msg;
+            this.bot = bot;
+            Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
+            .then(groupes => {
+            console.log(groupes)
+                this.groupes = groupes
+                Global.Fn.waitFor(Global.Fn.findData("find", "religions_info", {}))
+                .then(religions => {
+            console.log(religions)
+                    this.religions = religions
+                })
+            })
+        })
     }
   
     async run(query) {
@@ -45,5 +57,6 @@ module.export = class StatsCommand {
       }
       
       Global.Msg.embed(embed)
+      .catch(e => console.error(e))
     }
 }
