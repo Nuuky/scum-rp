@@ -9,7 +9,8 @@ module.exports = class QuestionHandler {
 
     static run(msg, userQuest, mongoColl, mongoAction = "create") {
         let createData = (mongoAction == "create") ? true : false,
-            objColl = (mongoColl.match("groupe|religion") && createData) ? {members:[{id: msg.author.id}]} : {},
+            objID = ObjectId(),
+            objColl = (mongoColl.match("groupe|religion") && createData) ? {_id: objID, members:[{id: msg.author.id}]} : {},
             questIndex = (createData) ? 1 : 0,
             questNumber = 0,
             questToDo = (createData) ? userQuest.steps.length : 2,
@@ -117,16 +118,8 @@ module.exports = class QuestionHandler {
                     if(createData) {
                         // Create User profile
                         Fn.mongUpdate(objColl, mongoAction, mongoColl)
-                      
-                        // Adding groupe to User
-                        if(mongoColl.match("groupe")) {
-                            Fn.waitFor(Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", {groupe: group}))
-                        }
-                      
-                        // Adding religion to User
-                        if(mongoColl.match("religion")) {
-                        }
-                      
+                        if(mongoColl.match("groupe")) Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", {groupe: objID})
+                        if(mongoColl.match("religion")) Fn.mongUpdate({_id: msg.author.id}, "update", "user_info", {religion: objID})
                     }
                   
 
