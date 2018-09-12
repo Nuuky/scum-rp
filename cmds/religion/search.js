@@ -23,10 +23,6 @@ module.exports = class SearchGroupe {
                 "name": "Membres",
                 "value": membersList
             }
-            
-
-            if(religion.goal) info.desc += "But: `" + religion.goal + "`\n"
-            if(religion.city) info.desc += "Ville: `" + religion.city + "`\n"
 
             // Common Infos
             info.color = Global.Fn.hostilityColor(religion.hostility);
@@ -41,11 +37,6 @@ module.exports = class SearchGroupe {
                 },
                 "fields": [
                     {
-                        "name": "Informations",
-                        "value": info.desc,
-                        "inline": true
-                    },
-                    {
                         "name": "Membres",
                         "value": "**" + leader + "** 👑\n" + membersList + pending,
                         "inline": true
@@ -56,6 +47,17 @@ module.exports = class SearchGroupe {
                     }
                 ]
             }
+            
+
+            if(religion.goal) info.desc += "But: `" + religion.goal + "`\n"
+            if(religion.city) info.desc += "Ville: `" + religion.city + "`\n"
+            let descField = {
+                    "name": "Informations",
+                    "value": info.desc,
+                    "inline": true
+            }
+            
+            if(info.desc) embed.fields.push(descField)
 
             Global.Msg.embed(msg, embed, 180);
         })
