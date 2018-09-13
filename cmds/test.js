@@ -18,10 +18,13 @@ module.exports = class TestCommand {
         const msg = this.msg
         const bot = this.bot;
       
-        bot.users.get("98095710548795392").send("It worked !!!")
-        
-
-      
-      
+        Json.cities.forEach(city => {
+            const cityObj = {
+                name: city,
+                free: true,
+                
+            }
+            Global.Fn.mongUpdate(cityObj, "create", "city_info")
+        })
     }
 }
