@@ -100,6 +100,7 @@ bot.on("message", message => {
         'grp': () => { return new Command.GrpCommand(bot, message) },
         'rlg': () => { return new Command.RelCommand(bot, message) },
         'stats': () => { return new Command.StatsCommand(bot, message) },
+        'ville': () => { return new Command.VilleCommand(bot, message) },
       
       
         // ADMIN ---------------------------

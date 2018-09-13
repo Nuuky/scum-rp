@@ -10,5 +10,6 @@ module.exports = {
     GrpCommand: require('./grp'),
     RlgCommand: require('./rlg'),
     StatsCommand: require('./stats'),
+    VilleCommand: require('./ville'),
     TestCommand: require('./test')
 };

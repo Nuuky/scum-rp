@@ -38,9 +38,24 @@ module.exports = class VilleCommand {
           
         } else {
           
-            Global.waitFor(Global.findData("find", "city_info", {free: true}))
+            Global.Fn.waitFor(Global.Fn.findData("find", "city_info", {free: true}))
             .then(cities => {
+                let citiesList = ""
+                cities.forEach((city, index) => {
+                    citiesList += "`" + index + "`: " + city.name + "\n"
+                })
+                const embed = {
+                    title: "Viles disponibles",
+                    description: "Liste des villes disponibles, notez l'index de la ville qui vous interesse et tapper `!ville index` pour faire une demande",
+                    fields: [
+                        {
+                            name: "Villes",
+                            value: citiesList
+                        }
+                    ]
+                }
                 
+                Global.Msg.embed(msg, embed, 120)
             })
           
         }
