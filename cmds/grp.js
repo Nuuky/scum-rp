@@ -18,6 +18,7 @@ module.exports = class GrpCommand {
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
+        const bot = this.bot;
 
 
         // SEARCH USER --------
@@ -40,10 +41,10 @@ module.exports = class GrpCommand {
             Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
             .then(groupe => {
                 if(groupe) {
-                    Global.qHand.run(msg, Groupe.Questions, "groupe_info", "update")
+                    Global.qHand.run(bot, msg, Groupe.Questions, "groupe_info", "update")
                }
                 else {
-                    Global.qHand.run(msg, Groupe.Questions, "groupe_info")
+                    Global.qHand.run(bot, msg, Groupe.Questions, "groupe_info")
                }
             })
             .catch(err => console.error(err))

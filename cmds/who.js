@@ -18,7 +18,7 @@ module.exports = class WhoCommand {
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
-        const rpData = this.bot.tempScum;
+        const bot = this.bot;
 
 
         // SEARCH USER --------
@@ -70,8 +70,8 @@ module.exports = class WhoCommand {
             }
             getUser()
             .then(user => {
-                if(user) Global.qHand.run(msg, User.Questions, "user_info", "update")
-                else Global.qHand.run(msg, User.Questions, "user_info")
+                if(user) Global.qHand.run(bot, msg, User.Questions, "user_info", "update")
+                else Global.qHand.run(bot, msg, User.Questions, "user_info")
             })
             .catch(err => console.error(err))
           

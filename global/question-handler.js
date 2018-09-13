@@ -7,7 +7,7 @@ const Discord = require("discord.js")
 
 module.exports = class QuestionHandler {
 
-    static run(msg, userQuest, mongoColl, mongoAction = "create") {
+    static run(bot, msg, userQuest, mongoColl, mongoAction = "create") {
         let createData = (mongoAction == "create") ? true : false,
             objID = ObjectId(),
             objColl = (mongoColl.match("groupe|religion") && createData) ? {_id: objID, members:[{id: msg.author.id}]} : {},
@@ -128,6 +128,8 @@ module.exports = class QuestionHandler {
                       Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: ObjectId(objColl.groupe)}))
                       .then(groupe => {
                           // Send msg of user index members to leader groupe w/ his ID ---
+                          const membersLength = groupe.members.length
+                          bot.users.get('id', groupe.leader).send()
                           Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", { $addToSet: {members: {id: msg.author.id, pending: true}}})
                       })
                       .catch(e => console.error(e))

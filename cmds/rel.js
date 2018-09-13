@@ -18,6 +18,7 @@ module.exports = class RelCommand {
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg;
+        const bot = this.bot;
       
       
         if(query) {
@@ -38,8 +39,8 @@ module.exports = class RelCommand {
         } else {
             Global.Fn.waitFor(Global.Fn.findData("findOne", "religion_info", {leader: msg.author.id}))
             .then(religion => {
-                if(religion) Global.qHand.run(msg, Religion.Questions, "religion_info", "update")
-                else Global.qHand.run(msg, Religion.Questions, "religion_info")
+                if(religion) Global.qHand.run(bot, msg, Religion.Questions, "religion_info", "update")
+                else Global.qHand.run(bot, msg, Religion.Questions, "religion_info")
             })
             .catch(err => console.error(err))
           
