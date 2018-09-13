@@ -129,7 +129,7 @@ module.exports = class QuestionHandler {
                       .then(groupe => {
                           // Send msg of user index members to leader groupe w/ his ID ---
                           const membersLength = groupe.members.length
-                          bot.users.get('id', groupe.leader).send()
+                          bot.users.get('id', groupe.leader).send("Un joueur souhaite rejoindre votre groupe, tappez `!pending` pour en savoir plus.")
                           Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", { $addToSet: {members: {id: msg.author.id, pending: true}}})
                       })
                       .catch(e => console.error(e))
