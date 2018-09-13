@@ -1,1 +1,21 @@
-["Ston", "Gornji Humac", "Dubrava", "Novaki", "Kotoriba", "Gunja", "Gorica", "Prigorje", "Porat", "Veliki Tabor", "Vinski Vrh", "Rude", "Klis", "Uglian", "Dol", "Blace", "Prkno", "Preko", "Mirkovci", "Postira", "Trpanj", "Turanj", "Apatija", "Prigradica", "Zmajan", "Hum", "Tisno", "Zaton", "Blato", "Kampor"]
+[
+	{"name": "Dubrava", "cell": ["D", 3], "free": true},
+	{"name": "Kotoriba", "cell": ["D", 3], "free": true},
+	{"name": "Novaki", "cell": ["D", 3], "free": true},
+	{"name": "Babino Polje", "cell": ["D", 2], "free": true},
+	{"name": "Gunja", "cell": ["D", 2], "free": true},
+	{"name": "Prigorje", "cell": ["D", 1], "free": true},
+	{"name": "Rude", "cell": ["C", 4], "free": true},
+	{"name": "Klis", "cell": ["C", 4], "free": true},
+	{"name": "Blace", "cell": ["C", 3], "free": true},
+	{"name": "Dol", "cell": ["C", 3], "free": true},
+	{"name": "Uglian", "cell": ["B", 4], "free": true},
+	{"name": "Postira", "cell": ["B", 2], "free": true},
+	{"name": "Trpanj", "cell": ["B", 1], "free": true},
+	{"name": "Turanj", "cell": ["B", 1], "free": true},
+	{"name": "Kampor", "cell": ["A", 4], "free": true},
+	{"name": "Hum", "cell": ["A", 3], "free": true},
+	{"name": "Prigradica", "cell": ["A", 2], "free": true},
+	{"name": "Zmajan", "cell": ["A", 2], "free": true},
+	{"name": "Apatija", "cell": ["A", 1], "free": true}
+]

@@ -19,13 +19,7 @@ module.exports = class TestCommand {
         const bot = this.bot;
       
         // Json.cities.forEach(city => {
-        //     const cityObj = {
-        //         name: city,
-        //         free: true,
-        //         pvpZone: false,
-        //         event: false
-        //     }
-        //     Global.Fn.mongUpdate(cityObj, "create", "city_info")
+        //     Global.Fn.mongUpdate(city, "create", "city_info")
         // })
     }
 }
