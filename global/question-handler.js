@@ -124,7 +124,15 @@ module.exports = class QuestionHandler {
                   
 
                     // Push user into ether groupe or religion DB with pending true for groupe (Groupe leader need to approuve user)
-                    if(objColl.groupe) Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", { $addToSet: {members: {id: msg.author.id, pending: true}}}) // Update Groupe DB
+                    if(objColl.groupe) {
+                      Fn.waitFor(Fn.findData("findOne", "groupe_info", {_id: ObjectId(objColl.groupe)}))
+                      .then(groupe => {
+                          // Send msg of user index members to leader groupe w/ his ID ---
+                          Fn.mongUpdate({_id: objColl.groupe}, "update", "groupe_info", { $addToSet: {members: {id: msg.author.id, pending: true}}})
+                      })
+                      .catch(e => console.error(e))
+                    } 
+                    // Update Groupe DB
                     if(objColl.religion) Fn.mongUpdate({_id: objColl.religion}, "update", "religion_info", { $addToSet: {members: msg.author.id}}) // Update Religion DB
 
                     // End the collection
