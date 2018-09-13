@@ -82,8 +82,7 @@ bot.on("message", message => {
   
   
     // Test area ----------
-    // if(message.channel.permissionsFor(bot.user).has("MANAGE_MESSAGES")) message.channel.fetchMessage(message.id).then(m => m.delete()).catch(console.error);
-    // return Global.Msg.reply(message, "Bot under maintenance.");
+    // if(message.author.id != process.env.MY_DISCORD_ID) return Global.Msg.reply(message, "Bot under maintenance.");
 
     // Parsing
     const msg = message.content;
