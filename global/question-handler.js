@@ -7,42 +7,22 @@ const Discord = require("discord.js")
 
 module.exports = class QuestionHandler {
 
-    constructor(bot, msg, userQuest, mongoColl, mongoAction = "create") {
-        this.msg = msg;
-        this.bot = bot;
-        this.mongoColl = mongoColl;
-        this.createData = (mongoAction == "create") ? true : false
-        this.objID = ObjectId()
-        this.objColl = (mongoColl.match("groupe|religion") && this.createData) ? {_id: this.objID, members:[{id: msg.author.id}]} : {},
-        this.questIndex = (this.createData) ? 1 : 0,
-        this.questNumber = 0,
-        this.questToDo = (this.createData) ? userQuest.steps.length : 2;
-        this.userQuest = userQuest;
-        this.mongoAction = mongoAction;
+    static run(bot, msg, userQuest, mongoColl, mongoAction = "create") {
+        let createData = (mongoAction == "create") ? true : false,
+            objID = ObjectId(),
+            objColl = (mongoColl.match("groupe|religion") && createData) ? {_id: objID, members:[{id: msg.author.id}]} : {},
+            questIndex = (createData) ? 1 : 0,
+            questNumber = 0,
+            questToDo = (createData) ? userQuest.steps.length : 2,
+            groupe, religion;
 
-    }
+            const User = (createData) ? null : Fn.waitFor(Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
+                .then(user => {
+                    groupe = Fn.findData("findOne", "groupe_info", {_id: user.groupe});
+                    religion = Fn.findData("findOne", "religion_info", {_id: user.religion});
+                })
+                .catch(e => console.error(e))
 
-    async run() {
-        const msg = this.msg,
-            bot = this.bot;
-
-        let createData = this.createData,
-            mongoColl = this.mongoColl,
-            objID = this.objID,
-            objColl = this.objColl,
-            questIndex = this.questIndex,
-            questNumber = this.questNumber,
-            userQuest = this.userQuest,
-            mongoAction = this.mongoAction,
-            questToDo= this.questToDo;
-
-        let groupe, religion;
-        const User = (createData) ? null : Fn.waitFor(Fn.findData("findOne", mongoColl, {_id: msg.author.id}))
-            .then(user => {
-                groupe = Fn.findData("findOne", "groupe_info", {_id: user.groupe});
-                religion = Fn.findData("findOne", "religion_info", {_id: user.religion});
-            })
-            .catch(e => console.error(e))
       
         let embed = userQuest.steps[questIndex].question()
         msg.author.send({embed})

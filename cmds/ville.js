@@ -18,18 +18,20 @@ module.exports = class VilleCommand {
         const args = query.split(" ");
         const msg = this.msg;
         const bot = this.bot;
+        //console.log(query)
 
 
         // SEARCH USER --------
         if(query) {
-            //console.log(query)
-          
+            // Case we want to remove city
+            if(query.toLowerCase() == "remove") { //!ville remove [name]
+                Global.Fn.waitFor(Global.Fn.findData("findOne"))
+            }
 
              // GET USER GRP -------
-            Global.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
             .then(groupe => {
                 if(groupe) {
-                    
                 }
                 return Global.Msg.send(msg, "Vous n'êtes pas leader d'un groupe.", 60);
             })
