@@ -46,7 +46,7 @@ module.exports = class VilleCommand {
                 })
                 const embed = {
                     title: "Viles disponibles",
-                    description: "Liste des villes disponibles, notez l'index de la ville qui vous interesse et ajoutez le à la commande `!ville` pour faire une demande",
+                    description: "Ajoutez l'index de la ville qui vous interesse à la commande `!ville` pour faire une demande.",
                     fields: [
                         {
                             name: "Villes",
