@@ -19,10 +19,9 @@ module.exports = class SearchGroupe {
             let membersList = "", pending = "", leader = "";
             console.log(members)
             members.forEach(member => {
-                if(member.id == groupe.leader) leader = member.name;
+                if(member._id == groupe.leader) leader = member.name;
                 else if(member.pending) pending += "*" + member.name + "* (En attente)\n"
                 else membersList += `- ${member.name}\n`
-                console.log("Leader: " + leader + " // member: " + member)
             })
             const membersField = {
                 "name": "Membres",
