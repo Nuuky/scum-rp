@@ -18,13 +18,14 @@ module.exports = class TestCommand {
         const msg = this.msg
         const bot = this.bot;
       
-        Json.cities.forEach(city => {
-            const cityObj = {
-                name: city,
-                free: true,
-                
-            }
-            Global.Fn.mongUpdate(cityObj, "create", "city_info")
-        })
+        // Json.cities.forEach(city => {
+        //     const cityObj = {
+        //         name: city,
+        //         free: true,
+        //         pvpZone: false,
+        //         event: false
+        //     }
+        //     Global.Fn.mongUpdate(cityObj, "create", "city_info")
+        // })
     }
 }

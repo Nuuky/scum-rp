@@ -38,24 +38,10 @@ module.exports = class VilleCommand {
           
         } else {
           
-          
-            let authorID = msg.author.id;
-            authorID = authorID.replace("<", "");
-            authorID = authorID.replace(">", "");
-          
-            const getUser = () => {
-                const promise = new Promise((resolve, reject) => {
-                    resolve(Global.Fn.findData("findOne", "user_info", {_id: authorID}))
-                })
-                return promise
-            }
-            getUser()
-            .then(user => {
-                if(user) Global.qHand.run(bot, msg, User.Questions, "user_info", "update")
-                else Global.qHand.run(bot, msg, User.Questions, "user_info")
+            Global.waitFor(Global.findData("find", "city_info", {free: true}))
+            .then(cities => {
+                
             })
-            .catch(err => console.error(err))
-          
           
         }
     };
