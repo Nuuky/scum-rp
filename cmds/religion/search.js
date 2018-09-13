@@ -15,7 +15,7 @@ module.exports = class SearchGroupe {
             // Members field
             let membersList = "", pending = "", leader = "";
             members.forEach(member => {
-                if(member.id == religion.leader) leader = "**" + member.name + "** 🌟";
+                if(member._id == religion.leader) leader = "**" + member.name + "** 🌟";
                 // else if(member.pending) pending += "*" + member.name + "* (En attente)\n"
                 else membersList += `- ${member.name}\n`
             })
