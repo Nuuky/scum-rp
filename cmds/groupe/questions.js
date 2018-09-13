@@ -11,7 +11,7 @@ const userDefData = [
     {data: "activity", "name": "Activité"},
     {data: "goal", "name": "But"},
     {data: "hostility", "name": "Hostilité"},
-    {data: "city", "name": "Ville"},
+    //{data: "city", "name": "Ville"},
     {data: "description", "name": "Description"}
 ]
 
@@ -217,40 +217,40 @@ module.exports = {
 
 
         
-        {
-            "question": () => {
-                let cities = "";
+//         {
+//             "question": () => {
+//                 let cities = "";
               
-                console.log(Json.cities)
+//                 console.log(Json.cities)
 
-                Json.cities.forEach((city, index) => {
-                    if(city.isFree) cities += `\`${index}\`: ${city.name}\n`
-                })
+//                 Json.cities.forEach((city, index) => {
+//                     if(city.isFree) cities += `\`${index}\`: ${city.name}\n`
+//                 })
 
-                let embed = {
-                    "title": "**Votre groupe dispose t-il d'une ville ?**",
-                    "description": "Répondez avec l'index de la réponse.",
-                    "fields": [
-                        {
-                            "name": "Réponses",
-                            "value": "test"
-                        }
-                    ]
-                }
-                return embed
-            },
-            "answer": (msg) => {
-                // EXEPTIONS -------
-                // DATA -------
-                const cities = Json.cities
-                // SHIELD -------
-                if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (cities.length + 1))) return msg.author.send("**Erreur:** Ville invalide.")
-                    .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
-                // ALL GOOD -------
-                return ["skip", {"name": "city", "content": cities[msg.content]}]
+//                 let embed = {
+//                     "title": "**Votre groupe dispose t-il d'une ville ?**",
+//                     "description": "Répondez avec l'index de la réponse.",
+//                     "fields": [
+//                         {
+//                             "name": "Réponses",
+//                             "value": "test"
+//                         }
+//                     ]
+//                 }
+//                 return embed
+//             },
+//             "answer": (msg) => {
+//                 // EXEPTIONS -------
+//                 // DATA -------
+//                 const cities = Json.cities
+//                 // SHIELD -------
+//                 if(isNaN(msg.content) || !(msg.content >= 0 && msg.content <= (cities.length + 1))) return msg.author.send("**Erreur:** Ville invalide.")
+//                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
+//                 // ALL GOOD -------
+//                 return ["skip", {"name": "city", "content": cities[msg.content]}]
 
-            }
-        },
+//             }
+//         },
 
         
         {
