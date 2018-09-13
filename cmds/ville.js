@@ -24,8 +24,22 @@ module.exports = class VilleCommand {
         // SEARCH USER --------
         if(query) {
             // Case we want to remove city
-            if(query.toLowerCase() == "remove") { //!ville remove [name]
-                Global.Fn.waitFor(Global.Fn.findData("findOne"))
+            if(args[0].toLowerCase() == "remove") { //!ville remove [name]
+                // If no city
+                if(!args[1]) return Global.Msg.Send(msg, "Veuillez indiquer les ville à libérer.");
+              
+                Global.Fn.waitFor(Global.Fn.findData("findOne", "city_info", {name: args[1].toLowerCase()}))
+                .then(city => {
+                    // City doesn't exist
+                    if(!city) return Global.Msg.Send(msg, "Aucune ville ne correspond au nom donné.");
+                    // City already free
+                    if(city.free) return Global.Msg.Send(msg, "La ville n'est actuellement sous le contrôle d'aucun groupe.");
+                    
+                    Global.mongUpdate({city: ObjectId(city._id)}, "update", "groupe_info", {$set: {city: false}});
+                    Global.mogUpdate({name: args[1].toLowerCase()}, "update", "city_info", {$set: {free: true}});
+                    // All done
+                    return Global.Msg.Send(msg, "Ville libéré.");
+                })
             }
 
              // GET USER GRP -------
