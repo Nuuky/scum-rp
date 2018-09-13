@@ -42,7 +42,7 @@ module.exports = class VilleCommand {
             .then(cities => {
                 let citiesList = ""
                 cities.forEach((city, index) => {
-                    citiesList += "`" + index + "`: " + city.name + "\n"
+                    citiesList += "`" + index + "`: " + city.name + " (" + city.cell[0] + city.cell[1] + ")\n"
                 })
                 const embed = {
                     title: "Viles disponibles",
