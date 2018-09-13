@@ -28,10 +28,10 @@ module.exports = class VilleCommand {
              // GET USER GRP -------
             Global.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
             .then(groupe => {
-                if(groiupe) {
-                    return User.Search.run(msg, user);
+                if(groupe) {
+                    
                 }
-                return Global.Msg.send(msg, "Aucun joueur trouvé.", 60);
+                return Global.Msg.send(msg, "Vous n'êtes pas leader d'un groupe.", 60);
             })
           .catch(err => console.error(err))
           
