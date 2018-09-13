@@ -8,7 +8,7 @@ const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
 const Religion = require("./religion/");
 
-module.exports = class RelCommand {
+module.exports = class RlgCommand {
 
     constructor(bot, msg) {
         this.msg = msg;

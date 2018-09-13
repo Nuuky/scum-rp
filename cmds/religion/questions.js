@@ -53,7 +53,7 @@ module.exports = {
             "question": () => {
                 let embed = {
                     "title": "**Création d'une religion**",
-                    "description": "⚠️ Vous vous apprêtez à créer un profile de religion, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop`\n- Vous pourrez modifier les informations par la suite en tappant `!rel`",
+                    "description": "⚠️ Vous vous apprêtez à créer un profile de religion, voulez vous continuer ?\n- Vous pourrez annuler la création à tout moment en tappant `stop`\n- Vous pourrez modifier les informations par la suite en tappant `!rlg`",
                     "fields": [
                         {
                             "name": "Réponses",
