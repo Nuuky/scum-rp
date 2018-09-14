@@ -22,7 +22,7 @@ module.exports = class GrpCommand {
           
             // Check for cmd
             const GrpDisp = {
-                'accept': () => { return new Groupe.acceptGrp(msg) },
+                'accept': () => { return new Groupe.acceptGrp(bot, msg) },
                 'reject': () => { return new Groupe.rejectGrp(msg) },
                 'kick': () => { return new Groupe.kickGrp(msg) },
                 'pending': () => { return new Groupe.pendingGrp(msg) }

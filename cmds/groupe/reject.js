@@ -3,11 +3,11 @@
 const Global = require("../../global/");
 const ObjectId = require('mongodb').ObjectID;
 
-module.exports = class acceptGrp {
+module.exports = class rejectGrp {
 
     constructor(bot, msg) {
         this.msg = msg;
-        this.bot = bot;
+        this.bot= bot
     }
 
     async run(groupe, arg) {
@@ -16,6 +16,7 @@ module.exports = class acceptGrp {
 
         if(isNaN(arg)) return Global.Msg.Send(msg, "Vous devez spécifier l'index du membre à accepter.")
 
+        let members = groupe.members;
         let pending = [];
 
         groupe.members.forEach((member, index) => {
@@ -26,9 +27,11 @@ module.exports = class acceptGrp {
 
         const user = pending[arg]
 
-        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$set : {[`members.${user.index}`]: {pending: false}}}))
-        .then(() => {
-            bot.users.get(user.id).send("Vous avez été accepté dans: `" + Global.Fn.capitalize(groupe.name) + "`")
-        })
+        for( var i = 0; i < members.length-1; i++){
+            if(i == user.index) members.splice(i, 1);
+        }
+
+        Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {members: members})
+        bot.users.get(user.data.id).send("Vous n'avez pas été accepté par: `" + groupe.name + "`")
     }
 }
