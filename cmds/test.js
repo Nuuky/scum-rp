@@ -1,4 +1,4 @@
-'use strict'
+k'use strict'
 
 const Global = require('../global/')
 const Json = require("../json/")
