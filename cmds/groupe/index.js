@@ -5,4 +5,6 @@ module.exports = {
     Questions: require('./questions'),
     acceptGrp: require('./accept'),
     rejectGrp: require('./reject'),
+    kickGrp: require('./kick'),
+    pendingGrp: require('./pending'),
 };

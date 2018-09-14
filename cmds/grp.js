@@ -30,8 +30,11 @@ module.exports = class GrpCommand {
         
             const command = GrpDisp.hasOwnProperty(args[0]) ? GrpDisp[args[0]]() : undefined
             
-            Global.Fn.waitFor(Global.Fn.findData("findOne", "us"))
-            if(command != undefined) return command.run(args[1]);
+            if(command != undefined) return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
+                .then(groupe => {
+                    if(groupe) return command.run(groupe, args[1]);
+                    Global.Msg.send(msg, "Vous n'êtes pas leader d'un groupe.")
+                })
             
 
             // Search for Groupe -------
