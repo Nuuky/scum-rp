@@ -15,12 +15,14 @@ module.exports = class TestCommand {
     constructor(bot, msg) {
         this.msg = msg;
         this.bot = bot;
+        this.randomNb = Glboal.Fn.randomNb(999, 999999)
     }
 
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg
         const bot = this.bot;
+        
       
         // Json.cities.forEach(city => {
         //     Global.Fn.mongUpdate(city, "create", "city_info")
