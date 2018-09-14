@@ -25,7 +25,7 @@ module.exports = class TestCommand {
         // })
       
       const Image = Canvas.Image,
-          canvas = new Canvas(200, 200),
+          canvas = Canvas.createCanvas(200, 200),
           ctx = canvas.getContext('2d');
 
       ctx.font = '30px Impact';
@@ -39,7 +39,9 @@ module.exports = class TestCommand {
       ctx.lineTo(50 + te.width, 102);
       ctx.stroke();
       console.log(canvas.toDataURL())
-      base64Img.img(canvas.toDataURL(), 'dest', '1', function(err, filepath) {
+      base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
+          if(err) return console.error(err);
+          console.log(filepath)
           msg.channel.send(filepath)
       });
       
