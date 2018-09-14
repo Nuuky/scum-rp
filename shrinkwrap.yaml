@@ -7,6 +7,7 @@ dependencies:
   express: 4.16.3
   festival: 1.0.1
   ffmpeg-binaries: 3.2.2
+  fs: 0.0.1-security
   libsodium-wrappers: 0.7.3
   mongodb: 3.0.5
   node-fetch: 2.2.0
@@ -512,6 +513,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
+  /fs/0.0.1-security:
+    dev: false
+    resolution:
+      integrity: sha1-invTcYa23d84E/I4WLV+yq9eQdQ=
   /gauge/2.7.4:
     dependencies:
       aproba: 1.2.0
@@ -1482,6 +1487,7 @@ specifiers:
   express: ^4.16.3
   festival: ^1.0.1
   ffmpeg-binaries: ^3.2.2
+  fs: ^0.0.1-security
   libsodium-wrappers: 0.7.3
   mongodb: ^3.0.5
   node-fetch: ^2.2.0

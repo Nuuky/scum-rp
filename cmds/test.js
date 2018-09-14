@@ -24,27 +24,39 @@ module.exports = class TestCommand {
         //     Global.Fn.mongUpdate(city, "create", "city_info")
         // })
       
-//       const Image = Canvas.Image,
-//           canvas = Canvas.createCanvas(200, 200),
-//           ctx = canvas.getContext('2d');
+      const Image = Canvas.Image,
+          canvas = Canvas.createCanvas(200, 200),
+          ctx = canvas.getContext('2d');
 
-//       ctx.font = '30px Impact';
-//       ctx.rotate(.1);
-//       ctx.fillText("Awesome!", 50, 100);
+      ctx.font = '30px Impact';
+      ctx.rotate(.1);
+      ctx.fillText("Awesome!", 50, 100);
 
-//       var te = ctx.measureText('Awesome!');
-//       ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-//       ctx.beginPath();
-//       ctx.lineTo(50, 102);
-//       ctx.lineTo(50 + te.width, 102);
-//       ctx.stroke();
-//       console.log(canvas.toDataURL())
-//       base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
-//           if(err) return console.error(err);
-//           console.log(filepath)
-//           msg.channel.send(filepath)
-//       });
-        msg.channel.send(../images/1.png)
+      var te = ctx.measureText('Awesome!');
+      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+      ctx.beginPath();
+      ctx.lineTo(50, 102);
+      ctx.lineTo(50 + te.width, 102);
+      ctx.stroke();
       
+      base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
+          if(err) return console.error(err);
+        
+        msg.channel.send({files: ["./images/1.png"]});
+        
+        
+           fs.stat('./server/upload/my.csv', function (err, stats) {
+               console.log(stats);//here we got all information of file in stats variable
+
+               if (err) {
+                   return console.error(err);
+               }
+
+               fs.unlink('./server/upload/my.csv',function(err){
+                    if(err) return console.log(err);
+                    console.log('file deleted successfully');
+               });  
+          });
+      });
       }
 }
