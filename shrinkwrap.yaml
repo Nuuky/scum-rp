@@ -1,4 +1,5 @@
 dependencies:
+  base64-img: 1.0.4
   bufferutil: 3.0.4
   canvas: 2.0.0-alpha.14
   discord.js: 11.4.2
@@ -31,6 +32,13 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-63d99gEXI6OxTopywIBcjoZ0a9I=
+  /ajax-request/1.2.3:
+    dependencies:
+      file-system: 2.2.2
+      utils-extend: 1.0.8
+    dev: false
+    resolution:
+      integrity: sha1-mfy+wdbSeS+F+pSVNTMr0U9fN5A=
   /ansi-regex/2.1.1:
     dev: false
     engines:
@@ -70,6 +78,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
+  /base64-img/1.0.4:
+    dependencies:
+      ajax-request: 1.2.3
+      file-system: 2.2.2
+    dev: false
+    resolution:
+      integrity: sha1-PiLVXWx0okVT2EDSsbwSp9sHjTU=
   /batch/0.5.0:
     dev: false
     resolution:
@@ -444,6 +459,19 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Nw8wIO9rTbpipVGkJcY01sdaOiE=
+  /file-match/1.0.2:
+    dependencies:
+      utils-extend: 1.0.8
+    dev: false
+    resolution:
+      integrity: sha1-ycrSZdLIrfOoFHWw30dYWQafrvc=
+  /file-system/2.2.2:
+    dependencies:
+      file-match: 1.0.2
+      utils-extend: 1.0.8
+    dev: false
+    resolution:
+      integrity: sha1-fWWDPjojR9zZVqgTxncVPtPt2Yc=
   /finalhandler/1.1.1:
     dependencies:
       debug: 2.6.9
@@ -1375,6 +1403,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+  /utils-extend/1.0.8:
+    dev: false
+    resolution:
+      integrity: sha1-zP17ZFQPjpDuIe7Fd2nQZRyril8=
   /utils-merge/1.0.1:
     dev: false
     engines:
@@ -1442,6 +1474,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  base64-img: ^1.0.4
   bufferutil: 3.0.4
   canvas: ^2.0.0-alpha.14
   discord.js: ^11.4.2

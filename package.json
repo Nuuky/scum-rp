@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "base64-img": "^1.0.4",
     "bufferutil": "3.0.4",
     "canvas": "^2.0.0-alpha.14",
     "discord.js": "^11.4.2",
