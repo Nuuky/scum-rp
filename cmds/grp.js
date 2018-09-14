@@ -1,11 +1,6 @@
 'use strict'
 
-const Json = require('../json/');
 const Global = require("../global/");
-const MongoClient = require('mongodb').MongoClient;
-const url = process.env.MONGODB;
-const fetch = require('node-fetch');
-const ObjectId = require('mongodb').ObjectID;
 const Groupe = require("./groupe/");
 
 module.exports = class GrpCommand {
@@ -25,8 +20,18 @@ module.exports = class GrpCommand {
         if(query) {
             console.log(query)
           
-            if(args[0].match("add|rm")) return
-          
+            // Check for cmd
+            const GrpDisp = {
+                'accept': () => { return new Groupe.acceptGrp(msg) },
+                'reject': () => { return new Groupe.rejectGrp(msg) },
+                'kick': () => { return new Groupe.kickGrp(msg) },
+                'pending': () => { return new Groupe.pendingGrp(msg) }
+            };
+        
+            const command = GrpDisp.hasOwnProperty(args[0]) ? GrpDisp[args[0]]() : undefined
+
+            if(command != undefined) return command.run(args[1]);
+            
 
             // Search for Groupe -------
             Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {name: query.toLowerCase()}))
@@ -36,7 +41,7 @@ module.exports = class GrpCommand {
                 }
                 return Global.Msg.send(msg, "Aucun groupe trouvé.", 60);
             })
-          .catch(err => console.error(err))
+            .catch(err => console.error(err))
           
           
         } else {
@@ -44,14 +49,12 @@ module.exports = class GrpCommand {
             .then(groupe => {
                 if(groupe) {
                     Global.qHand.run(bot, msg, Groupe.Questions, "groupe_info", "update")
-               }
+                }
                 else {
                     Global.qHand.run(bot, msg, Groupe.Questions, "groupe_info")
-               }
+                }
             })
             .catch(err => console.error(err))
-          
-          
         }
     };
 }
