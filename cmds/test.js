@@ -24,26 +24,27 @@ module.exports = class TestCommand {
         //     Global.Fn.mongUpdate(city, "create", "city_info")
         // })
       
-      const Image = Canvas.Image,
-          canvas = Canvas.createCanvas(200, 200),
-          ctx = canvas.getContext('2d');
+//       const Image = Canvas.Image,
+//           canvas = Canvas.createCanvas(200, 200),
+//           ctx = canvas.getContext('2d');
 
-      ctx.font = '30px Impact';
-      ctx.rotate(.1);
-      ctx.fillText("Awesome!", 50, 100);
+//       ctx.font = '30px Impact';
+//       ctx.rotate(.1);
+//       ctx.fillText("Awesome!", 50, 100);
 
-      var te = ctx.measureText('Awesome!');
-      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-      ctx.beginPath();
-      ctx.lineTo(50, 102);
-      ctx.lineTo(50 + te.width, 102);
-      ctx.stroke();
-      console.log(canvas.toDataURL())
-      base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
-          if(err) return console.error(err);
-          console.log(filepath)
-          msg.channel.send(filepath)
-      });
+//       var te = ctx.measureText('Awesome!');
+//       ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+//       ctx.beginPath();
+//       ctx.lineTo(50, 102);
+//       ctx.lineTo(50 + te.width, 102);
+//       ctx.stroke();
+//       console.log(canvas.toDataURL())
+//       base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
+//           if(err) return console.error(err);
+//           console.log(filepath)
+//           msg.channel.send(filepath)
+//       });
+        msg.channel.send(../images/1.png)
       
       }
 }

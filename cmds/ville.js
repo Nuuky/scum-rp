@@ -26,7 +26,7 @@ module.exports = class VilleCommand {
             // If not an admin
             if(!msg.author.id.match(process.env.ADMIN_ID)) return Global.Msg.Send(msg, "Seul les admins peuvent s'occuper des villes.");
             // Case we want to remove city
-            if(args[0].toLowerCase() == "remove") { //!ville remove [name]
+            if(args[0].toLowerCase() == "rm") { //!ville remove [name]
                 // If no city
                 if(!args[1]) return Global.Msg.Send(msg, "Veuillez indiquer les ville à libérer.");
               
