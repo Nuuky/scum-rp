@@ -20,7 +20,23 @@ module.exports = class pendingGrp {
             if(member.pending) pending.push(member)
         })
         
-        let pendingList = ""
-        pending
+        let pendingList = (pending.length > 0) ? "" : "Aucun"
+        
+        pending.forEach((member, index) => {
+            pendingList += "`" + index + "`: " + member.name + "\n"
+        })
+      
+        const embed = {
+            title: "Joueurs en attentes",
+            description: "Liste des joueurs qui veulent rejoindre votre groupe",
+            fields: [
+                {
+                    name: "Joueurs",
+                    value: pendingList
+                }
+            ]
+        }
+        
+        Global.Msg.embed(msg, embed)
     }
 }
