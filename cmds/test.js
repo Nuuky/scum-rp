@@ -15,13 +15,14 @@ module.exports = class TestCommand {
     constructor(bot, msg) {
         this.msg = msg;
         this.bot = bot;
-        this.randomNb = Glboal.Fn.randomNb(999, 999999)
+        this.randomNb = Global.Fn.randomNumber(999, 99999999)
     }
 
     async run(query) {
         const args = query.split(" ");
         const msg = this.msg
         const bot = this.bot;
+        const randomNb = this.randomNb;
         
       
         // Json.cities.forEach(city => {
@@ -42,21 +43,23 @@ module.exports = class TestCommand {
       ctx.lineTo(50, 102);
       ctx.lineTo(50 + te.width, 102);
       ctx.stroke();
+      const filePathCust = "./images/" + randomNb + ".png"
+      console.log(filePathCust)
       
-      base64Img.img(canvas.toDataURL(), './images/', '1', function(err, filepath) {
+      base64Img.img(canvas.toDataURL(), './images/', randomNb, function(err, filepath) {
           if(err) return console.error(err);
         
-            msg.channel.send({files: ["./images/1.png"]});
+            msg.channel.send({files: [filePathCust]});
         
         
-           fs.stat('./images/1.png', function (err, stats) {
+           fs.stat(filePathCust, function (err, stats) {
                // console.log(stats);//here we got all information of file in stats variable
 
                if (err) {
                    return console.error(err);
                }
 
-               fs.unlink('./images/1.png',function(err){
+               fs.unlink(filePathCust,function(err){
                     if(err) return console.log(err);
                     console.log('file deleted successfully');
                });  

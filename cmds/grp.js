@@ -25,6 +25,8 @@ module.exports = class GrpCommand {
         if(query) {
             console.log(query)
           
+            if(args[0] == "accept") 
+          
 
             // Search for Groupe -------
             Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {name: query.toLowerCase()}))
