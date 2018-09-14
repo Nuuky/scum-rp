@@ -23,13 +23,14 @@ module.exports = class GrpCommand {
             // Check for cmd
             const GrpDisp = {
                 'accept': () => { return new Groupe.acceptGrp(bot, msg) },
-                'reject': () => { return new Groupe.rejectGrp(msg) },
-                'kick': () => { return new Groupe.kickGrp(msg) },
-                'pending': () => { return new Groupe.pendingGrp(msg) }
+                'reject': () => { return new Groupe.rejectGrp(bot, msg) },
+                'kick': () => { return new Groupe.kickGrp(bot, msg) },
+                'pending': () => { return new Groupe.pendingGrp(bot, msg) }
             };
         
             const command = GrpDisp.hasOwnProperty(args[0]) ? GrpDisp[args[0]]() : undefined
-
+            
+            Global.Fn.waitFor(Global.Fn.findData("findOne", "us"))
             if(command != undefined) return command.run(args[1]);
             
 
