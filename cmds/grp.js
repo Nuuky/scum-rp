@@ -25,7 +25,7 @@ module.exports = class GrpCommand {
         if(query) {
             console.log(query)
           
-            if(args[0] == "accept") 
+            if(args[0].match("add|rm")) return
           
 
             // Search for Groupe -------
