@@ -337,7 +337,7 @@ module.exports = {
             "question": () => {
                 return Global.Fn.waitFor(Global.Fn.findData("find", "groupe_info", {}))
                 .then(groupeArr => {
-                    let groupes = ""
+                    let groupes = (groupeArr.length > 0) ? "" : "Aucun" 
                     groupeArr.forEach(groupe => {
                         groupes += "`" + Global.Fn.capitalize(groupe.name) + "`\n"
                     })
@@ -377,7 +377,7 @@ module.exports = {
             "question": () => {
                 return Global.Fn.waitFor(Global.Fn.findData("find", "religion_info", {}))
                 .then(religionArr => {
-                    let religions = ""
+                    let religions = (religionArr > 0) ? "" : "Aucun"
                     religionArr.forEach(religion => {
                         religions += "`" + Global.Fn.capitalize(religion.name) + "`\n"
                     })
