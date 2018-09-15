@@ -23,7 +23,7 @@ module.exports = class pendingGrp {
         let pendingList = (pending.length > 0) ? "" : "Aucun"
         
         pending.forEach((member, index) => {
-            pendingList += "`" + index + "`: " + member.name + "\n"
+            pendingList += "`" + index + "`: " + Global.Fn.getNick(msg, member.id) + "\n"
         })
       
         const embed = {

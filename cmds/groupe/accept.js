@@ -17,8 +17,9 @@ module.exports = class acceptGrp {
         if(isNaN(arg)) return Global.Msg.Send(msg, "Vous devez spécifier l'index du membre à accepter.")
 
         let pending = [];
+        let members = groupe.members
 
-        groupe.members.forEach((member, index) => {
+        members.forEach((member, index) => {
             if(member.pending) pending.push({"data": member, "index": index})
         });
 
@@ -26,8 +27,14 @@ module.exports = class acceptGrp {
 
         const user = pending[arg]
         console.log("user data: ", user.data)
+      
+        
+        for( var i = 0; i < members.length-1; i++){
+            if(members[i].id == user.data.id) members[i].pending = false;
+        }
 
-        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$set: {members: {id: user.data.id, pending: false}}}))
+            
+        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {members: members}))
         .then(() => {
             bot.users.get(user.data.id).send("Vous avez été accepté dans: `" + Global.Fn.capitalize(groupe.name) + "`")
         })

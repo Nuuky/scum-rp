@@ -22,7 +22,10 @@ module.exports = class kickGrp {
             
             let changeBool = false;
             for( var i = 0; i < members.length-1; i++){
-                if(members.name == arg) members.splice(i, 1);
+                if(members.name == arg) {
+                  members.splice(i, 1);
+                  return changeBool = true
+                }
             }
             if(!changeBool) return Global.Msg.send(msg, "Ce joueur ne fait pas partis de votre groupe.")
 
