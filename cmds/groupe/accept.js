@@ -25,10 +25,11 @@ module.exports = class acceptGrp {
         if(!pending[arg]) return Global.Msg.Send(msg, "L'index spécifier ne correspond à aucun joueur.")
 
         const user = pending[arg]
+        console.log("user data: ", user.data)
 
-        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {[`members.${user.index}`]: {$set: {pending: false}}}))
+        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$set: {members: {id: user.data.id, pending: false}}}))
         .then(() => {
-            bot.users.get(user.id).send("Vous avez été accepté dans: `" + Global.Fn.capitalize(groupe.name) + "`")
+            bot.users.get(user.data.id).send("Vous avez été accepté dans: `" + Global.Fn.capitalize(groupe.name) + "`")
         })
     }
 }
