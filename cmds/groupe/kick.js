@@ -15,6 +15,8 @@ module.exports = class kickGrp {
         const bot = this.bot
         
         let members = groupe.members
+        
+        console.log("kicking...")
 
         Global.Fn.waitFor(Global.Fn.findData("findOne", "user_info", {name: arg}))
         .then(user => {
@@ -29,8 +31,9 @@ module.exports = class kickGrp {
             }
             if(!changeBool) return Global.Msg.send(msg, "Ce joueur ne fait pas partis de votre groupe.")
 
-            Global.Fn.mongUpdate({_id: ObjectId(groupe._id), "members.id": user._id}, "remove", "groupe_info")
+            Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "remove", "groupe_info", {$pull: { "members": { id: user._id}}})
             bot.users.get(user._id).send("Vous avez été kick de: `" + groupe.name + "`")
+          console.log("User: " + user.name + " has been kicked.");
             
         })
     }
