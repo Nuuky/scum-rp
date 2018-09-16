@@ -22,14 +22,14 @@ module.exports = class kickGrp {
             
             let changeBool = false;
             for( var i = 0; i < members.length-1; i++){
-                if(members.name == arg) {
+                if(members.[i].id == user._id) {
                   members.splice(i, 1);
                   return changeBool = true
                 }
             }
             if(!changeBool) return Global.Msg.send(msg, "Ce joueur ne fait pas partis de votre groupe.")
 
-            Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {members: members})
+            Global.Fn.mongUpdate({_id: ObjectId(groupe._id), "members.id": user.data.id}, "remove", "groupe_info")
             bot.users.get(user._id).send("Vous avez été kick de: `" + groupe.name + "`")
             
         })
