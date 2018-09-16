@@ -13,7 +13,7 @@ module.exports = class pendingGrp {
     async run(groupe, arg) {
         const msg = this.msg
         const bot = this.bot
-        
+        console.log(groupe)
         let pending = []
         
         groupe.members.forEach(member => {

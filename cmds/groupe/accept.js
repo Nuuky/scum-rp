@@ -34,7 +34,7 @@ module.exports = class acceptGrp {
         }
 
             
-        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: ObjectId(groupe._id), members: {id: user.data.id}}, "update", "groupe_info", {pending: false}))
+        Global.Fn.waitFor(Global.Fn.mongUpdate({_id: groupe._id, "members.id": user.data.id}, "update", "groupe_info", {"members.$.pending": false}))
         .then(() => {
             bot.users.get(user.data.id).send("Vous avez été accepté dans: `" + Global.Fn.capitalize(groupe.name) + "`")
         })
