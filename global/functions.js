@@ -80,7 +80,7 @@ module.exports = {
                 console.log("items added");
             }
             if(action == "remove") {
-                dbo.collection(colName).remove(obj, newObj);
+                dbo.collection(colName).remove(obj);
                 console.log("items removed");
             }
         });

@@ -15,25 +15,20 @@ module.exports = class kickGrp {
         const bot = this.bot
         
         let members = groupe.members
-        
-        console.log("kicking...")
 
         Global.Fn.waitFor(Global.Fn.findData("findOne", "user_info", {name: arg}))
         .then(user => {
             if(!user) return Global.Msg.send(msg, "Ce joueur n'existe pas.")
             
             let changeBool = false;
-            for( var i = 0; i < members.length-1; i++){
-                if(members[i].id == user._id) {
-                  members.splice(i, 1);
-                  return changeBool = true
-                }
-            }
+            members.forEach(member => {
+                if(member.id == user._id) changeBool = true
+            })
             if(!changeBool) return Global.Msg.send(msg, "Ce joueur ne fait pas partis de votre groupe.")
 
-            Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "remove", "groupe_info", {$pull: { "members": { id: user._id}}})
+            Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$pull: { "members": { id: user._id}}})
             bot.users.get(user._id).send("Vous avez été kick de: `" + groupe.name + "`")
-          console.log("User: " + user.name + " has been kicked.");
+            console.log("User: " + user.name + " has been kicked.");
             
         })
     }
