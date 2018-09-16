@@ -10,10 +10,8 @@ module.exports = class PingCommand {
     }
 
     async run(query) {
-        const Guild = this.bot.tempGuilds[this.msg.guild.id];
-        const lang = Guild.lang;
-        const prefix = Guild.prefix;
         const args = query.split(" ");
+      console.log(query)
         
         this.msg.channel.send("Checking...")
         .then((m) => {
