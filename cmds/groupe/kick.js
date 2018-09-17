@@ -27,7 +27,7 @@ module.exports = class kickGrp {
             if(!changeBool) return Global.Msg.send(msg, "Ce joueur ne fait pas partis de votre groupe.")
 
             Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$pull: { "members": { id: user._id}}})
-            Global.Fn.mongUpdate({_id: ObjectId(user._id)}, "update", "user_info", {$set: {"groupe": false} })
+            Global.Fn.mongUpdate({_id: user._id}, "update", "user_info", {$set: {"groupe": false} })
             bot.users.get(user._id).send("Vous avez été kick de: `" + groupe.name + "`")
             console.log("User: " + user.name + " has been kicked.");
             

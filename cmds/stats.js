@@ -29,9 +29,9 @@ module.exports = class StatsCommand {
           return Global.Fn.waitFor(Global.Fn.findData("find", "religion_info", {}))
       })
       .then(religions => {
-          console.log("Users = " + users + "\n")
-          console.log("Groupes = " + groupes + "\n")
-          console.log("Religions = " + religions)
+          // console.log("Users = " + users + "\n")
+          // console.log("Groupes = " + groupes + "\n")
+          // console.log("Religions = " + religions)
 
           const embed = {
             "title": "Stats Bot",
