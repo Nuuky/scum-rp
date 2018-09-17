@@ -31,7 +31,11 @@ module.exports = class TestCommand {
           as: "groupe_info"
       }
       
-      Global.waitFor(Global.findData("aggre", "user_info", {}))
+      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj))
+      .then(user => {
+          console.log(user._id)
+      })
+      .catch(e => console.error(e))
       
 //       const Image = Canvas.Image,
 //           canvas = Canvas.createCanvas(400, 300),
