@@ -64,7 +64,7 @@ module.exports = class VilleCommand {
                 })
                 const embed = {
                     title: "Viles disponibles",
-                    description: "Seul les admins peuvent donner des villes.",
+                    description: "Seul les admins peuvent s'occuper des villes.",
                     fields: [
                         {
                             name: "Villes",
