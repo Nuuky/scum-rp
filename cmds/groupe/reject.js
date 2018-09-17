@@ -27,7 +27,10 @@ module.exports = class rejectGrp {
 
         const user = pending[arg]
 
-        Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {members: members})
-        bot.users.get(user.data.id).send("Votre demande d'adhésion pour  à été rejeté par: `" + groupe.name + "`")
+
+        Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$pull: { "members": { id: user._id}}})
+        Global.Fn.mongUpdate({_id: user.id}, "update", "user_info", {$set: {"groupe": false} })
+        bot.users.get(user.data.id).send("Votre demande d'adhésion pour: `" + groupe.name + "` a été rejeté")
+        Global.Msg.send(msg, "La demande a bien été rejeté.")
     }
 }
