@@ -104,6 +104,18 @@ module.exports = {
             if(findType == "findOne") {
                 return dbo.collection(colName).findOne(findObj)
             }
+            if(findType == "agre") {
+                ([
+                     {
+                         $lookup: {
+                         from: "inventory",
+                         localField: "item",
+                         foreignField: "sku",
+                          as: "inventory_docs"
+                          }
+                      }
+                  ])
+            }
         })
     },
   
