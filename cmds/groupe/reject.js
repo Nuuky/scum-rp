@@ -14,24 +14,20 @@ module.exports = class rejectGrp {
         const msg = this.msg
         const bot = this.bot
 
-        if(isNaN(arg)) return Global.Msg.Send(msg, "Vous devez spécifier l'index du membre à accepter.")
+        if(isNaN(arg)) return Global.Msg.Send(msg, "Vous devez spécifier l'index du membre à rejeter.")
 
         let members = groupe.members;
         let pending = [];
 
         groupe.members.forEach((member, index) => {
-            if(member.pending) pending.push({"data": member, "index": index})
+            if(member.pending) pending.push(member)
         });
 
         if(!pending[arg]) return Global.Msg.Send(msg, "L'index spécifier ne correspond à aucun joueur.")
 
         const user = pending[arg]
 
-        for( var i = 0; i < members.length-1; i++){
-            if(i == user.index) members.splice(i, 1);
-        }
-
         Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {members: members})
-        bot.users.get(user.data.id).send("Vous n'avez pas été accepté par: `" + groupe.name + "`")
+        bot.users.get(user.data.id).send("Votre demande d'adhésion pour  à été rejeté par: `" + groupe.name + "`")
     }
 }
