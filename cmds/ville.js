@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB;
 const fetch = require('node-fetch');
 const ObjectId = require('mongodb').ObjectID;
+const Ville = require('./ville/')
 
 module.exports = class VilleCommand {
 
