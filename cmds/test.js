@@ -37,7 +37,7 @@ module.exports = class TestCommand {
           const data = dbo.collection("user_info").aggregate([
             {$match: { _id : msg.author.id }}
           ])
-          console.log(await data)
+          console.log(data)
           
         
           db.close()
