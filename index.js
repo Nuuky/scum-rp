@@ -40,9 +40,11 @@ let prefix = Json.cfg.bot.prefix;
 // Ping bot every 5 minutes
 app.get("/", (request, response) => {
   const d = new Date();
-  const h = Global.Fn.toTime(d.getHours(), 2);
+  const month = (d.getMonth() + 1 >= 10) ? d.getMonth() + 1 : "0" + (d.getMonth() + 1)
+  const day = (d.getDate() >= 10) ? d.getDate(): "0" + d.getDate()
+  const h = (d.getHours() >= 10) ? d.getHours() : "0" + d.getHours(); // Global.Fn.toTime(d.getHours(), 2);
   const m = (d.getMinutes() >= 10) ? d.getMinutes() : "0" + d.getMinutes();
-  console.log(h + ":" + m + " - Ping Received");
+  console.log("(" + day + "/" + month + " - " + h + ":" + m + ") -> Ping Received");
   response.sendStatus(200);
 });
 const listener = app.listen(process.env.PORT, () => {
