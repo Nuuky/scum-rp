@@ -39,7 +39,10 @@ let prefix = Json.cfg.bot.prefix;
 
 // Ping bot every 5 minutes
 app.get("/", (request, response) => {
-  // console.log(Date.now() + " Ping Received");
+  const d = new Date();
+  const h = d.getHours() + 2;
+  const m = d.getMinutes();
+  console.log(h + ":" + m + " - Ping Received");
   response.sendStatus(200);
 });
 const listener = app.listen(process.env.PORT, () => {
@@ -48,8 +51,7 @@ const listener = app.listen(process.env.PORT, () => {
 
 setInterval(() => { 
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000); 
-
+}, 1000*60*3); 
 
 bot.on("ready", () => {
     //bot.user.setAvatar("../nk-bot/img/avatar.jpg").catch(console.error)
