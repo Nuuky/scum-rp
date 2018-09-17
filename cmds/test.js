@@ -34,10 +34,12 @@ module.exports = class TestCommand {
       MongoClient.connect(url).then((db) => {
           const dbo = db.db(process.env.DB_NAME);
         
-          const data = dbo.collection("user_info").aggregate([
+          dbo.collection("user_info").aggregate([
             {$match: { _id : msg.author.id }}
-          ])
-          console.log(data)
+          ], (err, res) => {
+              if(err) throw err
+              console.log(res)
+          })
           
         
           db.close()
