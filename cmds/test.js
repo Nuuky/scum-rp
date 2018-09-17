@@ -31,9 +31,6 @@ module.exports = class TestCommand {
           }
         },
         {
-          $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$members", 0 ] }, "$$ROOT" ] } }
-        },
-        {
           $lookup: {
             from: "user_info",
             localField: "members.id",
@@ -42,7 +39,9 @@ module.exports = class TestCommand {
           }
         },
         {
-          $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$membersList", 0 ] }, "$$ROOT" ] } }
+          $group: {
+            members: {$mergeObjects: [{"$member": 1}, {"$membersList": 1}]}           
+          }
         }
       ]
       let i = 0;
