@@ -29,6 +29,7 @@ module.exports = class kickGrp {
             Global.Fn.mongUpdate({_id: ObjectId(groupe._id)}, "update", "groupe_info", {$pull: { "members": { id: user._id}}})
             Global.Fn.mongUpdate({_id: user._id}, "update", "user_info", {$set: {"groupe": false} })
             bot.users.get(user._id).send("Vous avez été kick de: `" + groupe.name + "`")
+            Global.Msg.send(msg, "`" + arg + "` a été kick du groupe.")
             console.log("User: " + user.name + " has been kicked.");
             
         })
