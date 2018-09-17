@@ -31,12 +31,18 @@ module.exports = class TestCommand {
           }
         },
         {
+          $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$members", 0 ] }, "$$ROOT" ] } }
+        },
+        {
           $lookup: {
             from: "user_info",
             localField: "members.id",
             foreignField: "_id",
-            as: "members"
+            as: "membersList"
           }
+        },
+        {
+          $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$membersList", 0 ] }, "$$ROOT" ] } }
         }
       ]
       let i = 0;
@@ -45,7 +51,7 @@ module.exports = class TestCommand {
         
           dbo.collection("groupe_info").aggregate(arr).toArray((err, res) => {
               if(err) throw err;
-              console.log(res[0].members[0].name)
+              console.log(res[0])
               // res.forEach(r => {
               //   console.log(r)
               // })
