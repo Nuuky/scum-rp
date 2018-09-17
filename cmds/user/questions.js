@@ -364,7 +364,7 @@ module.exports = {
                     if(!groupe) msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["skip", {"name": "groupe", "content": {id: groupe._id, name: groupe.name}}]
+                    return ["skip", {"name": "groupe", "content": {id: groupe._id}]
 
                     
                 })
