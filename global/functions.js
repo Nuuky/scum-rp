@@ -94,7 +94,7 @@ module.exports = {
     },
   
   
-    findData: (findType, colName, findObj) => {
+    findData: (findType, colName, findObj, findMatch) => {
         return MongoClient.connect(url).then((db) => {
             const dbo = db.db(process.env.DB_NAME);
 
@@ -105,17 +105,12 @@ module.exports = {
                 return dbo.collection(colName).findOne(findObj)
             }
             if(findType == "aggre") {
-                return dbo.collection(colName).aggregate([
-                     {
-                          $lookup: findObj
-                         // {
-                         //      from: "groupe_info",
-                         //      localField: "groupe",
-                         //      foreignField: "_id",
-                         //      as: "groupe_info"
-                         //  }
-                      }
-                  ])
+                let obj = {
+                    $lookup: findObj
+                }
+                if(findMatch) obj.$match = findMatch
+              
+                return dbo.collection(colName).aggregate([obj])
             }
         })
     },
