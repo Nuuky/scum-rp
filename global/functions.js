@@ -78,10 +78,12 @@ module.exports = {
             if(action == "createMany") {
                 dbo.collection(colName).insertMany(obj);
                 console.log("items added");
+                db.close()
             }
             if(action == "remove") {
                 dbo.collection(colName).remove(obj);
                 console.log("items removed");
+                db.close()
             }
         });
     },

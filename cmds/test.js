@@ -31,15 +31,17 @@ module.exports = class TestCommand {
           as: "groupe_info"
       }
       
-      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj))
-      .then(users => {
-          // console.log(users)
-          users.forEach((user, index) => {
-              console.log("User index: ", index)
-              console.log(user);
-          })
+      MongoClient.connect(url).then((db) => {
+          const dbo = db.db(process.env.DB_NAME);
+        
+          const data = dbo.collection("user_info").aggregate([
+            {$match: { _id : msg.author.id }}
+          ])
+          console.log(await data)
+          
+        
+          db.close()
       })
-      .catch(e => console.error(e))
       
       
       
