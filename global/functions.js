@@ -131,5 +131,15 @@ module.exports = {
             newStr += word.replace(/\b\w/g, l => l.toUpperCase()) + " "
         })
         return newStr;
+    },
+  
+    toTime: (time, inc) => {
+        const max = 24
+        let timeInc = time + inc
+        if(timeInc < max && timeInc >= 10) return timeInc
+        if(timeInc == 24) return "00"
+        let timeToMax = timeInc - max
+        if(timeToMax < 10) timeToMax = "0" + timeToMax
+        return timeToMax
     }
 };
