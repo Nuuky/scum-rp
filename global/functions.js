@@ -104,15 +104,16 @@ module.exports = {
             if(findType == "findOne") {
                 return dbo.collection(colName).findOne(findObj)
             }
-            if(findType == "agre") {
-                ([
+            if(findType == "aggregate") {
+                return dbo.collection(colName).aggregate([
                      {
-                         $lookup: {
-                         from: "inventory",
-                         localField: "item",
-                         foreignField: "sku",
-                          as: "inventory_docs"
-                          }
+                          $lookup: findObj
+                         // {
+                         //      from: "inventory",
+                         //      localField: "item",
+                         //      foreignField: "sku",
+                         //      as: "inventory_docs"
+                         //  }
                       }
                   ])
             }
