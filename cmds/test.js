@@ -31,14 +31,33 @@ module.exports = class TestCommand {
           as: "groupe_info"
       }
       
-      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj, {"_id": msg.author.id}))
+      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj))
       .then(users => {
-          console.log(users)
-          // users.forEach(user => {
-          //     if(user._id == msg.author.id) console.log(user);
-          // })
+          // console.log(users)
+          users.forEach((user, index) => {
+              console.log("User index: ", index)
+              console.log(user);
+          })
       })
       .catch(e => console.error(e))
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
 //       const Image = Canvas.Image,
 //           canvas = Canvas.createCanvas(400, 300),
