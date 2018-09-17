@@ -96,7 +96,7 @@ module.exports = {
     },
   
   
-    findData: (findType, colName, findObj, findMatch) => {
+    findData: (findType, colName, findObj) => {
         return MongoClient.connect(url).then((db) => {
             const dbo = db.db(process.env.DB_NAME);
 
@@ -107,11 +107,7 @@ module.exports = {
                 return dbo.collection(colName).findOne(findObj)
             }
             if(findType == "aggre") {
-                let arr = []
-                if(findMatch) arr.push({$match: findMatch})
-                arr.push({$lookup: findObj})
-                console.log("arrAggre = ", arr)
-                return dbo.collection(colName).aggregate(arr)
+                return dbo.collection(colName).aggregate(findObj).toArray()
             }
         })
     },

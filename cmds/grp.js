@@ -38,7 +38,22 @@ module.exports = class GrpCommand {
             
 
             // Search for Groupe -------
-            Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {name: query.toLowerCase()}))
+            let arr = [
+              {
+                $lookup: {
+                  from: "user_info",
+                  localField: "members.id",
+                  foreignField: "_id",
+                  as: "members"
+                }
+              },
+              {
+                $addFields: {
+                  totalMembers: {$sum: "$members"}
+                }
+              }
+            ]
+            Global.Fn.waitFor(Global.Fn.findData("aggre", "groupe_info", arr))
             .then(groupe => {
                 if(groupe) {
                     return Groupe.Search.run(msg, groupe);
