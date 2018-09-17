@@ -31,7 +31,7 @@ module.exports = class TestCommand {
           as: "groupe_info"
       }
       
-      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj, {_id: msg.author.id}))
+      Global.Fn.waitFor(Global.Fn.findData("aggre", "user_info", obj, {"_id": msg.author.id}))
       .then(users => {
           console.log(users)
           // users.forEach(user => {

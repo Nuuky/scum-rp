@@ -105,12 +105,11 @@ module.exports = {
                 return dbo.collection(colName).findOne(findObj)
             }
             if(findType == "aggre") {
-                let obj = {
-                    $lookup: findObj
-                }
-                if(findMatch) obj.$match = findMatch
-              
-                return dbo.collection(colName).aggregate([obj])
+                let arr = []
+                if(findMatch) arr.push({$match: findMatch})
+                arr.push({$lookup: findObj})
+                console.log("arrAggre = ", arr)
+                return dbo.collection(colName).aggregate(arr)
             }
         })
     },
