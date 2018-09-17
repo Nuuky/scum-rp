@@ -24,21 +24,31 @@ module.exports = class TestCommand {
         const bot = this.bot;
         const randomNb = this.randomNb;
       
-      let obj = {
-          from: "groupe_info",
-          localField: "groupe",
-          foreignField: "_id",
-          as: "groupe_info"
-      }
-      
+      let arr = [
+        {
+          $match: {
+            _id: ObjectId("5b9cbd53e0e3a0093bffc508")
+          }
+        },
+        {
+          $lookup: {
+            from: "user_info",
+            localField: "members.id",
+            foreignField: "_id",
+            as: "members"
+          }
+        }
+      ]
+      let i = 0;
       MongoClient.connect(url).then((db) => {
           const dbo = db.db(process.env.DB_NAME);
         
-          dbo.collection("user_info").aggregate([
-            {$match: { _id : msg.author.id }}
-          ], (err, res) => {
-              if(err) throw err
-              console.log(res)
+          dbo.collection("groupe_info").aggregate(arr).toArray((err, res) => {
+              if(err) throw err;
+              console.log(res[0].members[0].name)
+              // res.forEach(r => {
+              //   console.log(r)
+              // })
           })
           
         

@@ -364,7 +364,7 @@ module.exports = {
                     if(!groupe) msg.author.send("**Erreur:** Le groupe indiqué n'existe pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["skip", {"name": "groupe", "content": {id: groupe._id}]
+                    return ["skip", {"name": "groupe", "content": groupe._id}]
 
                     
                 })
@@ -405,7 +405,7 @@ module.exports = {
                     if(!religion) return msg.author.send("**Erreur:** La religion indiqué n'éxiste pas.")
                     .then(omsg => {setTimeout(() => {omsg.delete()}, 1000*5)})
                     // ALL GOOD -------
-                    return ["skip", {"name": "religion", "content": {id: religion._id, name: religion.name}}]
+                    return ["skip", {"name": "religion", "content": religion._id}]
                 })
             }
         },
