@@ -11,13 +11,11 @@ module.exports = class SearchGroupe {
       
         console.log("Searching groupe info")
       
-        console.log(groupe._id)
-        Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {groupe: "5b98fefecca38b18ed5c8a6c"}))
+        Global.Fn.waitFor(Global.Fn.findData("find", "user_info", {groupe: groupe._id}))
         .then((members) => {
           
             // Members field
             let membersList = "", pending = "", leader = "";
-            console.log(members)
             members.forEach(member => {
                 if(member._id == groupe.leader) leader = member.name;
                 else if(member.pending) pending += "*" + member.name + "* (En attente)\n"
