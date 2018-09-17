@@ -24,8 +24,28 @@ module.exports = class VilleCommand {
 
         // SEARCH USER --------
         if(query) {
+            // SHIELD -------
             // If not an admin
             if(!msg.author.id.match(process.env.ADMIN_ID)) return Global.Msg.Send(msg, "Seul les admins peuvent s'occuper des villes.");
+            // If no groupe Q
+            if(!args[1]) return Global.Msg.send(msg, "Vous devez préciser un groupe.")
+          
+            // Check for cmd
+            const VilleDisp = {
+                'add': () => { return new Ville.add(bot, msg) },
+                'rm': () => { return new Ville.remove(bot, msg) }
+            };
+        
+            const command = VilleDisp.hasOwnProperty(args[0]) ? VilleDisp[args[0]]() : undefined
+            
+            if(command != undefined) return Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
+                .then(groupe => {
+                    if(groupe) return command.run(groupe, args[1]);
+                    Global.Msg.send(msg, "Vous n'êtes pas leader d'un groupe.")
+                })
+          
+          
+          
             // Case we want to remove city
             if(args[0].toLowerCase() == "rm") { //!ville remove [name]
                 // If no city
@@ -44,15 +64,6 @@ module.exports = class VilleCommand {
                     return Global.Msg.Send(msg, "Ville libéré.");
                 })
             }
-
-             // GET USER GRP -------
-            Global.Fn.waitFor(Global.Fn.findData("findOne", "groupe_info", {leader: msg.author.id}))
-            .then(groupe => {
-                if(groupe) {
-                }
-                return Global.Msg.send(msg, "Vous n'êtes pas leader d'un groupe.", 60);
-            })
-          .catch(err => console.error(err))
           
           
         } else {
