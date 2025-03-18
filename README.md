@@ -1,1 +1,1 @@
-# Discrobot
+Just an old discord bot
